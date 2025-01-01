@@ -18,6 +18,15 @@ public class PlayerControl : MonoBehaviour
     private bool _isJumping = false;
     private bool _isAiming = false;
 
+    private bool _isWalking = false;
+    private bool _isRunning = false;
+    private bool _isCrouching = false;
+    private bool _isProning = false;
+
+    private bool _getRifle = false;
+    private bool _getPistol = false;
+    private bool _getMelee = false;
+
     private readonly float groundCheckDistance = 1.0f;
     private LayerMask groundMask;
 
@@ -61,6 +70,31 @@ public class PlayerControl : MonoBehaviour
         get { return _isAiming; }
         private set { _isAiming = value; }
     }
+
+    public bool IsWalking
+    {
+        get { return _isWalking; }
+        private set { _isWalking = value; }
+    }
+
+    public bool IsRunning
+    {
+        get { return _isRunning; }
+        private set { _isRunning = value; }
+    }
+
+    public bool IsCrouching
+    {
+        get { return _isCrouching; }
+        private set { _isCrouching = value; }
+    }
+
+    public bool IsProning
+    {
+        get { return _isProning; }
+        private set { _isProning = value; }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -85,10 +119,12 @@ public class PlayerControl : MonoBehaviour
             Input.GetKey(KeyCode.Space))
         {
             IsMoving = true;
+            IsWalking = true;
         }
         else
         {
             IsMoving = false;
+            IsWalking = false;
             moveDirection = Vector3.zero;
         }
 
