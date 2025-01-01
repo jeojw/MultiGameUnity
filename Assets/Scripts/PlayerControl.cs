@@ -23,6 +23,8 @@ public class PlayerControl : MonoBehaviour
     private bool _isCrouching = false;
     private bool _isProning = false;
 
+    private bool _isFire = false;
+
     private bool _getRifle = false;
     private bool _getPistol = false;
     private bool _getMelee = false;
@@ -95,6 +97,12 @@ public class PlayerControl : MonoBehaviour
         private set { _isProning = value; }
     }
 
+    public bool IsFire
+    {
+        get { return _isFire; }
+        private set { _isFire = value; }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -112,11 +120,12 @@ public class PlayerControl : MonoBehaviour
 
         Debug.Log(IsGrounded);
 
-        if (Input.GetKey(KeyCode.W) ||
+        if ((Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.A) ||
             Input.GetKey(KeyCode.S) ||
             Input.GetKey(KeyCode.D) ||
-            Input.GetKey(KeyCode.Space))
+            Input.GetKey(KeyCode.Space)) &&
+            !IsProning)
         {
             IsMoving = true;
             IsWalking = true;
@@ -148,16 +157,8 @@ public class PlayerControl : MonoBehaviour
             moveDirection = transform.right;
         }
 
-        if (IsGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            IsJumping = true;
-        }
+        IsJumping = IsGrounded && Input.GetKeyDown(KeyCode.Space);
 
-        else
-        {
-            IsJumping = false;
-        }
-        
         moveDirection.Normalize();
         rotDirection.Normalize();
 
@@ -166,6 +167,25 @@ public class PlayerControl : MonoBehaviour
             playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
         }
 
+        IsCrouching = Input.GetKey(KeyCode.LeftShift);
+
+        IsProning = Input.GetKey(KeyCode.Tab);
+
+        IsAiming = Input.GetMouseButton(1);
+
+        IsFire = IsAiming && Input.GetMouseButton(0);
+
+        if (IsWalking && !IsCrouching && Input.GetKey(KeyCode.CapsLock))
+        {
+            IsRunning = true;
+            IsWalking = false;
+        }
+
+        else
+        {
+            IsRunning = false;
+            IsWalking = true;
+        }
     }
 
     void FixedUpdate()

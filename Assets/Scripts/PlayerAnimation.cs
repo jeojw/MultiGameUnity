@@ -12,10 +12,11 @@ public class PlayerAnimation : MonoBehaviour
     private bool isCrouching;
     private bool isProning;
 
-    private float getRifle;
-    private float getPistol;
-    private float getMelee;
-    private float isAiming;
+    private bool getRifle;
+    private bool getPistol;
+    private bool getMelee;
+    private bool isAiming;
+    private bool isFire;
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -30,10 +31,39 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetBool("isWalking", isWalking);
     }
 
+    void Fire()
+    {
+        isFire = playerControl.IsFire;
+        playerAnimator.SetBool("isFire", isFire);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
-    {
+    { 
+        playerAnimator.SetBool("isCrouching", playerControl.IsCrouching);
+        playerAnimator.SetBool("isProning", playerControl.IsProning);
+        isProning = playerControl.IsProning;
+        playerAnimator.SetBool("isRunning", playerControl.IsRunning);
+
+        if (isProning)
+        {
+            playerAnimator.SetLayerWeight(1, 0);
+        }
+        else
+        {
+            float weight = Mathf.PingPong(0, 1);
+            playerAnimator.SetLayerWeight(1, weight);
+        }
+
         Vector2 dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Walk(dir);
+        if (playerControl.IsAiming)
+        {
+            Fire();
+        }
+        else
+        {
+            playerAnimator.SetBool("isFire", false);
+        }
     }
 }

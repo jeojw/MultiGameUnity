@@ -550,7 +550,7 @@ ModelImporter:
     - name: arm_stretch_l
       parentName: shoulder_l
       position: {x: 0.0000000032782557, y: 0.15447506, z: -0.000000048913062}
-      rotation: {x: 0.019372635, y: -0.011364128, z: -0.16543613, w: 0.9859647}
+      rotation: {x: 0.019372635, y: -0.011364129, z: -0.16543613, w: 0.9859648}
       scale: {x: 0.99999994, y: 1, z: 0.99999976}
     - name: arm_twist_l
       parentName: arm_stretch_l
@@ -605,7 +605,7 @@ ModelImporter:
     - name: c_pinky1_l
       parentName: hand_l
       position: {x: 0.045354217, y: 0.09150018, z: 0.0008783493}
-      rotation: {x: -0.026251325, y: 0.0022056315, z: -0.07828945, w: 0.9965825}
+      rotation: {x: -0.026251327, y: 0.0022056317, z: -0.07828946, w: 0.99658257}
       scale: {x: 1.0000001, y: 1.0000004, z: 0.9999998}
     - name: c_pinky2_l
       parentName: c_pinky1_l
@@ -635,12 +635,12 @@ ModelImporter:
     - name: c_thumb1_l
       parentName: hand_l
       position: {x: -0.030728044, y: 0.024506401, z: -0.013696817}
-      rotation: {x: 0.11333207, y: -0.5701329, z: 0.32743073, w: 0.7449117}
+      rotation: {x: 0.11333208, y: -0.570133, z: 0.32743075, w: 0.74491173}
       scale: {x: 0.99999994, y: 0.99999964, z: 0.99999976}
     - name: c_thumb2_l
       parentName: c_thumb1_l
       position: {x: 0.0000000059604637, y: 0.05021773, z: -0.000000007152557}
-      rotation: {x: -0.03629514, y: -0.04912882, z: -0.008987917, w: 0.9980923}
+      rotation: {x: -0.036295142, y: -0.049128823, z: -0.008987918, w: 0.99809235}
       scale: {x: 1.0000001, y: 0.9999999, z: 1}
     - name: c_thumb3_l
       parentName: c_thumb2_l
@@ -650,7 +650,7 @@ ModelImporter:
     - name: shoulder_r
       parentName: spine_03
       position: {x: 0.04813589, y: 0.10217072, z: 0.026573675}
-      rotation: {x: 0.42525905, y: 0.59620196, z: -0.55413014, w: 0.3957751}
+      rotation: {x: 0.425259, y: 0.59620196, z: -0.5541301, w: 0.3957751}
       scale: {x: 0.99999964, y: 0.9999997, z: 0.99999976}
     - name: arm_stretch_r
       parentName: shoulder_r
@@ -680,7 +680,7 @@ ModelImporter:
     - name: c_index1_r
       parentName: hand_r
       position: {x: 0.031545334, y: 0.10081551, z: -0.0006934154}
-      rotation: {x: -0.06355534, y: -0.008159541, z: 0.05017739, w: 0.99668264}
+      rotation: {x: -0.063555345, y: -0.0081595415, z: 0.050177395, w: 0.9966827}
       scale: {x: 0.99999994, y: 0.9999999, z: 1.0000001}
     - name: c_index2_r
       parentName: c_index1_r

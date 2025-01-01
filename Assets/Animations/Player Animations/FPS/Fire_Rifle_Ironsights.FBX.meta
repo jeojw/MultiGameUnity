@@ -29,7 +29,162 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Fire_Rifle_Ironsights
+      takeName: Unreal Take
+      internalID: 8993902097722301239
+      firstFrame: 0
+      lastFrame: 7
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000000000000000000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Futuristic_soldier
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/pelvis
+        weight: 1
+      - path: root/pelvis/spine_01
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/neck
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/neck/head
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/arm_twist_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/forearm_twist_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_index1_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_index1_l/c_index2_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_index1_l/c_index2_l/c_index3_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_middle1_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_middle1_l/c_middle2_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_middle1_l/c_middle2_l/c_middle3_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_pinky1_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_pinky1_l/c_pinky2_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_pinky1_l/c_pinky2_l/c_pinky3_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_ring1_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_ring1_l/c_ring2_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_ring1_l/c_ring2_l/c_ring3_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_thumb1_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_thumb1_l/c_thumb2_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_l/arm_stretch_l/forearm_stretch_l/hand_l/c_thumb1_l/c_thumb2_l/c_thumb3_l
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/arm_twist_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/forearm_twist_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_index1_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_index1_r/c_index2_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_index1_r/c_index2_r/c_index3_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_middle1_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_middle1_r/c_middle2_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_middle1_r/c_middle2_r/c_middle3_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_pinky1_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_pinky1_r/c_pinky2_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_pinky1_r/c_pinky2_r/c_pinky3_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_ring1_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_ring1_r/c_ring2_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_ring1_r/c_ring2_r/c_ring3_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_thumb1_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_thumb1_r/c_thumb2_r
+        weight: 1
+      - path: root/pelvis/spine_01/spine_02/spine_03/shoulder_r/arm_stretch_r/forearm_stretch_r/hand_r/c_thumb1_r/c_thumb2_r/c_thumb3_r
+        weight: 1
+      - path: root/pelvis/thigh_stretch_l
+        weight: 1
+      - path: root/pelvis/thigh_stretch_l/leg_stretch_l
+        weight: 1
+      - path: root/pelvis/thigh_stretch_l/leg_stretch_l/foot_l
+        weight: 1
+      - path: root/pelvis/thigh_stretch_l/leg_stretch_l/foot_l/toes_01_l
+        weight: 1
+      - path: root/pelvis/thigh_stretch_l/leg_stretch_l/leg_twist_l
+        weight: 1
+      - path: root/pelvis/thigh_stretch_l/thigh_twist_l
+        weight: 1
+      - path: root/pelvis/thigh_stretch_r
+        weight: 1
+      - path: root/pelvis/thigh_stretch_r/leg_stretch_r
+        weight: 1
+      - path: root/pelvis/thigh_stretch_r/leg_stretch_r/foot_r
+        weight: 1
+      - path: root/pelvis/thigh_stretch_r/leg_stretch_r/foot_r/toes_01_r
+        weight: 1
+      - path: root/pelvis/thigh_stretch_r/leg_stretch_r/leg_twist_r
+        weight: 1
+      - path: root/pelvis/thigh_stretch_r/thigh_twist_r
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: fc09ed65118a78d449c909a5594fdf73, type: 2}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
