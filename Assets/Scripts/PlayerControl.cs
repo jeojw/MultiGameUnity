@@ -12,10 +12,11 @@ public class PlayerControl : MonoBehaviour
 
     private float _moveSpeed = 5.0f;
     private float _rotSpeed = 2.0f;
-    private float _jumpForce = 10f;
+    private float _jumpForce = 3f;
     private bool _isMoving = false;
     private bool _isGrounded = false;
     private bool _isJumping = false;
+    private bool _tryJump = false;
     private bool _isAiming = false;
 
     private bool _isWalking = false;
@@ -116,15 +117,14 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IsGrounded = Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, groundCheckDistance, groundMask);
+        IsGrounded = Physics.Raycast(transform.position - new Vector3(0, 1, 0), Vector3.down, groundCheckDistance, groundMask);
 
-        Debug.Log(IsGrounded);
-
+        Debug.Log(IsWalking);
         if ((Input.GetKey(KeyCode.W) ||
-            Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D) ||
-            Input.GetKey(KeyCode.Space)) &&
+             Input.GetKey(KeyCode.A) ||
+             Input.GetKey(KeyCode.S) ||
+             Input.GetKey(KeyCode.D) ||
+             Input.GetKey(KeyCode.Space)) &&
             !IsProning)
         {
             IsMoving = true;
@@ -137,35 +137,38 @@ public class PlayerControl : MonoBehaviour
             moveDirection = Vector3.zero;
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             moveDirection = transform.forward;
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             moveDirection = -transform.right;
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
             moveDirection = -transform.forward;
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             moveDirection = transform.right;
         }
 
-        IsJumping = IsGrounded && Input.GetKeyDown(KeyCode.Space);
+        _tryJump = IsGrounded && Input.GetKeyDown(KeyCode.Space);
 
         moveDirection.Normalize();
         rotDirection.Normalize();
 
-        if (IsJumping)
+        if (_tryJump)
         {
             playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+            _tryJump = false;
         }
+
+        IsJumping = !IsGrounded;
 
         IsCrouching = Input.GetKey(KeyCode.LeftShift);
 
@@ -181,7 +184,7 @@ public class PlayerControl : MonoBehaviour
             IsWalking = false;
         }
 
-        else
+        else if (IsMoving && !Input.GetKey(KeyCode.CapsLock))
         {
             IsRunning = false;
             IsWalking = true;

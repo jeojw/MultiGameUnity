@@ -27,8 +27,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerAnimator.SetFloat("Horizontal", dir.x);
         playerAnimator.SetFloat("Vertical", dir.y);
-        isWalking = playerControl.IsWalking;
-        playerAnimator.SetBool("isWalking", isWalking);
+        playerAnimator.SetBool("isWalking", playerControl.IsWalking);
     }
 
     void Fire()
@@ -39,24 +38,16 @@ public class PlayerAnimation : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    { 
+    {
+        Vector2 dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Walk(dir);
+
         playerAnimator.SetBool("isCrouching", playerControl.IsCrouching);
         playerAnimator.SetBool("isProning", playerControl.IsProning);
         isProning = playerControl.IsProning;
         playerAnimator.SetBool("isRunning", playerControl.IsRunning);
+        playerAnimator.SetBool("isJumping", playerControl.IsJumping);
 
-        if (isProning)
-        {
-            playerAnimator.SetLayerWeight(1, 0);
-        }
-        else
-        {
-            float weight = Mathf.PingPong(0, 1);
-            playerAnimator.SetLayerWeight(1, weight);
-        }
-
-        Vector2 dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        Walk(dir);
         if (playerControl.IsAiming)
         {
             Fire();
@@ -65,5 +56,16 @@ public class PlayerAnimation : MonoBehaviour
         {
             playerAnimator.SetBool("isFire", false);
         }
+
+        if (isProning || !isFire)
+        {
+            playerAnimator.SetLayerWeight(1, 0);
+        }
+        else if (!isProning && isFire)
+        { 
+            playerAnimator.SetLayerWeight(1, 1);
+        }
+        
+        
     }
 }
