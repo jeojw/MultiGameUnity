@@ -5,14 +5,13 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    private Animator playerAnimator;
        
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 rotDirection = Vector3.zero;
 
     private float _moveSpeed = 5.0f;
     private float _rotSpeed = 2.0f;
-    private float _jumpForce = 3f;
+    private float _jumpForce = 5f;
     private bool _isMoving = false;
     private bool _isGrounded = false;
     private bool _isJumping = false;
@@ -109,7 +108,6 @@ public class PlayerControl : MonoBehaviour
     {
 
         playerRigidbody = GetComponent<Rigidbody>();
-        playerAnimator = GetComponent<Animator>();
 
         groundMask = LayerMask.GetMask("Ground");
     }
@@ -117,7 +115,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IsGrounded = Physics.Raycast(transform.position - new Vector3(0, 1, 0), Vector3.down, groundCheckDistance, groundMask);
+        IsGrounded = Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, groundCheckDistance, groundMask);
 
         Debug.Log(IsWalking);
         if ((Input.GetKey(KeyCode.W) ||
@@ -195,8 +193,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (moveDirection != Vector3.zero)
         {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, 
-                                                        transform.position + moveDirection * 1000.0f, 
+            Vector3 newPosition = Vector3.MoveTowards(transform.position,
+                                                       transform.position + moveDirection * 1000.0f, 
                                                         Time.fixedDeltaTime * MoveSpeed);
 
             playerRigidbody.MovePosition(newPosition);
