@@ -12,6 +12,8 @@ public class CameraControl : MonoBehaviour
 
     private float xRotate, yRotate, xRotateMove, yRotateMove;
 
+    private Vector3 correctionVector;
+
     private bool playerAiming;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,12 +37,18 @@ public class CameraControl : MonoBehaviour
 
         xRotate = Mathf.Clamp(xRotate, -90, 90); // 위, 아래 고정
 
-        //transform.eulerAngles = new Vector3(xRotate, yRotate, 0);
+        //Quaternion quat = Quaternion.Euler(new Vector3(xRotate, yRotate, 0));
+        //transform.rotation
+        //    = Quaternion.Slerp(transform.rotation, quat, Time.deltaTime);
 
-        Quaternion quat = Quaternion.Euler(new Vector3(xRotate, yRotate, 0));
-        transform.rotation
-            = Quaternion.Slerp(transform.rotation, quat, Time.deltaTime /* x speed */);
-
-        transform.position = target.position;
+        if (playerAiming)
+        {
+            correctionVector = new Vector3(0.45f, 0, -0.5f);
+        }
+        else
+        {
+            correctionVector = new Vector3(0.5f, 0, -1.5f);
+        }
+        transform.position = target.position + correctionVector;
     }
 }

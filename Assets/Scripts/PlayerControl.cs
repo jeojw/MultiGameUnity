@@ -137,22 +137,22 @@ public class PlayerControl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            moveDirection = transform.forward;
+            moveDirection = -transform.forward;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            moveDirection = -transform.right;
+            moveDirection = transform.right;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            moveDirection = -transform.forward;
+            moveDirection = transform.forward;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            moveDirection = transform.right;
+            moveDirection = -transform.right;
         }
 
         _tryJump = IsGrounded && Input.GetKeyDown(KeyCode.Space);
