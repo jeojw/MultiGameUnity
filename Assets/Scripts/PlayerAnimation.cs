@@ -4,6 +4,11 @@ public class PlayerAnimation : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    [SerializeField]
+    private Transform gripTarget;
+    [SerializeField]
+    private Transform supportTarget;
+
     private Animator playerAnimator;
     private PlayerControl playerControl;
 
@@ -65,7 +70,5 @@ public class PlayerAnimation : MonoBehaviour
         { 
             playerAnimator.SetLayerWeight(1, 1);
         }
-        
-        
     }
 }
