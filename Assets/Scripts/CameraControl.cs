@@ -4,7 +4,6 @@ public class CameraControl : MonoBehaviour
 {
     [SerializeField]
     private Transform target;
-
     [SerializeField]
     private float rotateSpeed = 400f;
 
@@ -32,8 +31,8 @@ public class CameraControl : MonoBehaviour
         xRotateMove = -Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed;
         yRotateMove = Input.GetAxis("Mouse X") * Time.deltaTime * rotateSpeed;
 
-        yRotate = yRotate + yRotateMove;
-        xRotate = xRotate + xRotateMove;
+        yRotate += yRotateMove;
+        xRotate += xRotateMove;
 
         xRotate = Mathf.Clamp(xRotate, -90, 90); // 위, 아래 고정
 
@@ -43,12 +42,12 @@ public class CameraControl : MonoBehaviour
 
         if (playerAiming)
         {
-            correctionVector = new Vector3(0.45f, 0, -0.5f);
+            correctionVector = new Vector3(0.45f, 0f, -0.7f);
         }
         else
         {
-            correctionVector = new Vector3(0.5f, 0, -1.5f);
+            correctionVector = new Vector3(0.5f, 0.3f, -1.7f);
         }
-        transform.position = target.position + correctionVector;
+        transform.position = target.position - correctionVector;
     }
 }

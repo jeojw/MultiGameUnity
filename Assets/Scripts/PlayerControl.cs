@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
+    private PlayerAnimation playerAnimation;
        
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 rotDirection = Vector3.zero;
@@ -108,6 +109,7 @@ public class PlayerControl : MonoBehaviour
     {
 
         playerRigidbody = GetComponent<Rigidbody>();
+        playerAnimation = GetComponent<PlayerAnimation>();
 
         groundMask = LayerMask.GetMask("Ground");
     }
@@ -117,13 +119,11 @@ public class PlayerControl : MonoBehaviour
     {
         IsGrounded = Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, groundCheckDistance, groundMask);
 
-        Debug.Log(IsWalking);
         if ((Input.GetKey(KeyCode.W) ||
              Input.GetKey(KeyCode.A) ||
              Input.GetKey(KeyCode.S) ||
-             Input.GetKey(KeyCode.D) ||
-             Input.GetKey(KeyCode.Space)) &&
-            !IsProning)
+             Input.GetKey(KeyCode.D)) &&
+            !IsProning && !playerAnimation.ProneProcedure)
         {
             IsMoving = true;
             IsWalking = true;
@@ -155,7 +155,7 @@ public class PlayerControl : MonoBehaviour
             moveDirection = -transform.right;
         }
 
-        _tryJump = IsGrounded && Input.GetKeyDown(KeyCode.Space);
+        _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
 
         moveDirection.Normalize();
         rotDirection.Normalize();
@@ -179,19 +179,19 @@ public class PlayerControl : MonoBehaviour
         if (IsWalking && !IsCrouching && Input.GetKey(KeyCode.CapsLock))
         {
             IsRunning = true;
-            IsWalking = false;
         }
 
         else if (IsMoving && !Input.GetKey(KeyCode.CapsLock))
         {
             IsRunning = false;
-            IsWalking = true;
         }
+
+        rotDirection = new Vector3(0, Input.GetAxis("Mouse Y"), 0);
     }
 
     void FixedUpdate()
     {
-        if (moveDirection != Vector3.zero)
+        if (moveDirection != Vector3.zero && IsMoving)
         {
             Vector3 newPosition = Vector3.MoveTowards(transform.position,
                                                        transform.position + moveDirection * 1000.0f, 

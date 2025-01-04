@@ -14,6 +14,10 @@ public class RifleScript : MonoBehaviour
     private TwoBoneIKConstraint leftHandIK;
     [SerializeField]
     private Transform spineTransform;
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private Transform firePosition;
 
     private PlayerAnimation playerAnimator;
     private Animator rifleAnimator;
@@ -30,7 +34,16 @@ public class RifleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rifleAnimator.SetBool("isFire", playerAnimator.IsFire);
+        if (playerAnimator.IsFire)
+        {
+            rifleAnimator.SetBool("isFire", true);
+            Instantiate(bullet, firePosition.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            rifleAnimator.SetBool("isFire", false);
+        }
+        
 
         if (playerAnimator.ProneProcedure)
         {
