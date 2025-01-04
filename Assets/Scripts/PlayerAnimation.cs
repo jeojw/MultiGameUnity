@@ -18,7 +18,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private bool isWalking;
     private bool isRunning;
-    private bool isStanding;
+
+    private bool reloadProcedure;
 
     private bool crouchProcedure;
     private bool isCrouching;
@@ -47,11 +48,23 @@ public class PlayerAnimation : MonoBehaviour
         private set { isProning = value; }
     }
 
+    public bool ReloadProcedure
+    {
+        get { return reloadProcedure; }
+        private set { reloadProcedure = value; }
+    }
+
     private bool getRifle;
     private bool getPistol;
     private bool getMelee;
     private bool isAiming;
     private bool isFire;
+
+    public bool IsFire
+    {
+        get { return isFire; }
+        private set { isFire = value; }
+    }
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -67,16 +80,8 @@ public class PlayerAnimation : MonoBehaviour
 
     void Fire()
     {
-        isFire = playerControl.IsFire;
-        playerAnimator.SetBool("isFire", isFire);
-    }
-
-    void Update()
-    {
-        //grabPosition.position = grabTarget.transform.position;
-        //grabTarget.rotation = grabTarget.transform.rotation;
-        //supportPosition.position = supportTarget.transform.position;
-        //supportPosition.rotation = supportTarget.transform.rotation;
+        IsFire = playerControl.IsFire;
+        playerAnimator.SetBool("isFire", IsFire);
     }
 
     // Update is called once per frame

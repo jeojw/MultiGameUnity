@@ -16,14 +16,13 @@ public class RifleScript : MonoBehaviour
     private Transform spineTransform;
 
     private PlayerAnimation playerAnimator;
-
-    private Transform initGrapSocketPos;
-    private Transform initSupportSocketPos;
+    private Animator rifleAnimator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerAnimator = GetComponentInParent<PlayerAnimation>();
+        rifleAnimator = GetComponentInParent<Animator>();
         grapSocket.rotation = Quaternion.Euler(new Vector3(-5.161f, 11.112f, -106.935f));
         supportSocket.rotation = Quaternion.Euler(new Vector3(-0.432f, 79.44f, 189.004f));
     }
@@ -31,7 +30,9 @@ public class RifleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerAnimator.CrouchProcedure || playerAnimator.ProneProcedure)
+        rifleAnimator.SetBool("isFire", playerAnimator.IsFire);
+
+        if (playerAnimator.ProneProcedure)
         {
             leftHandIK.weight = 0f;
         }
@@ -39,6 +40,6 @@ public class RifleScript : MonoBehaviour
         {
             leftHandIK.weight = 1f;
         }
-        transform.position = spineTransform.position + new Vector3(-0.17f, -0.1f, -0.45f);
+        transform.position = spineTransform.position + new Vector3(-0.17f, -0.1f, -0.35f);
     }
 }
