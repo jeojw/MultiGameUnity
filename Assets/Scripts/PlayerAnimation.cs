@@ -5,17 +5,47 @@ public class PlayerAnimation : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     [SerializeField]
-    private Transform gripTarget;
+    private Transform grabTarget;
+    [SerializeField] 
+    private Transform grabPosition;
     [SerializeField]
     private Transform supportTarget;
+    [SerializeField]
+    private Transform supportPosition;
 
     private Animator playerAnimator;
     private PlayerControl playerControl;
 
     private bool isWalking;
     private bool isRunning;
+    private bool isStanding;
+
+    private bool crouchProcedure;
     private bool isCrouching;
+
+    private bool proneProcedure;
     private bool isProning;
+    
+    public bool CrouchProcedure
+    {
+        get { return crouchProcedure; }
+        private set { crouchProcedure = value; }
+    }
+    public bool ProneProcedure
+    {
+        get { return proneProcedure; }
+        private set { crouchProcedure = value; }
+    }
+    public bool IsCrouching
+    {
+        get { return isCrouching; }
+        private set { isCrouching = value; }
+    }
+    public bool IsProning
+    {
+        get { return isProning; }
+        private set { isProning = value; }
+    }
 
     private bool getRifle;
     private bool getPistol;
@@ -41,6 +71,14 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetBool("isFire", isFire);
     }
 
+    void Update()
+    {
+        //grabPosition.position = grabTarget.transform.position;
+        //grabTarget.rotation = grabTarget.transform.rotation;
+        //supportPosition.position = supportTarget.transform.position;
+        //supportPosition.rotation = supportTarget.transform.rotation;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -48,8 +86,17 @@ public class PlayerAnimation : MonoBehaviour
         Walk(dir);
 
         playerAnimator.SetBool("isCrouching", playerControl.IsCrouching);
+        IsCrouching = playerControl.IsCrouching;
+        crouchProcedure = (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Crouch State.Stand_to_Crouch_Rifle_Ironsights") ||
+            playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Crouch State.Crouch_to_Stand_Rifle_Ironsights")) &&
+            playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+
         playerAnimator.SetBool("isProning", playerControl.IsProning);
-        isProning = playerControl.IsProning;
+        IsProning = playerControl.IsProning;
+        proneProcedure = (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Prone State.Stand_To_Prone") ||
+            playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Prone State.Prone_To_Stand")) &&
+            playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+
         playerAnimator.SetBool("isRunning", playerControl.IsRunning);
         playerAnimator.SetBool("isJumping", playerControl.IsJumping);
 
@@ -62,11 +109,11 @@ public class PlayerAnimation : MonoBehaviour
             playerAnimator.SetBool("isFire", false);
         }
 
-        if (isProning || !isFire)
+        if (IsProning || !isFire)
         {
             playerAnimator.SetLayerWeight(1, 0);
         }
-        else if (!isProning && isFire)
+        else if (!IsProning && isFire)
         { 
             playerAnimator.SetLayerWeight(1, 1);
         }
