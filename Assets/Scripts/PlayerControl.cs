@@ -5,7 +5,9 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
+    private CapsuleCollider capsuleCollider;
     private PlayerAnimation playerAnimation;
+    private PlayerState playerState;
        
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 rotDirection = Vector3.zero;
@@ -30,7 +32,7 @@ public class PlayerControl : MonoBehaviour
     private bool _getPistol = false;
     private bool _getMelee = false;
 
-    private readonly float groundCheckDistance = 1.0f;
+    private readonly float groundCheckDistance = 0.1f;
     private LayerMask groundMask;
 
     public float MoveSpeed
@@ -110,6 +112,8 @@ public class PlayerControl : MonoBehaviour
 
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        playerState = GetComponent<PlayerState>();
 
         groundMask = LayerMask.GetMask("Ground");
     }
@@ -117,97 +121,104 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IsGrounded = Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, groundCheckDistance, groundMask);
-
-        if ((Input.GetKey(KeyCode.W) ||
-             Input.GetKey(KeyCode.A) ||
-             Input.GetKey(KeyCode.S) ||
-             Input.GetKey(KeyCode.D)) &&
-            !IsProning && !playerAnimation.ProneProcedure)
+        if (!playerState.IsDead)
         {
-            IsMoving = true;
-            IsWalking = true;
+            IsGrounded = Physics.Raycast(capsuleCollider.transform.position, Vector3.down, groundCheckDistance, groundMask);
+
+            if ((Input.GetKey(KeyCode.W) ||
+                 Input.GetKey(KeyCode.A) ||
+                 Input.GetKey(KeyCode.S) ||
+                 Input.GetKey(KeyCode.D)) &&
+                !IsProning && !playerAnimation.ProneProcedure)
+            {
+                IsMoving = true;
+                IsWalking = true;
+            }
+            else
+            {
+                IsMoving = false;
+                IsWalking = false;
+                moveDirection = Vector3.zero;
+            }
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                moveDirection = -transform.forward;
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                moveDirection = transform.right;
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                moveDirection = transform.forward;
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                moveDirection = -transform.right;
+            }
+
+            _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
+
+            moveDirection.Normalize();
+            rotDirection.Normalize();
+
+            if (_tryJump)
+            {
+                playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+                _tryJump = false;
+            }
+
+            IsJumping = !IsGrounded;
+
+            IsCrouching = Input.GetKey(KeyCode.LeftShift);
+
+            IsProning = Input.GetKey(KeyCode.Tab);
+
+            IsAiming = Input.GetMouseButton(1);
+
+            IsFire = IsAiming && Input.GetMouseButton(0);
+
+            if (IsWalking && !IsCrouching && Input.GetKey(KeyCode.CapsLock))
+            {
+                IsRunning = true;
+            }
+
+            else if (IsMoving && !Input.GetKey(KeyCode.CapsLock))
+            {
+                IsRunning = false;
+            }
+
+            rotDirection = new Vector3(0, Input.GetAxis("Mouse Y"), 0);
         }
-        else
-        {
-            IsMoving = false;
-            IsWalking = false;
-            moveDirection = Vector3.zero;
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveDirection = -transform.forward;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveDirection = transform.right;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveDirection = transform.forward;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveDirection = -transform.right;
-        }
-
-        _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
-
-        moveDirection.Normalize();
-        rotDirection.Normalize();
-
-        if (_tryJump)
-        {
-            playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            _tryJump = false;
-        }
-
-        IsJumping = !IsGrounded;
-
-        IsCrouching = Input.GetKey(KeyCode.LeftShift);
-
-        IsProning = Input.GetKey(KeyCode.Tab);
-
-        IsAiming = Input.GetMouseButton(1);
-
-        IsFire = IsAiming && Input.GetMouseButton(0);
-
-        if (IsWalking && !IsCrouching && Input.GetKey(KeyCode.CapsLock))
-        {
-            IsRunning = true;
-        }
-
-        else if (IsMoving && !Input.GetKey(KeyCode.CapsLock))
-        {
-            IsRunning = false;
-        }
-
-        rotDirection = new Vector3(0, Input.GetAxis("Mouse Y"), 0);
     }
 
     void FixedUpdate()
     {
-        if (moveDirection != Vector3.zero && IsMoving)
+        if (!playerState.IsDead)
         {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position,
-                                                       transform.position + moveDirection * 1000.0f, 
-                                                        Time.fixedDeltaTime * MoveSpeed);
+            if (moveDirection != Vector3.zero && IsMoving)
+            {
+                Vector3 newPosition = Vector3.MoveTowards(transform.position,
+                                                           transform.position + moveDirection * 1000.0f,
+                                                            Time.fixedDeltaTime * MoveSpeed);
 
-            playerRigidbody.MovePosition(newPosition);
+                playerRigidbody.MovePosition(newPosition);
+            }
+
+            if (rotDirection != Vector3.zero)
+            {
+                Quaternion newRot = Quaternion.RotateTowards(transform.rotation,
+                                                            Quaternion.LookRotation(rotDirection),
+                                                            Time.fixedDeltaTime * RotSpeed);
+
+                playerRigidbody.MoveRotation(newRot);
+            }
         }
-
-        if (rotDirection != Vector3.zero)
-        {
-            Quaternion newRot = Quaternion.RotateTowards(transform.rotation,
-                                                        Quaternion.LookRotation(rotDirection), 
-                                                        Time.fixedDeltaTime * RotSpeed);
-
-            playerRigidbody.MoveRotation(newRot);
-        }
+        
 
     }
 }
