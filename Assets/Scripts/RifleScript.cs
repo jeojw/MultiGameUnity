@@ -20,12 +20,14 @@ public class RifleScript : MonoBehaviour
     private Transform firePosition;
 
     private PlayerAnimation playerAnimator;
+    private PlayerState playerState;
     private Animator rifleAnimator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerAnimator = GetComponentInParent<PlayerAnimation>();
+        playerState = GetComponentInParent<PlayerState>();
         rifleAnimator = GetComponentInParent<Animator>();
         grapSocket.rotation = Quaternion.Euler(new Vector3(-5.161f, 11.112f, -106.935f));
         supportSocket.rotation = Quaternion.Euler(new Vector3(-0.432f, 79.44f, 189.004f));
@@ -34,7 +36,7 @@ public class RifleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerAnimator.IsFire)
+        if (playerState.ShotPossible)
         {
             rifleAnimator.SetBool("isFire", true);
             Instantiate(bullet, firePosition.transform.position, Quaternion.identity);
