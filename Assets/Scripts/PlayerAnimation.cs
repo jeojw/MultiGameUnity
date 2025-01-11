@@ -4,15 +4,6 @@ public class PlayerAnimation : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField]
-    private Transform grabTarget;
-    [SerializeField] 
-    private Transform grabPosition;
-    [SerializeField]
-    private Transform supportTarget;
-    [SerializeField]
-    private Transform supportPosition;
-
     private Animator playerAnimator;
     private PlayerControl playerControl;
     private PlayerState playerState;

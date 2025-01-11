@@ -10,7 +10,7 @@ public class PlayerControl : MonoBehaviour
     private PlayerState playerState;
        
     private Vector3 moveDirection = Vector3.zero;
-    private Vector3 rotDirection = Vector3.zero;
+    private Vector3 playerDirection;
 
     private float _moveSpeed = 5.0f;
     private float _rotSpeed = 2.0f;
@@ -106,6 +106,11 @@ public class PlayerControl : MonoBehaviour
         private set { _isFire = value; }
     }
 
+    public Vector3 PlayerDirection
+    {
+        get { return playerDirection; }
+        private set { playerDirection = value; }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -163,16 +168,13 @@ public class PlayerControl : MonoBehaviour
 
             _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
 
-            moveDirection.Normalize();
-            rotDirection.Normalize();
-
             if (_tryJump)
             {
                 playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
                 _tryJump = false;
             }
 
-            IsJumping = !IsGrounded;
+            //IsJumping = !IsGrounded;
 
             IsCrouching = Input.GetKey(KeyCode.LeftShift);
 
@@ -191,8 +193,6 @@ public class PlayerControl : MonoBehaviour
             {
                 IsRunning = false;
             }
-
-            rotDirection = new Vector3(0, Input.GetAxis("Mouse Y"), 0);
         }
     }
 
@@ -209,16 +209,10 @@ public class PlayerControl : MonoBehaviour
                 playerRigidbody.MovePosition(newPosition);
             }
 
-            if (rotDirection != Vector3.zero)
-            {
-                Quaternion newRot = Quaternion.RotateTowards(transform.rotation,
-                                                            Quaternion.LookRotation(rotDirection),
-                                                            Time.fixedDeltaTime * RotSpeed);
+            float mouseX = Input.GetAxis("Mouse X") * 4f;
 
-                playerRigidbody.MoveRotation(newRot);
-            }
+            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y + mouseX, 0f);
+            PlayerDirection = Quaternion.Euler(0, mouseX, 0) * -transform.forward;
         }
-        
-
     }
 }

@@ -13,24 +13,33 @@ public class RifleScript : MonoBehaviour
     [SerializeField]
     private TwoBoneIKConstraint leftHandIK;
     [SerializeField]
-    private Transform spineTransform;
-    [SerializeField]
     private GameObject bullet;
     [SerializeField]
     private Transform firePosition;
-
-    private PlayerAnimation playerAnimator;
+    [SerializeField]
+    private Animator playerAnimator;
+    [SerializeField]
+    private Transform playerTransform;
+    private PlayerAnimation playerAnimation;
     private PlayerState playerState;
+    private PlayerControl playerControl;
     private Animator rifleAnimator;
+
+    private LayerMask groundLayer;
+    private Vector3 targetDirection;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerAnimator = GetComponentInParent<PlayerAnimation>();
+        playerAnimation = GetComponentInParent<PlayerAnimation>();
         playerState = GetComponentInParent<PlayerState>();
+        playerControl = GetComponentInParent<PlayerControl>();
         rifleAnimator = GetComponentInParent<Animator>();
-        grapSocket.rotation = Quaternion.Euler(new Vector3(-5.161f, 11.112f, -106.935f));
-        supportSocket.rotation = Quaternion.Euler(new Vector3(-0.432f, 79.44f, 189.004f));
+
+        transform.localPosition = new Vector3(-0.0786f, 0.3647f, 0.028f);
+        //transform.localRotation = Quaternion.Euler(new Vector3(-109.534f, 204.619f, -24.03302f));
+
+        groundLayer = LayerMask.GetMask("Ground");
     }
 
     // Update is called once per frame
@@ -47,7 +56,7 @@ public class RifleScript : MonoBehaviour
         }
         
 
-        if (playerAnimator.ProneProcedure)
+        if (playerAnimation.ProneProcedure)
         {
             leftHandIK.weight = 0f;
         }
@@ -55,6 +64,16 @@ public class RifleScript : MonoBehaviour
         {
             leftHandIK.weight = 1f;
         }
-        transform.position = spineTransform.position + new Vector3(-0.17f, -0.1f, -0.35f);
+
+        Ray ray = new Ray(transform.position, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
+        {
+            targetDirection = playerControl.PlayerDirection;
+            Vector3 surfaceNormal = hit.normal; // 지면 법선
+            Vector3 zAxisAligned = Vector3.ProjectOnPlane(targetDirection, surfaceNormal).normalized;
+
+            transform.rotation = Quaternion.LookRotation(zAxisAligned, surfaceNormal);
+        }
     }
 }
