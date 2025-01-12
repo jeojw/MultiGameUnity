@@ -24,6 +24,7 @@ public class RifleScript : MonoBehaviour
     private PlayerState playerState;
     private PlayerControl playerControl;
     private Animator rifleAnimator;
+    private AudioSource shotSound;
 
     private LayerMask groundLayer;
     private Vector3 targetDirection;
@@ -35,6 +36,7 @@ public class RifleScript : MonoBehaviour
         playerState = GetComponentInParent<PlayerState>();
         playerControl = GetComponentInParent<PlayerControl>();
         rifleAnimator = GetComponentInParent<Animator>();
+        shotSound = GetComponent<AudioSource>();
 
         transform.localPosition = new Vector3(-0.0786f, 0.3647f, 0.028f);
         //transform.localRotation = Quaternion.Euler(new Vector3(-109.534f, 204.619f, -24.03302f));
@@ -49,6 +51,7 @@ public class RifleScript : MonoBehaviour
         {
             rifleAnimator.SetBool("isFire", true);
             Instantiate(bullet, firePosition.transform.position, Quaternion.identity);
+            shotSound.Play();
         }
         else
         {

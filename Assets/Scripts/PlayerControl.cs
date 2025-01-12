@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    private CapsuleCollider capsuleCollider;
     private PlayerAnimation playerAnimation;
     private PlayerState playerState;
        
@@ -114,10 +113,8 @@ public class PlayerControl : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimation = GetComponent<PlayerAnimation>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
         playerState = GetComponent<PlayerState>();
 
         groundMask = LayerMask.GetMask("Ground");
@@ -128,7 +125,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (!playerState.IsDead)
         {
-            IsGrounded = Physics.Raycast(capsuleCollider.transform.position, Vector3.down, groundCheckDistance, groundMask);
+            IsGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
 
             if ((Input.GetKey(KeyCode.W) ||
                  Input.GetKey(KeyCode.A) ||
@@ -166,15 +163,8 @@ public class PlayerControl : MonoBehaviour
                 moveDirection = -transform.right;
             }
 
-            _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
 
-            if (_tryJump)
-            {
-                playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-                _tryJump = false;
-            }
-
-            //IsJumping = !IsGrounded;
+            IsJumping = !IsGrounded;
 
             IsCrouching = Input.GetKey(KeyCode.LeftShift);
 
@@ -213,6 +203,14 @@ public class PlayerControl : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y + mouseX, 0f);
             PlayerDirection = Quaternion.Euler(0, mouseX, 0) * -transform.forward;
+
+            _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
+
+            if (_tryJump)
+            {
+                playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+                _tryJump = false;
+            }
         }
     }
 }

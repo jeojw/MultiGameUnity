@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class BulletScript : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class BulletScript : MonoBehaviour
     private float damage;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private PlayerControl playerControl;
+    private LayerMask groundLayer;
+    private Vector3 targetDirection;
     public float Damage
     {
         get { return damage; }
@@ -19,7 +24,7 @@ public class BulletScript : MonoBehaviour
     {
         bulletHitbox = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
-        transform.rotation = new Quaternion(0, 180f, 0, 0);
+        groundLayer = LayerMask.GetMask("Ground");
     }
 
 
@@ -31,8 +36,22 @@ public class BulletScript : MonoBehaviour
         }
     }
     // Update is called once per frame
+
     void Update()
     {
-        rb.AddForce(-Vector3.forward * speed, ForceMode.Impulse);
+        Ray ray = new Ray(transform.position, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
+        {
+            targetDirection = playerControl.PlayerDirection;
+            Vector3 surfaceNormal = hit.normal; // 지면 법선
+            Vector3 zAxisAligned = Vector3.ProjectOnPlane(targetDirection, surfaceNormal).normalized;
+
+            transform.rotation = Quaternion.LookRotation(zAxisAligned, surfaceNormal);
+        }
+    }
+    void FixedUpdate()
+    {
+        rb.AddForce(playerControl.PlayerDirection * speed, ForceMode.Impulse);
     }
 }

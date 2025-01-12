@@ -767,14 +767,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 234018793002871796, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
-      propertyPath: m_Direction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 234018793002871796, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
-      propertyPath: m_ProvidesContacts
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1698081980418423726, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -819,16 +811,8 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4290992688285789794, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4462575129848007887, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
       propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4462575129848007887, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
-      propertyPath: m_AnimatePhysics
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4462575129848007887, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
@@ -877,7 +861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7064904662716306703, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000047683716
+      value: 0.061
       objectReference: {fileID: 0}
     - target: {fileID: 7064904662716306703, guid: b8073b20097eb3d4fa870621b1764968, type: 3}
       propertyPath: m_LocalPosition.z
