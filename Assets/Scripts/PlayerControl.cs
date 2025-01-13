@@ -27,11 +27,7 @@ public class PlayerControl : MonoBehaviour
 
     private bool _isFire = false;
 
-    private bool _getRifle = false;
-    private bool _getPistol = false;
-    private bool _getMelee = false;
-
-    private readonly float groundCheckDistance = 0.1f;
+    private readonly float groundCheckDistance = 0.5f;
     private LayerMask groundMask;
 
     public float MoveSpeed
@@ -125,7 +121,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (!playerState.IsDead)
         {
-            IsGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
+            IsGrounded = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, groundMask);
 
             if ((Input.GetKey(KeyCode.W) ||
                  Input.GetKey(KeyCode.A) ||
@@ -172,6 +168,8 @@ public class PlayerControl : MonoBehaviour
 
             IsAiming = Input.GetMouseButton(1);
 
+            _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
+
             IsFire = IsAiming && Input.GetMouseButton(0);
 
             if (IsWalking && !IsCrouching && Input.GetKey(KeyCode.CapsLock))
@@ -203,8 +201,6 @@ public class PlayerControl : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y + mouseX, 0f);
             PlayerDirection = Quaternion.Euler(0, mouseX, 0) * -transform.forward;
-
-            _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
 
             if (_tryJump)
             {
