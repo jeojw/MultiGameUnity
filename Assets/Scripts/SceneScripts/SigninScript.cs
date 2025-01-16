@@ -12,15 +12,6 @@ public class SigninScript : MonoBehaviour
     private string idValue;
     private string pwValue;
 
-    public string IdValue
-    {
-        get { return idValue; }
-    }
-
-    public string PwValue
-    {
-        get { return pwValue; }
-    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
