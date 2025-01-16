@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package member;
+
+service MemberService {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse);
+  rpc CheckDuplicateId(CheckDuplicateIdRequest) returns (CheckDuplicateIdResponse);
+  rpc CheckDuplicateNickname(CheckDuplicateNicknameRequest) returns (CheckDuplicateNicknameResponse);
+  rpc CheckDuplicateNicknameWithToken(CheckDuplicateNicknameWithTokenRequest) returns (CheckDuplicateNicknameWithTokenResponse);
+
+  rpc UpdateProfilePhoto(UpdateProfileRequest) returns (UpdateProfileResponse);
+  rpc UpdateNickname(UpdateNicknameRequest) returns (UpdateNicknameResponse);
+  rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse);
+}
+
+message SignUpRequest {
+  string userId = 1;
+  string userPassword = 2;
+  string userNickname = 3;
+  string profileName = 4;
+  string profileType = 5;
+  bytes profileData = 6;
+}
+
+message SignUpResponse {
+  string message = 1;
+}
+
+message CheckDuplicateIdRequest {
+  string userId = 1;
+}
+
+message CheckDuplicateIdResponse {
+  bool isIdDuplicate = 1;
+}
+
+message CheckDuplicateNicknameRequest {
+  string userNickname = 1;
+}
+
+message CheckDuplicateNicknameResponse {
+  bool isNicknameDuplicate = 1;
+}
+
+
+message CheckDuplicateNicknameWithTokenRequest {
+  string token = 1;
+  string newNickname = 2;
+}
+
+message CheckDuplicateNicknameWithTokenResponse {
+  bool isDuplicate = 1;
+}
+
+message UpdateProfileRequest {
+  string token = 1; // JWT 토큰
+  string profileName = 2; // 사진 이름
+  bytes profileData = 3; // 사진 데이터
+}
+
+// 사진 업데이트 응답
+message UpdateProfileResponse {
+  string message = 1; // 상태 메시지
+}
+
+// 닉네임 변경 요청
+message UpdateNicknameRequest {
+  string token = 1; // JWT 토큰
+  string userNickname = 2; // 새 닉네임
+}
+
+// 닉네임 변경 응답
+message UpdateNicknameResponse {
+  string message = 1; // 상태 메시지
+}
+
+// 비밀번호 변경 요청
+message UpdatePasswordRequest {
+  string token = 1; // JWT 토큰
+  string oldPassword = 2; // 기존 비밀번호
+  string newPassword = 3; // 새 비밀번호
+}
+
+// 비밀번호 변경 응답
+message UpdatePasswordResponse {
+  string message = 1; // 상태 메시지
+}

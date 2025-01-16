@@ -29,27 +29,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     @Value("${spring.jwt.token.access-expiration-time}")
     private long refreshExpirationTime;
 
-    @Override
-    public void signUp(Auth.SignUpRequest request, StreamObserver<Auth.SignUpResponse> responseStreamObserver) {
-        try {
-            MemberEntity member = new MemberEntity();
-            member.setUserId(request.getUserId());
-            member.setUserPassword(encoder.encode(request.getUserPassword()));
-            member.setUserNickname(request.getUserNickname());
-            member.setProfileName(request.getProfileName());
-            member.setProfileData(request.getProfileData().toByteArray());
-            memberRepository.save(member);
 
-            Auth.SignUpResponse response = Auth.SignUpResponse.newBuilder()
-                    .setMessage("Sign-up successful!")
-                    .build();
-
-            responseStreamObserver.onNext(response);
-            responseStreamObserver.onCompleted();
-        } catch (Exception e) {
-            responseStreamObserver.onError(e);
-        }
-    }
 
     @Override
     public void signIn(Auth.SignInRequest request, StreamObserver<Auth.SignInResponse> responseStreamObserver) {
@@ -114,49 +94,5 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         responseStreamObserver.onCompleted();
     }
 
-    @Override
-    public void updateNickname(Auth.UpdateNicknameRequest request, StreamObserver<Auth.UpdateNicknameResponse> responseStreamObserver) {
-        try {
-            String userId = jwtUtil.getUserIdFromToken(request.getToken());
-            Optional<MemberEntity> member = memberRepository.findByUserId(userId);
-            if (member.isPresent()) {
-                member.get().setUserNickname(request.getUserNickname());
-                memberRepository.save(member.get());
 
-                Auth.UpdateNicknameResponse response = Auth.UpdateNicknameResponse.newBuilder()
-                        .setMessage("Nickname updated sucessfully!")
-                        .build();
-
-                responseStreamObserver.onNext(response);
-                responseStreamObserver.onCompleted();
-            }
-        } catch (Exception e) {
-            responseStreamObserver.onError(e);
-        }
-    }
-
-    @Override
-    public void updatePassword(Auth.UpdatePasswordRequest request, StreamObserver<Auth.UpdatePasswordResponse> responseStreamObserver) {
-        try {
-            String userId = jwtUtil.getUserIdFromToken(request.getToken());
-            Optional<MemberEntity> member = memberRepository.findByUserId(userId);
-            if (member.isPresent()) {
-                if (!encoder.matches(request.getOldPassword(), member.get().getUserPassword())) {
-                    throw new IllegalArgumentException("Old password is incorrect");
-                }
-
-                member.get().setUserPassword(encoder.encode(request.getNewPassword()));
-                memberRepository.save(member.get());
-
-                Auth.UpdatePasswordResponse response = Auth.UpdatePasswordResponse.newBuilder()
-                        .setMessage("Nickname updated sucessfully!")
-                        .build();
-
-                responseStreamObserver.onNext(response);
-                responseStreamObserver.onCompleted();
-            }
-        } catch (Exception e) {
-            responseStreamObserver.onError(e);
-        }
-    }
 }

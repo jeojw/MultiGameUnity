@@ -3,27 +3,9 @@ syntax = "proto3";
 package auth;
 
 service AuthService {
-  rpc SignUp(SignUpRequest) returns (SignUpResponse);
   rpc SignIn(SignInRequest) returns (SignInResponse);
   rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
-
-  rpc UpdateProfilePhoto(UpdateProfileRequest) returns (UpdateProfileResponse);
-  rpc UpdateNickname(UpdateNicknameRequest) returns (UpdateNicknameResponse);
-  rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse);
-}
-
-message SignUpRequest {
-  string userId = 1;
-  string userPassword = 2;
-  string userNickname = 3;
-  string profileName = 4;
-  string profileType = 5;
-  bytes profileData = 6;
-}
-
-message SignUpResponse {
-  string message = 1;
 }
 
 message SignInRequest {
@@ -57,36 +39,3 @@ message RefreshTokenResponse {
   string accessToken = 1; // 새로 생성된 액세스 토큰
 }
 
-message UpdateProfileRequest {
-  string token = 1; // JWT 토큰
-  string profileName = 2; // 사진 이름
-  bytes profileData = 3; // 사진 데이터
-}
-
-// 사진 업데이트 응답
-message UpdateProfileResponse {
-  string message = 1; // 상태 메시지
-}
-
-// 닉네임 변경 요청
-message UpdateNicknameRequest {
-  string token = 1; // JWT 토큰
-  string userNickname = 2; // 새 닉네임
-}
-
-// 닉네임 변경 응답
-message UpdateNicknameResponse {
-  string message = 1; // 상태 메시지
-}
-
-// 비밀번호 변경 요청
-message UpdatePasswordRequest {
-  string token = 1; // JWT 토큰
-  string oldPassword = 2; // 기존 비밀번호
-  string newPassword = 3; // 새 비밀번호
-}
-
-// 비밀번호 변경 응답
-message UpdatePasswordResponse {
-  string message = 1; // 상태 메시지
-}
