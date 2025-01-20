@@ -1,17 +1,19 @@
 using Auth;
-using Grpc.Core;
+using Grpc.Net.Client;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class AuthServiceManager
+public class AuthServiceManager : MonoBehaviour
 {
-    private readonly AuthService.AuthServiceClient client;
+    private AuthService.AuthServiceClient client;
 
     private static AuthServiceManager instance;
     public static AuthServiceManager Instance => instance ??= new AuthServiceManager();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public AuthServiceManager()
+
+    // Start는 MonoBehaviour에서 초기화를 위한 메서드
+    void Start()
     {
+        // 클라이언트 초기화
         client = GrpcClientManager.Instance.GetAuthClient();
     }
 
@@ -23,14 +25,6 @@ public class AuthServiceManager
             UserPassword = userPassword
         };
 
-        try
-        {
-            return await client.SignInAsync(request);
-        }
-        catch (RpcException e)
-        {
-            Debug.LogError($"SignIn Error: {e.Status.Detail}");
-            throw;
-        }
+        return await client.SignInAsync(request);
     }
 }

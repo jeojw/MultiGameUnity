@@ -37,3 +37,7 @@ out/
 .vscode/
 
 application.properties
+src/main/resources/keystore.p12
+src/main/resources/server.csr
+src/main/resources/server.crt
+src/main/resources/server.key

@@ -9,6 +9,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -28,8 +29,6 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
     @Value("${spring.jwt.token.access-expiration-time}")
     private long refreshExpirationTime;
-
-
 
     @Override
     public void signIn(Auth.SignInRequest request, StreamObserver<Auth.SignInResponse> responseStreamObserver) {

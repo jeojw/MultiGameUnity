@@ -19,13 +19,13 @@ public class JwtUtil {
     private RedisTemplate<String, String> redisTemplate;
 
     @Value("${spring.jwt.secret}")
-    private static String secretKey;
+    private String secretKey;
 
     @Value("${spring.jwt.token.access-expiration-time}")
-    private static long accessExpirationTime;
+    private long accessExpirationTime;
 
     @Value("${spring.jwt.token.refresh-expiration-time}")
-    private static long refreshExpirationTime;
+    private long refreshExpirationTime;
 
     public String generateAccessToken(String userId) {
         Claims claims = Jwts.claims().setSubject(userId);

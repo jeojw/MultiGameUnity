@@ -28,13 +28,14 @@ repositories {
 }
 
 ext {
-	springGrpcVersion = '0.3.0-SNAPSHOT'
+	springGrpcVersion = '0.4.0-SNAPSHOT'
 	protobufVersion = '4.28.2'
 	protobufPluginVersion = '0.9.4'
-	grpcVersion = '1.65.1'
+	grpcVersion = '1.69.1'
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -42,7 +43,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation 'mysql:mysql-connector-java:8.0.30'
+	implementation 'mysql:mysql-connector-java:8.0.40'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
@@ -52,7 +54,8 @@ dependencies {
 	implementation "com.google.protobuf:protoc:${protobufVersion}"
 
 	implementation 'net.devh:grpc-spring-boot-starter:3.1.0.RELEASE'
-	implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
+	implementation "io.grpc:grpc-census:${grpcVersion}"
+	implementation "io.grpc:grpc-netty:${grpcVersion}"
 	implementation "io.grpc:grpc-protobuf:${grpcVersion}"
 	implementation "io.grpc:grpc-stub:${grpcVersion}"
 	compileOnly 'org.apache.tomcat:annotations-api:6.0.53'

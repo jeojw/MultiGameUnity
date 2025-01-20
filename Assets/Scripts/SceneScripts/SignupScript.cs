@@ -4,6 +4,7 @@ using Grpc.Core;
 using static UnityEngine.Rendering.DebugUI;
 using Member;
 using JetBrains.Annotations;
+using System.Threading.Tasks;
 
 public class SignupScript : MonoBehaviour
 {
@@ -50,9 +51,13 @@ public class SignupScript : MonoBehaviour
             return;
         }
 
-        var response = await MemberServiceManager.Instance.CheckDuplicateIdAsync(idValue);
+        var memberServiceManager = MemberServiceManager.Instance;
+
+        var response = await memberServiceManager.CheckDuplicateIdAsync(idValue);
 
         isIdDuplicate = response.IsIdDuplicate;
+
+        Debug.Log(isIdDuplicate);
     }
     public async void CheckNicknameDuplicate()
     {
@@ -61,7 +66,9 @@ public class SignupScript : MonoBehaviour
             return;
         }
 
-        var response = await MemberServiceManager.Instance.CheckDuplicateNicknameAsync(nicknameValue);
+        var memberServiceManager = MemberServiceManager.Instance;
+
+        var response = await memberServiceManager.CheckDuplicateNicknameAsync(nicknameValue);
 
         isNicknameDuplicate = response.IsNicknameDuplicate;
     }
@@ -75,11 +82,13 @@ public class SignupScript : MonoBehaviour
 
         if (isIdDuplicate)
         {
+            Debug.Log("ID is duplicated!");
             return;
         }
 
         if (isNicknameDuplicate)
         {
+            Debug.Log("Nickname is duplicated!");
             return;
         }
 

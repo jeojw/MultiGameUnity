@@ -3,33 +3,47 @@ using Member;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class MemberServiceManager
+public class MemberServiceManager : MonoBehaviour
 {
     private MemberService.MemberServiceClient client;
-
     private static MemberServiceManager instance;
-    public static MemberServiceManager Instance => instance ??= new MemberServiceManager();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public MemberServiceManager()
+    public static MemberServiceManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                var obj = new GameObject(nameof(MemberServiceManager));
+                instance = obj.AddComponent<MemberServiceManager>();
+                DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
+            }
+            return instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject); // Prevent duplicate instances
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
     {
         client = GrpcClientManager.Instance.GetMemberClient();
     }
-
     public async Task<CheckDuplicateNicknameResponse> CheckDuplicateNicknameAsync(string userNickname)
     {
         var request = new CheckDuplicateNicknameRequest
         {
             UserNickname = userNickname
         };
-        try
-        {
-            return await client.CheckDuplicateNicknameAsync(request);
-        }
-        catch (RpcException e)
-        {
-            Debug.LogError($"gRPC Error: {e.Status.Detail}");
-            throw;
-        }
+        return await client.CheckDuplicateNicknameAsync(request);
     }
 
     public async Task<CheckDuplicateIdResponse> CheckDuplicateIdAsync(string userId)
@@ -38,14 +52,7 @@ public class MemberServiceManager
         {
             UserId = userId
         };
-        try
-        {
-            return await client.CheckDuplicateIdAsync(request);
-        }
-        catch(RpcException e)
-        {
-            throw;
-        }
+        return await client.CheckDuplicateIdAsync(request);
     }
 
     public async Task<CheckDuplicateNicknameWithTokenResponse> CheckDuplicateNicknameWithTokenAsync(string token, string newNickname)
@@ -55,15 +62,7 @@ public class MemberServiceManager
             Token = token,
             NewNickname = newNickname
         };
-        try
-        {
-            return await client.CheckDuplicateNicknameWithTokenAsync(request);
-        }
-        catch (RpcException e)
-        {
-            Debug.LogError($"gRPC Error: {e.Status.Detail}");
-            throw;
-        }
+        return await client.CheckDuplicateNicknameWithTokenAsync(request);
     }
 
     public async Task<SignUpResponse> SignUpAsync(
@@ -84,15 +83,6 @@ public class MemberServiceManager
             ProfileData = profileData,
             ProfileName = profileName
         };
-        try
-        {
-
-            return await client.SignUpAsync(request);
-        }
-        catch (RpcException e)
-        {
-            Debug.LogError($"gRPC Error: {e.Status.Detail}");
-            throw;
-        }
+        return await client.SignUpAsync(request);
     }
 }

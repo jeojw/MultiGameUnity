@@ -20,12 +20,12 @@ PluginImporter:
         Exclude Android: 1
         Exclude Bratwurst: 1
         Exclude CloudRendering: 1
-        Exclude Editor: 1
+        Exclude Editor: 0
         Exclude EmbeddedLinux: 1
         Exclude GameCoreScarlett: 1
         Exclude GameCoreXboxOne: 1
-        Exclude Linux64: 1
-        Exclude OSXUniversal: 1
+        Exclude Linux64: 0
+        Exclude OSXUniversal: 0
         Exclude PS4: 1
         Exclude PS5: 1
         Exclude QNX: 1
@@ -33,8 +33,8 @@ PluginImporter:
         Exclude Switch: 1
         Exclude VisionOS: 1
         Exclude WebGL: 1
-        Exclude Win: 1
-        Exclude Win64: 1
+        Exclude Win: 0
+        Exclude Win64: 0
         Exclude WindowsStoreApps: 1
         Exclude XboxOne: 1
         Exclude iOS: 1
@@ -46,13 +46,15 @@ PluginImporter:
         DefaultValueInitialized: true
         OS: Windows
     Linux64:
-      enabled: 0
-      settings: {}
+      enabled: 1
+      settings:
+        CPU: None
     OSXUniversal:
-      enabled: 0
-      settings: {}
+      enabled: 1
+      settings:
+        CPU: None
     Win:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: None
     Win64:
