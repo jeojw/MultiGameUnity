@@ -2,10 +2,10 @@ package com.multigame.multiserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
+@ServletComponentScan
 @SpringBootApplication
-@EntityScan(basePackages = "com.multigame.multiserver.member")
 public class MultiserverApplication {
 
 	public static void main(String[] args) {

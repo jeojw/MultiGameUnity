@@ -8,6 +8,8 @@ using System.Net.Http;
 using Grpc.Net.Client.Web;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
+using System.Net;
+using Microsoft.AspNetCore;
 
 public class GrpcClientManager : MonoBehaviour
 {
@@ -33,17 +35,12 @@ public class GrpcClientManager : MonoBehaviour
     {
         try
         {
-            var proxyAddress = new Uri("http://127.0.0.1:7070");
-
-            var httpHandler = new HttpClientHandler()
+            // gRPC 채널 생성
+            channel = GrpcChannel.ForAddress("http://127.0.0.1:80", new GrpcChannelOptions
             {
-                Proxy = new System.Net.WebProxy(proxyAddress),
-                UseProxy = true
-            };
-            channel = GrpcChannel.ForAddress("http://127.0.0.1:7070", new GrpcChannelOptions
-            {
-                HttpHandler = httpHandler
+                HttpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())
             });
+            Debug.Log("gRPC Channel Initialized!");
             isInitialized = true;
         }
         catch (Exception ex)

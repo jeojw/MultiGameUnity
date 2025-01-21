@@ -31,7 +31,7 @@ ext {
 	springGrpcVersion = '0.4.0-SNAPSHOT'
 	protobufVersion = '4.28.2'
 	protobufPluginVersion = '0.9.4'
-	grpcVersion = '1.69.1'
+	grpcVersion = '1.69.0'
 }
 
 dependencies {
@@ -39,12 +39,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'io.grpc:grpc-services'
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation 'mysql:mysql-connector-java:8.0.40'
+	implementation 'mysql:mysql-connector-java:8.0.33'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	implementation 'com.zaxxer:HikariCP:3.4.5'
 
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
@@ -53,11 +54,8 @@ dependencies {
 	implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
 	implementation "com.google.protobuf:protoc:${protobufVersion}"
 
-	implementation 'net.devh:grpc-spring-boot-starter:3.1.0.RELEASE'
-	implementation "io.grpc:grpc-census:${grpcVersion}"
-	implementation "io.grpc:grpc-netty:${grpcVersion}"
-	implementation "io.grpc:grpc-protobuf:${grpcVersion}"
-	implementation "io.grpc:grpc-stub:${grpcVersion}"
+	implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
+
 	compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
 
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -90,7 +88,6 @@ protobuf {
 	generateProtoTasks {
 		all()*.plugins {
 			grpc {
-				option 'jakarta_omit'
 				option '@generated=omit'
 			}
 		}
