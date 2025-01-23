@@ -4,6 +4,7 @@ package member;
 
 service MemberService {
   rpc SignUp(SignUpRequest) returns (SignUpResponse);
+
   rpc CheckDuplicateId(CheckDuplicateIdRequest) returns (CheckDuplicateIdResponse);
   rpc CheckDuplicateNickname(CheckDuplicateNicknameRequest) returns (CheckDuplicateNicknameResponse);
   rpc CheckDuplicateNicknameWithToken(CheckDuplicateNicknameWithTokenRequest) returns (CheckDuplicateNicknameWithTokenResponse);

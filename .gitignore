@@ -64,6 +64,9 @@ sysinfo.txt
 
 server.crt
 
+key_config.json
+key_config.json.meta
+
 # Crashlytics generated file
 crashlytics-build.properties
 

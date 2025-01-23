@@ -1,10 +1,7 @@
 using TMPro;
 using UnityEngine;
-using Grpc.Core;
-using static UnityEngine.Rendering.DebugUI;
-using Member;
-using JetBrains.Annotations;
-using System.Threading.Tasks;
+using System;
+using Google.Protobuf;
 
 public class SignupScript : MonoBehaviour
 {
@@ -71,6 +68,8 @@ public class SignupScript : MonoBehaviour
         var response = await memberServiceManager.CheckDuplicateNicknameAsync(nicknameValue);
 
         isNicknameDuplicate = response.IsNicknameDuplicate;
+
+        Debug.Log(isNicknameDuplicate);
     }
 
     public async void SignUp()
@@ -92,8 +91,14 @@ public class SignupScript : MonoBehaviour
             return;
         }
 
-        //var response = await MemberServiceManager.Instance.SignUpAsync(idValue, pwValue, nicknameValue, "default", "jpg", "default");
+        Texture2D defaultProfileImage = Resources.Load<Texture2D>("default");
 
-        //if (respon)
+        Byte[] imageBytes = defaultProfileImage.EncodeToJPG();
+
+        ByteString byteStringImage = ByteString.CopyFrom(imageBytes);
+
+        var response = await MemberServiceManager.Instance.SignUpAsync(idValue, pwValue, nicknameValue, "default", "jpg", byteStringImage);
+
+        Debug.Log(response.Message);
     }
 }

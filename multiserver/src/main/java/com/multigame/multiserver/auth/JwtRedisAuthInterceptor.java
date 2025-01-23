@@ -23,7 +23,9 @@ public class JwtRedisAuthInterceptor implements ServerInterceptor {
     private RedisUtil redisUtil;
 
     private static final Set<String> EXEMPT_METHODS = new HashSet<>(List.of(
-            "/member.MemberService/CheckDuplicateId"
+            "member.MemberService/CheckDuplicateId",
+            "member.MemberService/CheckDuplicateNickname",
+            "auth.AuthService/SignIn"
     ));
 
     @Override
@@ -32,32 +34,29 @@ public class JwtRedisAuthInterceptor implements ServerInterceptor {
             Metadata headers,
             ServerCallHandler<ReqT, RespT> next) {
 
-        log.debug("gRPC Request Headers: {}", headers);
-        log.debug("gRPC Call Method: {}", call.getMethodDescriptor().getFullMethodName());
-
         String methodName = call.getMethodDescriptor().getFullMethodName();
 
         // 인증이 면제되는 메소드
-//        if (EXEMPT_METHODS.contains(methodName)) {
-//            return next.startCall(call, headers);
-//        }
-//
-//        // Authorization 헤더에서 JWT 추출
-//        Metadata.Key<String> authKey = Metadata.Key.of("Authorization", Metadata.ASCII_STRING_MARSHALLER);
-//        String authHeader = headers.get(authKey);
-//
-//        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//            log.error("Missing or invalid Authorization header");
-//            call.close(Status.UNAUTHENTICATED.withDescription("Missing or invalid Authorization header"), headers);
-//            return new ServerCall.Listener<>() {};
-//        }
-//
-//        String token = authHeader.substring("Bearer ".length());
-//
-//        // 토큰 유효성 검사
-//        if (!validateToken(token, headers, call)) {
-//            return new ServerCall.Listener<>() {};
-//        }
+        if (EXEMPT_METHODS.contains(methodName)) {
+            return next.startCall(call, headers);
+        }
+
+        // Authorization 헤더에서 JWT 추출
+        Metadata.Key<String> authKey = Metadata.Key.of("Authorization", Metadata.ASCII_STRING_MARSHALLER);
+        String authHeader = headers.get(authKey);
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.error("Missing or invalid Authorization header");
+            call.close(Status.UNAUTHENTICATED.withDescription("Missing or invalid Authorization header"), headers);
+            return new ServerCall.Listener<>() {};
+        }
+
+        String token = authHeader.substring("Bearer ".length());
+
+        // 토큰 유효성 검사
+        if (!validateToken(token, headers, call)) {
+            return new ServerCall.Listener<>() {};
+        }
 
         return next.startCall(call, headers);
     }

@@ -28,6 +28,7 @@ public class MemberEntity {
     @Column(name = "profile_type")
     private String profileType;
 
-    @Column(name = "profile_file")
+    @Lob
+    @Column(name = "profile_file", columnDefinition = "BLOB")
     private byte[] profileData;
 }

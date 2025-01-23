@@ -28,23 +28,22 @@ namespace Auth {
             "GAEgASgJEhQKDHVzZXJQYXNzd29yZBgCIAEoCSJmCg5TaWduSW5SZXNwb25z",
             "ZRITCgthY2Nlc3NUb2tlbhgBIAEoCRIUCgxyZWZyZXNoVG9rZW4YAiABKAkS",
             "FAoMdXNlck5pY2tuYW1lGAMgASgJEhMKC3Byb2ZpbGVEYXRhGAQgASgMIiUK",
-            "FFZhbGlkYXRlVG9rZW5SZXF1ZXN0Eg0KBXRva2VuGAEgASgJIjgKFVZhbGlk",
-            "YXRlVG9rZW5SZXNwb25zZRIPCgdpc1ZhbGlkGAEgASgIEg4KBnVzZXJJZBgC",
-            "IAEoCSIrChNSZWZyZXNoVG9rZW5SZXF1ZXN0EhQKDHJlZnJlc2hUb2tlbhgB",
-            "IAEoCSIrChRSZWZyZXNoVG9rZW5SZXNwb25zZRITCgthY2Nlc3NUb2tlbhgB",
-            "IAEoCTLTAQoLQXV0aFNlcnZpY2USMwoGU2lnbkluEhMuYXV0aC5TaWduSW5S",
-            "ZXF1ZXN0GhQuYXV0aC5TaWduSW5SZXNwb25zZRJICg1WYWxpZGF0ZVRva2Vu",
-            "EhouYXV0aC5WYWxpZGF0ZVRva2VuUmVxdWVzdBobLmF1dGguVmFsaWRhdGVU",
-            "b2tlblJlc3BvbnNlEkUKDFJlZnJlc2hUb2tlbhIZLmF1dGguUmVmcmVzaFRv",
-            "a2VuUmVxdWVzdBoaLmF1dGguUmVmcmVzaFRva2VuUmVzcG9uc2ViBnByb3Rv",
-            "Mw=="));
+            "FFZhbGlkYXRlVG9rZW5SZXF1ZXN0Eg0KBXRva2VuGAEgASgJIigKFVZhbGlk",
+            "YXRlVG9rZW5SZXNwb25zZRIPCgdpc1ZhbGlkGAEgASgIIisKE1JlZnJlc2hU",
+            "b2tlblJlcXVlc3QSFAoMcmVmcmVzaFRva2VuGAEgASgJIisKFFJlZnJlc2hU",
+            "b2tlblJlc3BvbnNlEhMKC2FjY2Vzc1Rva2VuGAEgASgJMtMBCgtBdXRoU2Vy",
+            "dmljZRIzCgZTaWduSW4SEy5hdXRoLlNpZ25JblJlcXVlc3QaFC5hdXRoLlNp",
+            "Z25JblJlc3BvbnNlEkgKDVZhbGlkYXRlVG9rZW4SGi5hdXRoLlZhbGlkYXRl",
+            "VG9rZW5SZXF1ZXN0GhsuYXV0aC5WYWxpZGF0ZVRva2VuUmVzcG9uc2USRQoM",
+            "UmVmcmVzaFRva2VuEhkuYXV0aC5SZWZyZXNoVG9rZW5SZXF1ZXN0GhouYXV0",
+            "aC5SZWZyZXNoVG9rZW5SZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Auth.SignInRequest), global::Auth.SignInRequest.Parser, new[]{ "UserId", "UserPassword" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Auth.SignInResponse), global::Auth.SignInResponse.Parser, new[]{ "AccessToken", "RefreshToken", "UserNickname", "ProfileData" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Auth.ValidateTokenRequest), global::Auth.ValidateTokenRequest.Parser, new[]{ "Token" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.ValidateTokenResponse), global::Auth.ValidateTokenResponse.Parser, new[]{ "IsValid", "UserId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.ValidateTokenResponse), global::Auth.ValidateTokenResponse.Parser, new[]{ "IsValid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Auth.RefreshTokenRequest), global::Auth.RefreshTokenRequest.Parser, new[]{ "RefreshToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Auth.RefreshTokenResponse), global::Auth.RefreshTokenResponse.Parser, new[]{ "AccessToken" }, null, null, null, null)
           }));
@@ -837,7 +836,6 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ValidateTokenResponse(ValidateTokenResponse other) : this() {
       isValid_ = other.isValid_;
-      userId_ = other.userId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -862,21 +860,6 @@ namespace Auth {
       }
     }
 
-    /// <summary>Field number for the "userId" field.</summary>
-    public const int UserIdFieldNumber = 2;
-    private string userId_ = "";
-    /// <summary>
-    /// 토큰에 포함된 사용자 ID
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UserId {
-      get { return userId_; }
-      set {
-        userId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -893,7 +876,6 @@ namespace Auth {
         return true;
       }
       if (IsValid != other.IsValid) return false;
-      if (UserId != other.UserId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -902,7 +884,6 @@ namespace Auth {
     public override int GetHashCode() {
       int hash = 1;
       if (IsValid != false) hash ^= IsValid.GetHashCode();
-      if (UserId.Length != 0) hash ^= UserId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -925,10 +906,6 @@ namespace Auth {
         output.WriteRawTag(8);
         output.WriteBool(IsValid);
       }
-      if (UserId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(UserId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -943,10 +920,6 @@ namespace Auth {
         output.WriteRawTag(8);
         output.WriteBool(IsValid);
       }
-      if (UserId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(UserId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -959,9 +932,6 @@ namespace Auth {
       int size = 0;
       if (IsValid != false) {
         size += 1 + 1;
-      }
-      if (UserId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -977,9 +947,6 @@ namespace Auth {
       }
       if (other.IsValid != false) {
         IsValid = other.IsValid;
-      }
-      if (other.UserId.Length != 0) {
-        UserId = other.UserId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1004,10 +971,6 @@ namespace Auth {
             IsValid = input.ReadBool();
             break;
           }
-          case 18: {
-            UserId = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -1029,10 +992,6 @@ namespace Auth {
             break;
           case 8: {
             IsValid = input.ReadBool();
-            break;
-          }
-          case 18: {
-            UserId = input.ReadString();
             break;
           }
         }

@@ -27,7 +27,6 @@ message ValidateTokenRequest {
 // 토큰 검증 응답
 message ValidateTokenResponse {
   bool isValid = 1; // 토큰 유효성 여부
-  string userId = 2; // 토큰에 포함된 사용자 ID
 }
 
 message RefreshTokenRequest {

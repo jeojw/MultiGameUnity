@@ -13,22 +13,45 @@ using Microsoft.AspNetCore;
 
 public class GrpcClientManager : MonoBehaviour
 {
+    private static readonly object lockObj = new object();
+
     private GrpcChannel channel;
     private bool isInitialized = false;
-    public static GrpcClientManager Instance { get; private set; }
+
+    private static GrpcClientManager instance;
+    public static GrpcClientManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                var obj = new GameObject(nameof(GrpcClientManager));
+                instance = obj.AddComponent<GrpcClientManager>();
+                DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
+            }
+            return instance;
+        }
+    }
+    private GrpcClientManager() { }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void CreateInstanceOnGameStart()
+    {
+        // Explicitly ensure the singleton instance is created at game start
+        _ = Instance;
+    }
 
     void Awake()
     {
-        if (Instance == null)
+        if (instance != null && instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            InitializeChannel();
+            Destroy(gameObject); // Prevent duplicate instances
+            return;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        InitializeChannel();
     }
 
     private void InitializeChannel()
@@ -36,7 +59,7 @@ public class GrpcClientManager : MonoBehaviour
         try
         {
             // gRPC 채널 생성
-            channel = GrpcChannel.ForAddress("http://127.0.0.1:80", new GrpcChannelOptions
+            channel = GrpcChannel.ForAddress("http://127.0.0.1:7070", new GrpcChannelOptions
             {
                 HttpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())
             });
@@ -49,31 +72,29 @@ public class GrpcClientManager : MonoBehaviour
         }
     }
 
-    public AuthService.AuthServiceClient GetAuthClient()
+    private T CreateGrpcClient<T>(Func<GrpcChannel, T> clientFactory) where T : class
     {
         if (!isInitialized || channel == null)
         {
-            Debug.LogError("gRPC channel is null. Cannot create AuthServiceClient.");
+            Debug.LogError("gRPC channel is not initialized. Cannot create client.");
             return null;
         }
 
-        return new AuthService.AuthServiceClient(channel);
+        return clientFactory(channel);
+    }
+    public AuthService.AuthServiceClient GetAuthClient()
+    {
+        return CreateGrpcClient(channel => new AuthService.AuthServiceClient(channel));
     }
 
     public MemberService.MemberServiceClient GetMemberClient()
     {
-        if (!isInitialized || channel == null)
-        {
-            Debug.LogError("gRPC channel is null. Cannot create MemberServiceClient.");
-            return null;
-        }
-
-        return new MemberService.MemberServiceClient(channel);
+        return CreateGrpcClient(channel => new MemberService.MemberServiceClient(channel));
     }
 
-    private async void OnDestroy()
+    private void OnDestroy()
     {
-        await DisposeAsync();
+        Task.Run(async () => await DisposeAsync());
     }
 
     private async Task DisposeAsync()

@@ -30,6 +30,7 @@ public class MemberServiceImpl extends MemberServiceGrpc.MemberServiceImplBase {
             member.setUserPassword(encoder.encode(request.getUserPassword()));
             member.setUserNickname(request.getUserNickname());
             member.setProfileName(request.getProfileName());
+            member.setProfileType(request.getProfileType());
             member.setProfileData(request.getProfileData().toByteArray());
             memberRepository.save(member);
 

@@ -1,10 +1,11 @@
-using Grpc.Core;
 using Member;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class MemberServiceManager : MonoBehaviour
 {
+    private static readonly object lockObj = new object();
+
     private MemberService.MemberServiceClient client;
     private static MemberServiceManager instance;
     public static MemberServiceManager Instance
@@ -19,6 +20,13 @@ public class MemberServiceManager : MonoBehaviour
             }
             return instance;
         }
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void CreateInstanceOnGameStart()
+    {
+        // Explicitly ensure the singleton instance is created at game start
+        _ = Instance;
     }
 
     void Awake()

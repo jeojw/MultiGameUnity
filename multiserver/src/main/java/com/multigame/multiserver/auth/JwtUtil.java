@@ -3,21 +3,16 @@ package com.multigame.multiserver.auth;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
+import java.util.UUID;
 
 @Component
 @Log4j2
 public class JwtUtil {
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
-
     @Value("${spring.jwt.secret}")
     private String secretKey;
 
@@ -28,7 +23,8 @@ public class JwtUtil {
     private long refreshExpirationTime;
 
     public String generateAccessToken(String userId) {
-        Claims claims = Jwts.claims().setSubject(userId);
+        Claims claims = Jwts.claims().setSubject(userId)
+                .setId(UUID.randomUUID().toString());
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + accessExpirationTime);
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
@@ -42,26 +38,18 @@ public class JwtUtil {
     }
 
     public String generateRefreshToken(String userId) {
-        Claims claims = Jwts.claims().setSubject(userId);
+        Claims claims = Jwts.claims().setSubject(userId)
+                .setId(UUID.randomUUID().toString());
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + refreshExpirationTime);
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
-        String refreshToken = Jwts.builder()
+        return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expireDate)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
-
-        redisTemplate.opsForValue().set(
-                userId,
-                refreshToken,
-                refreshExpirationTime,
-                TimeUnit.MILLISECONDS
-        );
-
-        return refreshToken;
     }
 
     public String getUserIdFromToken(String token) {

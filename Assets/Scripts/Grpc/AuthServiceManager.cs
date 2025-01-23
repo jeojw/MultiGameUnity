@@ -1,19 +1,48 @@
 using Auth;
-using Grpc.Net.Client;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class AuthServiceManager : MonoBehaviour
 {
+    private static readonly object lockObj = new object();
+
     private AuthService.AuthServiceClient client;
-
     private static AuthServiceManager instance;
-    public static AuthServiceManager Instance => instance ??= new AuthServiceManager();
+    public static AuthServiceManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                var obj = new GameObject(nameof(AuthServiceManager));
+                instance = obj.AddComponent<AuthServiceManager>();
+                DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
+            }
+            return instance;
+        }
+    }
 
-    // Start는 MonoBehaviour에서 초기화를 위한 메서드
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void CreateInstanceOnGameStart()
+    {
+        // Explicitly ensure the singleton instance is created at game start
+        _ = Instance;
+    }
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject); // Prevent duplicate instances
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
-        // 클라이언트 초기화
         client = GrpcClientManager.Instance.GetAuthClient();
     }
 
