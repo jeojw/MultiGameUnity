@@ -16,7 +16,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/member.MemberService/SignUp",
                                 "/member.MemberService/CheckDuplicateId",
-                                "/member.MemberService/CheckDuplicateNickname")
+                                "/member.MemberService/CheckDuplicateNickname",
+                                "/auth.AuthService/SignIn")
                         .permitAll()  // gRPC-Web 요청에 대해 인증 없이 접근 허용
                         .anyRequest()
                         .authenticated()// 다른 모든 요청은 인증 필요

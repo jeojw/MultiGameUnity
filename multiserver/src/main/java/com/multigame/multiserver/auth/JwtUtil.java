@@ -3,6 +3,7 @@ package com.multigame.multiserver.auth;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,9 @@ public class JwtUtil {
 
     @Value("${spring.jwt.token.refresh-expiration-time}")
     private long refreshExpirationTime;
+
+    @Autowired
+    private AESUtil aesUtil;
 
     public String generateAccessToken(String userId) {
         Claims claims = Jwts.claims().setSubject(userId)
@@ -52,7 +56,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String getUserIdFromToken(String token) {
+    public String getUserIdFromToken(String token) throws Exception {
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         try {
@@ -65,19 +69,6 @@ public class JwtUtil {
             return claims.getSubject();
         } catch (JwtException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
-
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
-        } catch (ExpiredJwtException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (JwtException e) {
-            throw new RuntimeException(e.getMessage());
         }
     }
 }

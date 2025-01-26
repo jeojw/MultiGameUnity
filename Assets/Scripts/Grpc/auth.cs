@@ -25,26 +25,23 @@ namespace Auth {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgphdXRoLnByb3RvEgRhdXRoIjUKDVNpZ25JblJlcXVlc3QSDgoGdXNlcklk",
-            "GAEgASgJEhQKDHVzZXJQYXNzd29yZBgCIAEoCSJmCg5TaWduSW5SZXNwb25z",
-            "ZRITCgthY2Nlc3NUb2tlbhgBIAEoCRIUCgxyZWZyZXNoVG9rZW4YAiABKAkS",
-            "FAoMdXNlck5pY2tuYW1lGAMgASgJEhMKC3Byb2ZpbGVEYXRhGAQgASgMIiUK",
-            "FFZhbGlkYXRlVG9rZW5SZXF1ZXN0Eg0KBXRva2VuGAEgASgJIigKFVZhbGlk",
-            "YXRlVG9rZW5SZXNwb25zZRIPCgdpc1ZhbGlkGAEgASgIIisKE1JlZnJlc2hU",
-            "b2tlblJlcXVlc3QSFAoMcmVmcmVzaFRva2VuGAEgASgJIisKFFJlZnJlc2hU",
-            "b2tlblJlc3BvbnNlEhMKC2FjY2Vzc1Rva2VuGAEgASgJMtMBCgtBdXRoU2Vy",
-            "dmljZRIzCgZTaWduSW4SEy5hdXRoLlNpZ25JblJlcXVlc3QaFC5hdXRoLlNp",
-            "Z25JblJlc3BvbnNlEkgKDVZhbGlkYXRlVG9rZW4SGi5hdXRoLlZhbGlkYXRl",
-            "VG9rZW5SZXF1ZXN0GhsuYXV0aC5WYWxpZGF0ZVRva2VuUmVzcG9uc2USRQoM",
-            "UmVmcmVzaFRva2VuEhkuYXV0aC5SZWZyZXNoVG9rZW5SZXF1ZXN0GhouYXV0",
-            "aC5SZWZyZXNoVG9rZW5SZXNwb25zZWIGcHJvdG8z"));
+            "GAEgASgJEhQKDHVzZXJQYXNzd29yZBgCIAEoCSIlCg5TaWduSW5SZXNwb25z",
+            "ZRITCgthY2Nlc3NUb2tlbhgBIAEoCSIQCg5TaWduT3V0UmVxdWVzdCIiCg9T",
+            "aWduT3V0UmVzcG9uc2USDwoHbWVzc2FnZRgBIAEoCSIVChNSZWZyZXNoVG9r",
+            "ZW5SZXF1ZXN0IisKFFJlZnJlc2hUb2tlblJlc3BvbnNlEhMKC2FjY2Vzc1Rv",
+            "a2VuGAEgASgJMsEBCgtBdXRoU2VydmljZRIzCgZTaWduSW4SEy5hdXRoLlNp",
+            "Z25JblJlcXVlc3QaFC5hdXRoLlNpZ25JblJlc3BvbnNlEjYKB1NpZ25PdXQS",
+            "FC5hdXRoLlNpZ25PdXRSZXF1ZXN0GhUuYXV0aC5TaWduT3V0UmVzcG9uc2US",
+            "RQoMUmVmcmVzaFRva2VuEhkuYXV0aC5SZWZyZXNoVG9rZW5SZXF1ZXN0Ghou",
+            "YXV0aC5SZWZyZXNoVG9rZW5SZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Auth.SignInRequest), global::Auth.SignInRequest.Parser, new[]{ "UserId", "UserPassword" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.SignInResponse), global::Auth.SignInResponse.Parser, new[]{ "AccessToken", "RefreshToken", "UserNickname", "ProfileData" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.ValidateTokenRequest), global::Auth.ValidateTokenRequest.Parser, new[]{ "Token" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.ValidateTokenResponse), global::Auth.ValidateTokenResponse.Parser, new[]{ "IsValid" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.RefreshTokenRequest), global::Auth.RefreshTokenRequest.Parser, new[]{ "RefreshToken" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.SignInResponse), global::Auth.SignInResponse.Parser, new[]{ "AccessToken" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.SignOutRequest), global::Auth.SignOutRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.SignOutResponse), global::Auth.SignOutResponse.Parser, new[]{ "Message" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Auth.RefreshTokenRequest), global::Auth.RefreshTokenRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Auth.RefreshTokenResponse), global::Auth.RefreshTokenResponse.Parser, new[]{ "AccessToken" }, null, null, null, null)
           }));
     }
@@ -323,9 +320,6 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public SignInResponse(SignInResponse other) : this() {
       accessToken_ = other.accessToken_;
-      refreshToken_ = other.refreshToken_;
-      userNickname_ = other.userNickname_;
-      profileData_ = other.profileData_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -347,42 +341,6 @@ namespace Auth {
       }
     }
 
-    /// <summary>Field number for the "refreshToken" field.</summary>
-    public const int RefreshTokenFieldNumber = 2;
-    private string refreshToken_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string RefreshToken {
-      get { return refreshToken_; }
-      set {
-        refreshToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "userNickname" field.</summary>
-    public const int UserNicknameFieldNumber = 3;
-    private string userNickname_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UserNickname {
-      get { return userNickname_; }
-      set {
-        userNickname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "profileData" field.</summary>
-    public const int ProfileDataFieldNumber = 4;
-    private pb::ByteString profileData_ = pb::ByteString.Empty;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pb::ByteString ProfileData {
-      get { return profileData_; }
-      set {
-        profileData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -399,9 +357,6 @@ namespace Auth {
         return true;
       }
       if (AccessToken != other.AccessToken) return false;
-      if (RefreshToken != other.RefreshToken) return false;
-      if (UserNickname != other.UserNickname) return false;
-      if (ProfileData != other.ProfileData) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -410,9 +365,6 @@ namespace Auth {
     public override int GetHashCode() {
       int hash = 1;
       if (AccessToken.Length != 0) hash ^= AccessToken.GetHashCode();
-      if (RefreshToken.Length != 0) hash ^= RefreshToken.GetHashCode();
-      if (UserNickname.Length != 0) hash ^= UserNickname.GetHashCode();
-      if (ProfileData.Length != 0) hash ^= ProfileData.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -435,18 +387,6 @@ namespace Auth {
         output.WriteRawTag(10);
         output.WriteString(AccessToken);
       }
-      if (RefreshToken.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(RefreshToken);
-      }
-      if (UserNickname.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(UserNickname);
-      }
-      if (ProfileData.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteBytes(ProfileData);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -461,18 +401,6 @@ namespace Auth {
         output.WriteRawTag(10);
         output.WriteString(AccessToken);
       }
-      if (RefreshToken.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(RefreshToken);
-      }
-      if (UserNickname.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(UserNickname);
-      }
-      if (ProfileData.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteBytes(ProfileData);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -485,15 +413,6 @@ namespace Auth {
       int size = 0;
       if (AccessToken.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AccessToken);
-      }
-      if (RefreshToken.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RefreshToken);
-      }
-      if (UserNickname.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserNickname);
-      }
-      if (ProfileData.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(ProfileData);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -510,15 +429,6 @@ namespace Auth {
       if (other.AccessToken.Length != 0) {
         AccessToken = other.AccessToken;
       }
-      if (other.RefreshToken.Length != 0) {
-        RefreshToken = other.RefreshToken;
-      }
-      if (other.UserNickname.Length != 0) {
-        UserNickname = other.UserNickname;
-      }
-      if (other.ProfileData.Length != 0) {
-        ProfileData = other.ProfileData;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -540,18 +450,6 @@ namespace Auth {
             break;
           case 10: {
             AccessToken = input.ReadString();
-            break;
-          }
-          case 18: {
-            RefreshToken = input.ReadString();
-            break;
-          }
-          case 26: {
-            UserNickname = input.ReadString();
-            break;
-          }
-          case 34: {
-            ProfileData = input.ReadBytes();
             break;
           }
         }
@@ -577,18 +475,6 @@ namespace Auth {
             AccessToken = input.ReadString();
             break;
           }
-          case 18: {
-            RefreshToken = input.ReadString();
-            break;
-          }
-          case 26: {
-            UserNickname = input.ReadString();
-            break;
-          }
-          case 34: {
-            ProfileData = input.ReadBytes();
-            break;
-          }
         }
       }
     }
@@ -597,16 +483,16 @@ namespace Auth {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class ValidateTokenRequest : pb::IMessage<ValidateTokenRequest>
+  public sealed partial class SignOutRequest : pb::IMessage<SignOutRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ValidateTokenRequest> _parser = new pb::MessageParser<ValidateTokenRequest>(() => new ValidateTokenRequest());
+    private static readonly pb::MessageParser<SignOutRequest> _parser = new pb::MessageParser<SignOutRequest>(() => new SignOutRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ValidateTokenRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<SignOutRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -622,7 +508,7 @@ namespace Auth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateTokenRequest() {
+    public SignOutRequest() {
       OnConstruction();
     }
 
@@ -630,48 +516,31 @@ namespace Auth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateTokenRequest(ValidateTokenRequest other) : this() {
-      token_ = other.token_;
+    public SignOutRequest(SignOutRequest other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateTokenRequest Clone() {
-      return new ValidateTokenRequest(this);
-    }
-
-    /// <summary>Field number for the "token" field.</summary>
-    public const int TokenFieldNumber = 1;
-    private string token_ = "";
-    /// <summary>
-    /// 검증할 JWT 토큰
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Token {
-      get { return token_; }
-      set {
-        token_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
+    public SignOutRequest Clone() {
+      return new SignOutRequest(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ValidateTokenRequest);
+      return Equals(other as SignOutRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ValidateTokenRequest other) {
+    public bool Equals(SignOutRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Token != other.Token) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -679,7 +548,6 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Token.Length != 0) hash ^= Token.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -698,10 +566,6 @@ namespace Auth {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Token.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Token);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -712,10 +576,6 @@ namespace Auth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Token.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Token);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -726,9 +586,6 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Token.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -737,12 +594,9 @@ namespace Auth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ValidateTokenRequest other) {
+    public void MergeFrom(SignOutRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.Token.Length != 0) {
-        Token = other.Token;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -763,10 +617,6 @@ namespace Auth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Token = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -786,10 +636,6 @@ namespace Auth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Token = input.ReadString();
-            break;
-          }
         }
       }
     }
@@ -797,20 +643,17 @@ namespace Auth {
 
   }
 
-  /// <summary>
-  /// 토큰 검증 응답
-  /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class ValidateTokenResponse : pb::IMessage<ValidateTokenResponse>
+  public sealed partial class SignOutResponse : pb::IMessage<SignOutResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ValidateTokenResponse> _parser = new pb::MessageParser<ValidateTokenResponse>(() => new ValidateTokenResponse());
+    private static readonly pb::MessageParser<SignOutResponse> _parser = new pb::MessageParser<SignOutResponse>(() => new SignOutResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ValidateTokenResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<SignOutResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -826,7 +669,7 @@ namespace Auth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateTokenResponse() {
+    public SignOutResponse() {
       OnConstruction();
     }
 
@@ -834,48 +677,45 @@ namespace Auth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateTokenResponse(ValidateTokenResponse other) : this() {
-      isValid_ = other.isValid_;
+    public SignOutResponse(SignOutResponse other) : this() {
+      message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateTokenResponse Clone() {
-      return new ValidateTokenResponse(this);
+    public SignOutResponse Clone() {
+      return new SignOutResponse(this);
     }
 
-    /// <summary>Field number for the "isValid" field.</summary>
-    public const int IsValidFieldNumber = 1;
-    private bool isValid_;
-    /// <summary>
-    /// 토큰 유효성 여부
-    /// </summary>
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 1;
+    private string message_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsValid {
-      get { return isValid_; }
+    public string Message {
+      get { return message_; }
       set {
-        isValid_ = value;
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ValidateTokenResponse);
+      return Equals(other as SignOutResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ValidateTokenResponse other) {
+    public bool Equals(SignOutResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (IsValid != other.IsValid) return false;
+      if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -883,7 +723,7 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (IsValid != false) hash ^= IsValid.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -902,9 +742,9 @@ namespace Auth {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (IsValid != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(IsValid);
+      if (Message.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Message);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -916,9 +756,9 @@ namespace Auth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (IsValid != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(IsValid);
+      if (Message.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Message);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -930,8 +770,8 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (IsValid != false) {
-        size += 1 + 1;
+      if (Message.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -941,12 +781,12 @@ namespace Auth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ValidateTokenResponse other) {
+    public void MergeFrom(SignOutResponse other) {
       if (other == null) {
         return;
       }
-      if (other.IsValid != false) {
-        IsValid = other.IsValid;
+      if (other.Message.Length != 0) {
+        Message = other.Message;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -967,8 +807,8 @@ namespace Auth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            IsValid = input.ReadBool();
+          case 10: {
+            Message = input.ReadString();
             break;
           }
         }
@@ -990,8 +830,8 @@ namespace Auth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            IsValid = input.ReadBool();
+          case 10: {
+            Message = input.ReadString();
             break;
           }
         }
@@ -1036,7 +876,6 @@ namespace Auth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public RefreshTokenRequest(RefreshTokenRequest other) : this() {
-      refreshToken_ = other.refreshToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1044,21 +883,6 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public RefreshTokenRequest Clone() {
       return new RefreshTokenRequest(this);
-    }
-
-    /// <summary>Field number for the "refreshToken" field.</summary>
-    public const int RefreshTokenFieldNumber = 1;
-    private string refreshToken_ = "";
-    /// <summary>
-    /// 리프레시 토큰
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string RefreshToken {
-      get { return refreshToken_; }
-      set {
-        refreshToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1076,7 +900,6 @@ namespace Auth {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (RefreshToken != other.RefreshToken) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1084,7 +907,6 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (RefreshToken.Length != 0) hash ^= RefreshToken.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1103,10 +925,6 @@ namespace Auth {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (RefreshToken.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(RefreshToken);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1117,10 +935,6 @@ namespace Auth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (RefreshToken.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(RefreshToken);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1131,9 +945,6 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (RefreshToken.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RefreshToken);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1145,9 +956,6 @@ namespace Auth {
     public void MergeFrom(RefreshTokenRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.RefreshToken.Length != 0) {
-        RefreshToken = other.RefreshToken;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1168,10 +976,6 @@ namespace Auth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            RefreshToken = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -1191,10 +995,6 @@ namespace Auth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            RefreshToken = input.ReadString();
-            break;
-          }
         }
       }
     }
@@ -1202,9 +1002,6 @@ namespace Auth {
 
   }
 
-  /// <summary>
-  /// 리프레시 토큰 응답
-  /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class RefreshTokenResponse : pb::IMessage<RefreshTokenResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE

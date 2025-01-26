@@ -4,7 +4,7 @@ package auth;
 
 service AuthService {
   rpc SignIn(SignInRequest) returns (SignInResponse);
-  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc SignOut(SignOutRequest) returns (SignOutResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
 }
 
@@ -15,25 +15,20 @@ message SignInRequest {
 
 message SignInResponse {
   string accessToken = 1;
-  string refreshToken = 2;
-  string userNickname = 3;
-  bytes profileData = 4;
 }
 
-message ValidateTokenRequest {
-  string token = 1; // 검증할 JWT 토큰
+message SignOutRequest {
+
 }
 
-// 토큰 검증 응답
-message ValidateTokenResponse {
-  bool isValid = 1; // 토큰 유효성 여부
+message SignOutResponse {
+  string message = 1;
 }
 
 message RefreshTokenRequest {
-  string refreshToken = 1; // 리프레시 토큰
+
 }
 
-// 리프레시 토큰 응답
 message RefreshTokenResponse {
   string accessToken = 1; // 새로 생성된 액세스 토큰
 }

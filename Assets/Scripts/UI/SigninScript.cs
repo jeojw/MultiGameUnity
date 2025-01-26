@@ -1,9 +1,6 @@
-using Auth;
+
 using Fusion;
-using Google.Protobuf;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -48,20 +45,14 @@ public class SigninScript : MonoBehaviour
         if (response != null)
         {
             var lobbyManager = LobbyManager.Instance;
+            var authManager = AuthManager.Instance;
 
             PlayerRef playerRef = new PlayerRef();
-            PlayerPrefs.SetString("userNickname", response.UserNickname);
-            PlayerPrefs.SetString("accessToken", response.AccessToken);
-            PlayerPrefs.SetString("refreshToken", response.RefreshToken);
 
-            await lobbyManager.StartLobby();
+            await authManager.SetAccessToken(playerRef, response.AccessToken);
 
-            await lobbyManager.AutoJoinDefaultLobbyAsync(
-                response.AccessToken,
-                response.UserNickname,
-                response.ProfileData,
-                playerRef
-                );
+            await lobbyManager.StartLobbyAsync(response.AccessToken);
+            await lobbyManager.AutoJoinDefaultLobbyAsync(playerRef);
             try
             {
                 SceneManager.LoadScene("RobyScene");

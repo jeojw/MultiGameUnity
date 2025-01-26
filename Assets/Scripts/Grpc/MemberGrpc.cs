@@ -50,6 +50,10 @@ namespace Member {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Member.SignUpResponse> __Marshaller_member_SignUpResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Member.SignUpResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Member.UserInfoRequest> __Marshaller_member_UserInfoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Member.UserInfoRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Member.UserInfoResponse> __Marshaller_member_UserInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Member.UserInfoResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Member.CheckDuplicateIdRequest> __Marshaller_member_CheckDuplicateIdRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Member.CheckDuplicateIdRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Member.CheckDuplicateIdResponse> __Marshaller_member_CheckDuplicateIdResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Member.CheckDuplicateIdResponse.Parser));
@@ -81,6 +85,14 @@ namespace Member {
         "SignUp",
         __Marshaller_member_SignUpRequest,
         __Marshaller_member_SignUpResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Member.UserInfoRequest, global::Member.UserInfoResponse> __Method_UserInfo = new grpc::Method<global::Member.UserInfoRequest, global::Member.UserInfoResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "UserInfo",
+        __Marshaller_member_UserInfoRequest,
+        __Marshaller_member_UserInfoResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Member.CheckDuplicateIdRequest, global::Member.CheckDuplicateIdResponse> __Method_CheckDuplicateId = new grpc::Method<global::Member.CheckDuplicateIdRequest, global::Member.CheckDuplicateIdResponse>(
@@ -142,6 +154,12 @@ namespace Member {
     {
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Member.SignUpResponse> SignUp(global::Member.SignUpRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Member.UserInfoResponse> UserInfo(global::Member.UserInfoRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -230,6 +248,26 @@ namespace Member {
       public virtual grpc::AsyncUnaryCall<global::Member.SignUpResponse> SignUpAsync(global::Member.SignUpRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_SignUp, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Member.UserInfoResponse UserInfo(global::Member.UserInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UserInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Member.UserInfoResponse UserInfo(global::Member.UserInfoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_UserInfo, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Member.UserInfoResponse> UserInfoAsync(global::Member.UserInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UserInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Member.UserInfoResponse> UserInfoAsync(global::Member.UserInfoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_UserInfo, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Member.CheckDuplicateIdResponse CheckDuplicateId(global::Member.CheckDuplicateIdRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
@@ -366,6 +404,7 @@ namespace Member {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_SignUp, serviceImpl.SignUp)
+          .AddMethod(__Method_UserInfo, serviceImpl.UserInfo)
           .AddMethod(__Method_CheckDuplicateId, serviceImpl.CheckDuplicateId)
           .AddMethod(__Method_CheckDuplicateNickname, serviceImpl.CheckDuplicateNickname)
           .AddMethod(__Method_CheckDuplicateNicknameWithToken, serviceImpl.CheckDuplicateNicknameWithToken)
@@ -382,6 +421,7 @@ namespace Member {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, MemberServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_SignUp, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Member.SignUpRequest, global::Member.SignUpResponse>(serviceImpl.SignUp));
+      serviceBinder.AddMethod(__Method_UserInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Member.UserInfoRequest, global::Member.UserInfoResponse>(serviceImpl.UserInfo));
       serviceBinder.AddMethod(__Method_CheckDuplicateId, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Member.CheckDuplicateIdRequest, global::Member.CheckDuplicateIdResponse>(serviceImpl.CheckDuplicateId));
       serviceBinder.AddMethod(__Method_CheckDuplicateNickname, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Member.CheckDuplicateNicknameRequest, global::Member.CheckDuplicateNicknameResponse>(serviceImpl.CheckDuplicateNickname));
       serviceBinder.AddMethod(__Method_CheckDuplicateNicknameWithToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Member.CheckDuplicateNicknameWithTokenRequest, global::Member.CheckDuplicateNicknameWithTokenResponse>(serviceImpl.CheckDuplicateNicknameWithToken));

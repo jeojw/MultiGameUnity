@@ -50,9 +50,9 @@ namespace Auth {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Auth.SignInResponse> __Marshaller_auth_SignInResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Auth.SignInResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Auth.ValidateTokenRequest> __Marshaller_auth_ValidateTokenRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Auth.ValidateTokenRequest.Parser));
+    static readonly grpc::Marshaller<global::Auth.SignOutRequest> __Marshaller_auth_SignOutRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Auth.SignOutRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Auth.ValidateTokenResponse> __Marshaller_auth_ValidateTokenResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Auth.ValidateTokenResponse.Parser));
+    static readonly grpc::Marshaller<global::Auth.SignOutResponse> __Marshaller_auth_SignOutResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Auth.SignOutResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Auth.RefreshTokenRequest> __Marshaller_auth_RefreshTokenRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Auth.RefreshTokenRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -67,12 +67,12 @@ namespace Auth {
         __Marshaller_auth_SignInResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Auth.ValidateTokenRequest, global::Auth.ValidateTokenResponse> __Method_ValidateToken = new grpc::Method<global::Auth.ValidateTokenRequest, global::Auth.ValidateTokenResponse>(
+    static readonly grpc::Method<global::Auth.SignOutRequest, global::Auth.SignOutResponse> __Method_SignOut = new grpc::Method<global::Auth.SignOutRequest, global::Auth.SignOutResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "ValidateToken",
-        __Marshaller_auth_ValidateTokenRequest,
-        __Marshaller_auth_ValidateTokenResponse);
+        "SignOut",
+        __Marshaller_auth_SignOutRequest,
+        __Marshaller_auth_SignOutResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Auth.RefreshTokenRequest, global::Auth.RefreshTokenResponse> __Method_RefreshToken = new grpc::Method<global::Auth.RefreshTokenRequest, global::Auth.RefreshTokenResponse>(
@@ -99,7 +99,7 @@ namespace Auth {
       }
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Auth.ValidateTokenResponse> ValidateToken(global::Auth.ValidateTokenRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Auth.SignOutResponse> SignOut(global::Auth.SignOutRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -160,24 +160,24 @@ namespace Auth {
         return CallInvoker.AsyncUnaryCall(__Method_SignIn, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Auth.ValidateTokenResponse ValidateToken(global::Auth.ValidateTokenRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Auth.SignOutResponse SignOut(global::Auth.SignOutRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ValidateToken(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return SignOut(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Auth.ValidateTokenResponse ValidateToken(global::Auth.ValidateTokenRequest request, grpc::CallOptions options)
+      public virtual global::Auth.SignOutResponse SignOut(global::Auth.SignOutRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_ValidateToken, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_SignOut, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Auth.ValidateTokenResponse> ValidateTokenAsync(global::Auth.ValidateTokenRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Auth.SignOutResponse> SignOutAsync(global::Auth.SignOutRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ValidateTokenAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return SignOutAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Auth.ValidateTokenResponse> ValidateTokenAsync(global::Auth.ValidateTokenRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Auth.SignOutResponse> SignOutAsync(global::Auth.SignOutRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_ValidateToken, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_SignOut, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Auth.RefreshTokenResponse RefreshToken(global::Auth.RefreshTokenRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
@@ -214,7 +214,7 @@ namespace Auth {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_SignIn, serviceImpl.SignIn)
-          .AddMethod(__Method_ValidateToken, serviceImpl.ValidateToken)
+          .AddMethod(__Method_SignOut, serviceImpl.SignOut)
           .AddMethod(__Method_RefreshToken, serviceImpl.RefreshToken).Build();
     }
 
@@ -226,7 +226,7 @@ namespace Auth {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, AuthServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_SignIn, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Auth.SignInRequest, global::Auth.SignInResponse>(serviceImpl.SignIn));
-      serviceBinder.AddMethod(__Method_ValidateToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Auth.ValidateTokenRequest, global::Auth.ValidateTokenResponse>(serviceImpl.ValidateToken));
+      serviceBinder.AddMethod(__Method_SignOut, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Auth.SignOutRequest, global::Auth.SignOutResponse>(serviceImpl.SignOut));
       serviceBinder.AddMethod(__Method_RefreshToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Auth.RefreshTokenRequest, global::Auth.RefreshTokenResponse>(serviceImpl.RefreshToken));
     }
 

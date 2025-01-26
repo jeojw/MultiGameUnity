@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using static Unity.Collections.Unicode;
 
@@ -29,7 +30,6 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
     private NetworkRunner lobbyRunner;
 
     private NetworkEvents networkEvents;
-    private NetworkObject networkObject;
 
     private Texture2D profileImage;
     private string userNickname;
@@ -56,12 +56,14 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
-    public async Task StartLobby()
+    
+    public async Task StartLobbyAsync(string accessToken)
     {
         lobbyRunner = gameObject.AddComponent<NetworkRunner>();
-        lobbyRunner.ProvideInput = false;
+        lobbyRunner.ProvideInput = true;
         networkEvents = gameObject.AddComponent<NetworkEvents>();
+
+        lobbyRunner.AddCallbacks(this);
 
         StartGameArgs startGameArgs = new StartGameArgs
         {
@@ -71,6 +73,7 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
             {
                 { "maxPlayers", maxPlayersPerLobby }
             },
+            ConnectionToken = System.Text.Encoding.UTF8.GetBytes(accessToken),
             SceneManager = lobbyRunner.gameObject.AddComponent<NetworkSceneManagerDefault>()
         };
 
@@ -88,7 +91,7 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
         await Task.Yield();
     }
 
-    public async Task AutoJoinDefaultLobbyAsync(string jwtToken, string nickname, ByteString profileImage, PlayerRef playerRef)
+    public async Task AutoJoinDefaultLobbyAsync(PlayerRef playerRef)
     {
         if (lobbyRunner == null)
         {
@@ -96,6 +99,18 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
         }
 
         OnPlayerJoined(lobbyRunner, playerRef);
+
+        await Task.Yield();
+    }
+
+    public async Task LeftLobbyAsync(PlayerRef player)
+    {
+        if (lobbyRunner == null)
+        {
+            Debug.Log("서버가 존재하지 않습니다.");
+        }
+
+        OnPlayerLeft(lobbyRunner, player);
 
         await Task.Yield();
     }
@@ -112,15 +127,37 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        GameObject playerPrefeb = Resources.Load<GameObject>("Futuristic_soldier");
-        runner.Spawn(playerPrefeb, Vector3.zero, Quaternion.identity, player);
+        GameObject playerPrefab = Resources.Load<GameObject>("LobbyPrefab");
+        var playerObject = runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, player);
+
+        if (playerObject != null)
+        {
+            Debug.Log("Player spawned successfully.");
+
+            if (playerObject.TryGetComponent<NetworkObject>(out var networkObject))
+            {
+                networkObject.AssignInputAuthority(player);
+                Debug.Log("Input authority assigned.");
+            }
+            else
+            {
+                Debug.LogError("NetworkObject component is missing.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Failed to spawn player object.");
+        }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         var playerObject = runner.GetPlayerObject(player);
-        if (playerObject != null)
+        var networkObject = playerObject.GetComponent<NetworkObject>();
+
+        if (networkObject != null)
         {
+            networkObject.RemoveInputAuthority();
             runner.Despawn(playerObject);
         }
     }

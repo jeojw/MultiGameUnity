@@ -5,6 +5,8 @@ package member;
 service MemberService {
   rpc SignUp(SignUpRequest) returns (SignUpResponse);
 
+  rpc UserInfo(UserInfoRequest) returns (UserInfoResponse);
+
   rpc CheckDuplicateId(CheckDuplicateIdRequest) returns (CheckDuplicateIdResponse);
   rpc CheckDuplicateNickname(CheckDuplicateNicknameRequest) returns (CheckDuplicateNicknameResponse);
   rpc CheckDuplicateNicknameWithToken(CheckDuplicateNicknameWithTokenRequest) returns (CheckDuplicateNicknameWithTokenResponse);
@@ -27,6 +29,15 @@ message SignUpResponse {
   string message = 1;
 }
 
+message UserInfoRequest {
+
+}
+
+message UserInfoResponse {
+  string userNickname = 1;
+  bytes profileData = 2;
+}
+
 message CheckDuplicateIdRequest {
   string userId = 1;
 }
@@ -45,8 +56,7 @@ message CheckDuplicateNicknameResponse {
 
 
 message CheckDuplicateNicknameWithTokenRequest {
-  string token = 1;
-  string newNickname = 2;
+  string newNickname = 1;
 }
 
 message CheckDuplicateNicknameWithTokenResponse {
@@ -54,8 +64,8 @@ message CheckDuplicateNicknameWithTokenResponse {
 }
 
 message UpdateProfileRequest {
-  string token = 1; // JWT 토큰
-  string profileName = 2; // 사진 이름
+  string profileName = 1; // 사진 이름
+  string profileType = 2;
   bytes profileData = 3; // 사진 데이터
 }
 
@@ -66,8 +76,7 @@ message UpdateProfileResponse {
 
 // 닉네임 변경 요청
 message UpdateNicknameRequest {
-  string token = 1; // JWT 토큰
-  string userNickname = 2; // 새 닉네임
+  string userNickname = 1; // 새 닉네임
 }
 
 // 닉네임 변경 응답
@@ -77,9 +86,8 @@ message UpdateNicknameResponse {
 
 // 비밀번호 변경 요청
 message UpdatePasswordRequest {
-  string token = 1; // JWT 토큰
-  string oldPassword = 2; // 기존 비밀번호
-  string newPassword = 3; // 새 비밀번호
+  string oldPassword = 1; // 기존 비밀번호
+  string newPassword = 2; // 새 비밀번호
 }
 
 // 비밀번호 변경 응답

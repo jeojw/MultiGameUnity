@@ -1,3 +1,4 @@
+using Grpc.Core;
 using Member;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -67,10 +68,13 @@ public class MemberServiceManager : MonoBehaviour
     {
         var request = new CheckDuplicateNicknameWithTokenRequest
         {
-            Token = token,
             NewNickname = newNickname
         };
-        return await client.CheckDuplicateNicknameWithTokenAsync(request);
+        var header = new Metadata
+        {
+            {"Authorization", $"Bearer {token}"}
+        };
+        return await client.CheckDuplicateNicknameWithTokenAsync(request, header);
     }
 
     public async Task<SignUpResponse> SignUpAsync(
@@ -92,5 +96,14 @@ public class MemberServiceManager : MonoBehaviour
             ProfileName = profileName
         };
         return await client.SignUpAsync(request);
+    }
+    public async Task<UserInfoResponse> UserInfoAsync(string token)
+    {
+        var request = new UserInfoRequest();
+        var header = new Metadata
+        {
+            {"Authorization", $"Bearer {token}"}
+        };
+        return await client.UserInfoAsync(request, header);
     }
 }

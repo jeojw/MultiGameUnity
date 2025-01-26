@@ -1,3 +1,4 @@
+using Fusion;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -18,8 +19,18 @@ public class SessionManager : MonoBehaviour
         }
     }
 
+    private PlayerRef playerRef;
+    private string accessToken;
+
+    private async void Start()
+    {
+        var authManager = AuthManager.Instance;
+        playerRef = authManager.CurrentPlayerRef;
+        accessToken = await authManager.GetAccessToken(playerRef);
+    }
+
     public async Task TransitionToLobby()
     {
-        await LobbyManager.Instance.StartLobby();
+        await LobbyManager.Instance.StartLobbyAsync(accessToken);
     }
 }
