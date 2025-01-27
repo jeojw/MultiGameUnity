@@ -17,7 +17,7 @@ public class LobbyScript : MonoBehaviour
     private PlayerRef playerRef;
     private string accessToken;
     private AuthManager authManager;
-    private LobbyManager lobbyManager;
+    private LobbyServerManager lobbyManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
@@ -28,7 +28,7 @@ public class LobbyScript : MonoBehaviour
 
         var memberServiceManager = MemberServiceManager.Instance;
         var response = await memberServiceManager.UserInfoAsync(accessToken);
-        lobbyManager = LobbyManager.Instance;
+        lobbyManager = LobbyServerManager.Instance;
 
         ByteString byteStringImage = response.ProfileData;
         Byte[] imageBytes = byteStringImage.ToByteArray();
@@ -42,6 +42,11 @@ public class LobbyScript : MonoBehaviour
         profileImage.sprite = sprite;
 
         nickName.text = response.UserNickname;
+    }
+
+    public async void StartMatchmaking()
+    {
+
     }
 
     public async void SignOut()

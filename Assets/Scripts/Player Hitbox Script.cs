@@ -1,6 +1,7 @@
+using Fusion;
 using UnityEngine;
 
-public class PlayerHitboxScript : MonoBehaviour
+public class PlayerHitboxScript : NetworkBehaviour
 {
     private CapsuleCollider capsuleCollider;
     [SerializeField]
@@ -12,36 +13,46 @@ public class PlayerHitboxScript : MonoBehaviour
     private PlayerAnimation playerAnimation; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Spawned()
     {
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        playerAnimation = GetComponent<PlayerAnimation>();
+        base.Spawned();
+
+        if (HasInputAuthority && HasStateAuthority)
+        {
+            capsuleCollider = GetComponent<CapsuleCollider>();
+            playerAnimation = GetComponent<PlayerAnimation>();
+        }
     }
 
     // Update is called once per frame
-    void Update()
+
+    public override void Render()
     {
-        if (playerAnimation.ProneProcedure)
+        base.Render();
+
+        if (HasInputAuthority && HasStateAuthority)
         {
-            capsuleCollider.direction = 1;
-            capsuleCollider.radius = 0.4f;
-            capsuleCollider.height = Vector3.Distance(headSpot.position, rootSpot.position);
-            capsuleCollider.center = new Vector3(0, capsuleCollider.height / 2, 0);
+            if (playerAnimation.ProneProcedure)
+            {
+                capsuleCollider.direction = 1;
+                capsuleCollider.radius = 0.4f;
+                capsuleCollider.height = Vector3.Distance(headSpot.position, rootSpot.position);
+                capsuleCollider.center = new Vector3(0, capsuleCollider.height / 2, 0);
+            }
+            else if (playerAnimation.IsProning)
+            {
+                capsuleCollider.direction = 2;
+                capsuleCollider.radius = 0.5f;
+                capsuleCollider.height = Vector3.Distance(headSpot.position, floorSpot.position);
+                capsuleCollider.center = new Vector3(0, 0.5f, 0);
+            }
+            else
+            {
+                capsuleCollider.direction = 1;
+                capsuleCollider.radius = 0.5f;
+                capsuleCollider.height = Vector3.Distance(headSpot.position, rootSpot.position);
+                capsuleCollider.center = new Vector3(0, capsuleCollider.height / 2, 0);
+            }
         }
-        else if (playerAnimation.IsProning)
-        {
-            capsuleCollider.direction = 2;
-            capsuleCollider.radius = 0.5f;
-            capsuleCollider.height = Vector3.Distance(headSpot.position, floorSpot.position);
-            capsuleCollider.center = new Vector3(0, 0.5f, 0);
-        }
-        else
-        {
-            capsuleCollider.direction = 1;
-            capsuleCollider.radius = 0.5f;
-            capsuleCollider.height = Vector3.Distance(headSpot.position, rootSpot.position);
-            capsuleCollider.center = new Vector3(0, capsuleCollider.height / 2, 0);
-        }
-        
     }
 }

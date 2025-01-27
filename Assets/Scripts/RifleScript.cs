@@ -1,8 +1,9 @@
+using Fusion;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
 
-public class RifleScript : MonoBehaviour
+public class RifleScript : NetworkBehaviour
 {
     [SerializeField]
     private Transform grapSocket;
@@ -30,53 +31,65 @@ public class RifleScript : MonoBehaviour
     private Vector3 targetDirection;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public override void Spawned()
     {
-        playerAnimation = GetComponentInParent<PlayerAnimation>();
-        playerState = GetComponentInParent<PlayerState>();
-        playerControl = GetComponentInParent<PlayerControl>();
-        rifleAnimator = GetComponentInParent<Animator>();
-        shotSound = GetComponent<AudioSource>();
+        base.Spawned();
 
-        transform.localPosition = new Vector3(-0.0786f, 0.3647f, 0.028f);
-        //transform.localRotation = Quaternion.Euler(new Vector3(-109.534f, 204.619f, -24.03302f));
+        if (HasStateAuthority && HasInputAuthority)
+        {
+            playerAnimation = GetComponentInParent<PlayerAnimation>();
+            playerState = GetComponentInParent<PlayerState>();
+            playerControl = GetComponentInParent<PlayerControl>();
+            rifleAnimator = GetComponentInParent<Animator>();
+            shotSound = GetComponent<AudioSource>();
 
-        groundLayer = LayerMask.GetMask("Ground");
+            transform.localPosition = new Vector3(-0.0786f, 0.3647f, 0.028f);
+            //transform.localRotation = Quaternion.Euler(new Vector3(-109.534f, 204.619f, -24.03302f));
+
+            groundLayer = LayerMask.GetMask("Ground");
+        }
     }
 
     // Update is called once per frame
-    void Update()
+
+    public override void Render()
     {
-        if (playerState.ShotPossible)
-        {
-            rifleAnimator.SetBool("isFire", true);
-            Instantiate(bullet, firePosition.transform.position, Quaternion.identity);
-            shotSound.Play();
-        }
-        else
-        {
-            rifleAnimator.SetBool("isFire", false);
-        }
-        
+        base.Render();
 
-        if (playerAnimation.ProneProcedure)
+        if (HasStateAuthority && HasInputAuthority)
         {
-            leftHandIK.weight = 0f;
-        }
-        else
-        {
-            leftHandIK.weight = 1f;
-        }
+            if (playerState.ShotPossible)
+            {
+                rifleAnimator.SetBool("isFire", true);
+                Instantiate(bullet, firePosition.transform.position, Quaternion.identity);
+                shotSound.Play();
+            }
+            else
+            {
+                rifleAnimator.SetBool("isFire", false);
+            }
 
-        Ray ray = new Ray(transform.position, Vector3.down);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
-        {
-            targetDirection = playerControl.PlayerDirection;
-            Vector3 surfaceNormal = hit.normal; // 지면 법선
-            Vector3 zAxisAligned = Vector3.ProjectOnPlane(targetDirection, surfaceNormal).normalized;
+            if (playerAnimation.ProneProcedure)
+            {
+                leftHandIK.weight = 0f;
+            }
+            else
+            {
+                leftHandIK.weight = 1f;
+            }
 
-            transform.rotation = Quaternion.LookRotation(zAxisAligned, surfaceNormal);
+            Ray ray = new Ray(transform.position, Vector3.down);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                targetDirection = playerControl.PlayerDirection;
+                Vector3 surfaceNormal = hit.normal; // 지면 법선
+                Vector3 zAxisAligned = Vector3.ProjectOnPlane(targetDirection, surfaceNormal).normalized;
+
+                transform.rotation = Quaternion.LookRotation(zAxisAligned, surfaceNormal);
+            }
         }
     }
 }

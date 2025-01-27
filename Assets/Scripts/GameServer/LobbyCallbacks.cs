@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkCallbacks : MonoBehaviour, INetworkRunnerCallbacks
+public class LobbyCallbacks : MonoBehaviour, INetworkRunnerCallbacks
 {
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
     {

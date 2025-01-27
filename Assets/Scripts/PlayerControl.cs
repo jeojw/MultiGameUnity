@@ -1,8 +1,9 @@
+using Fusion;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : NetworkBehaviour
 {
     private Rigidbody playerRigidbody;
     private PlayerAnimation playerAnimation;
@@ -107,105 +108,121 @@ public class PlayerControl : MonoBehaviour
         private set { playerDirection = value; }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        playerRigidbody = GetComponent<Rigidbody>();
-        playerAnimation = GetComponent<PlayerAnimation>();
-        playerState = GetComponent<PlayerState>();
 
-        groundMask = LayerMask.GetMask("Ground");
+    public override void Spawned()
+    {
+        base.Spawned();
+        
+        if (HasStateAuthority && HasInputAuthority)
+        {
+            playerRigidbody = GetComponent<Rigidbody>();
+            playerAnimation = GetComponent<PlayerAnimation>();
+            playerState = GetComponent<PlayerState>();
+
+            groundMask = LayerMask.GetMask("Ground");
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Render()
     {
-        if (!playerState.IsDead)
+        base.Render();
+
+        if (HasStateAuthority && HasInputAuthority)
         {
-            IsGrounded = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, groundMask);
-
-            if ((Input.GetKey(KeyCode.W) ||
-                 Input.GetKey(KeyCode.A) ||
-                 Input.GetKey(KeyCode.S) ||
-                 Input.GetKey(KeyCode.D)) &&
-                !IsProning && !playerAnimation.ProneProcedure)
+            if (!playerState.IsDead)
             {
-                IsMoving = true;
-                IsWalking = true;
-            }
-            else
-            {
-                IsMoving = false;
-                IsWalking = false;
-                moveDirection = Vector3.zero;
-            }
+                IsGrounded = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, groundMask);
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                moveDirection = -transform.forward;
-            }
+                if ((Input.GetKey(KeyCode.W) ||
+                     Input.GetKey(KeyCode.A) ||
+                     Input.GetKey(KeyCode.S) ||
+                     Input.GetKey(KeyCode.D)) &&
+                    !IsProning && !playerAnimation.ProneProcedure)
+                {
+                    IsMoving = true;
+                    IsWalking = true;
+                }
+                else
+                {
+                    IsMoving = false;
+                    IsWalking = false;
+                    moveDirection = Vector3.zero;
+                }
 
-            if (Input.GetKey(KeyCode.A))
-            {
-                moveDirection = transform.right;
-            }
+                if (Input.GetKey(KeyCode.W))
+                {
+                    moveDirection = -transform.forward;
+                }
 
-            if (Input.GetKey(KeyCode.S))
-            {
-                moveDirection = transform.forward;
-            }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    moveDirection = transform.right;
+                }
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                moveDirection = -transform.right;
-            }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    moveDirection = transform.forward;
+                }
+
+                if (Input.GetKey(KeyCode.D))
+                {
+                    moveDirection = -transform.right;
+                }
 
 
-            IsJumping = !IsGrounded;
+                IsJumping = !IsGrounded;
 
-            IsCrouching = Input.GetKey(KeyCode.LeftShift);
+                IsCrouching = Input.GetKey(KeyCode.LeftShift);
 
-            IsProning = Input.GetKey(KeyCode.Tab);
+                IsProning = Input.GetKey(KeyCode.Tab);
 
-            IsAiming = Input.GetMouseButton(1);
+                IsAiming = Input.GetMouseButton(1);
 
-            _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
+                _tryJump = IsGrounded && !IsCrouching && !IsProning && Input.GetKeyDown(KeyCode.Space);
 
-            IsFire = IsAiming && Input.GetMouseButton(0);
+                IsFire = IsAiming && Input.GetMouseButton(0);
 
-            if (IsWalking && !IsCrouching && Input.GetKey(KeyCode.CapsLock))
-            {
-                IsRunning = true;
-            }
+                if (IsWalking && !IsCrouching && Input.GetKey(KeyCode.CapsLock))
+                {
+                    IsRunning = true;
+                }
 
-            else if (IsMoving && !Input.GetKey(KeyCode.CapsLock))
-            {
-                IsRunning = false;
+                else if (IsMoving && !Input.GetKey(KeyCode.CapsLock))
+                {
+                    IsRunning = false;
+                }
             }
         }
     }
 
-    void FixedUpdate()
+    public override void FixedUpdateNetwork()
     {
-        if (!playerState.IsDead)
+        base.FixedUpdateNetwork();
+
+        if (HasStateAuthority && HasInputAuthority)
         {
-            if (moveDirection != Vector3.zero && IsMoving)
+            if (!playerState.IsDead)
             {
-                Vector3 newPosition = Vector3.MoveTowards(transform.position,
-                                                           transform.position + moveDirection * 1000.0f,
-                                                            Time.fixedDeltaTime * MoveSpeed);
+                if (moveDirection != Vector3.zero && IsMoving)
+                {
+                    Vector3 newPosition = Vector3.MoveTowards(transform.position,
+                                                               transform.position + moveDirection * 1000.0f,
+                                                                Time.fixedDeltaTime * MoveSpeed);
 
-                playerRigidbody.MovePosition(newPosition);
-            }
+                    playerRigidbody.MovePosition(newPosition);
+                }
 
-            float mouseX = Input.GetAxis("Mouse X") * 4f;
+                float mouseX = Input.GetAxis("Mouse X") * 4f;
 
-            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y + mouseX, 0f);
-            PlayerDirection = Quaternion.Euler(0, mouseX, 0) * -transform.forward;
+                transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y + mouseX, 0f);
+                PlayerDirection = Quaternion.Euler(0, mouseX, 0) * -transform.forward;
 
-            if (_tryJump)
-            {
-                playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-                _tryJump = false;
+                if (_tryJump)
+                {
+                    playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+                    _tryJump = false;
+                }
             }
         }
     }

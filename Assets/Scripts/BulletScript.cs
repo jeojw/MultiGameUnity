@@ -1,7 +1,8 @@
+using Fusion;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class BulletScript : MonoBehaviour
+public class BulletScript : NetworkBehaviour
 {
     private BoxCollider bulletHitbox;
     private Rigidbody rb;
@@ -18,15 +19,20 @@ public class BulletScript : MonoBehaviour
         get { return damage; }
         private set { damage = value; }
     }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        bulletHitbox = GetComponent<BoxCollider>();
-        rb = GetComponent<Rigidbody>();
-        groundLayer = LayerMask.GetMask("Ground");
-    }
 
+
+    public override void Spawned()
+    {
+        base.Spawned();
+
+        if (HasInputAuthority && HasStateAuthority)
+        {
+            bulletHitbox = GetComponent<BoxCollider>();
+            rb = GetComponent<Rigidbody>();
+            groundLayer = LayerMask.GetMask("Ground");
+        }
+    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -37,21 +43,24 @@ public class BulletScript : MonoBehaviour
     }
     // Update is called once per frame
 
-    void Update()
+    public override void FixedUpdateNetwork()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
+        base.FixedUpdateNetwork();
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
+        if (HasInputAuthority && HasStateAuthority)
         {
-            targetDirection = playerControl.PlayerDirection;
-            Vector3 surfaceNormal = hit.normal; // 지면 법선
-            Vector3 zAxisAligned = Vector3.ProjectOnPlane(targetDirection, surfaceNormal).normalized;
+            Ray ray = new Ray(transform.position, Vector3.down);
 
-            transform.rotation = Quaternion.LookRotation(zAxisAligned, surfaceNormal);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                targetDirection = playerControl.PlayerDirection;
+                Vector3 surfaceNormal = hit.normal; // 지면 법선
+                Vector3 zAxisAligned = Vector3.ProjectOnPlane(targetDirection, surfaceNormal).normalized;
+
+                transform.rotation = Quaternion.LookRotation(zAxisAligned, surfaceNormal);
+            }
+
+            rb.AddForce(playerControl.PlayerDirection * speed, ForceMode.Impulse);
         }
-    }
-    void FixedUpdate()
-    {
-        rb.AddForce(playerControl.PlayerDirection * speed, ForceMode.Impulse);
     }
 }

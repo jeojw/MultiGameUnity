@@ -1,6 +1,7 @@
+using Fusion;
 using UnityEngine;
 
-public class PlayerState : MonoBehaviour
+public class PlayerState : NetworkBehaviour
 {
     private PlayerHitboxScript playerHitboxScript;
     private PlayerControl playerControl;
@@ -41,10 +42,16 @@ public class PlayerState : MonoBehaviour
         private set { isDead = value; }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public override void Spawned()
     {
-        playerHitboxScript = GetComponent<PlayerHitboxScript>();
-        playerControl = GetComponent<PlayerControl>();
+        base.Spawned();
+
+        if (HasStateAuthority && HasInputAuthority)
+        {
+            playerHitboxScript = GetComponent<PlayerHitboxScript>();
+            playerControl = GetComponent<PlayerControl>();
+        }
     }
 
     void CalculateGunCoolDown()
@@ -74,12 +81,16 @@ public class PlayerState : MonoBehaviour
         hp -= damage;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Render()
     {
-        if (!(IsDead = hp < 0))
+        base.Render();
+
+        if (HasStateAuthority && HasInputAuthority)
         {
-            CalculateGunCoolDown();
+            if (!(IsDead = hp < 0))
+            {
+                CalculateGunCoolDown();
+            }
         }
     }
 }

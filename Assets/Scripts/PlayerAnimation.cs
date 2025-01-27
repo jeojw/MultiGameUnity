@@ -1,6 +1,7 @@
+using Fusion;
 using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : NetworkBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -57,13 +58,18 @@ public class PlayerAnimation : MonoBehaviour
         get { return isFire; }
         private set { isFire = value; }
     }
-    void Start()
-    {
-        playerAnimator = GetComponent<Animator>();
-        playerControl = GetComponent<PlayerControl>();
-        playerState = GetComponent<PlayerState>();
-    }
 
+    public override void Spawned()
+    {
+        base.Spawned();
+
+        if (HasInputAuthority && HasStateAuthority)
+        {
+            playerAnimator = GetComponent<Animator>();
+            playerControl = GetComponent<PlayerControl>();
+            playerState = GetComponent<PlayerState>();
+        }
+    }
     void Walk(Vector2 dir)
     {
         playerAnimator.SetFloat("Horizontal", dir.x);
@@ -77,54 +83,58 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetBool("isFire", IsFire);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public override void Render()
     {
-        if (!playerState.IsDead)
+        base.Render();
+
+        if (HasInputAuthority && HasStateAuthority)
         {
-            Vector2 dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            Walk(dir);
-
-            crouchProcedure = (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Crouch State.Stand_to_Crouch_Rifle_Ironsights") ||
-                playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Crouch State.Crouch_to_Stand_Rifle_Ironsights")) &&
-                playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
-            playerAnimator.SetBool("isCrouching", playerControl.IsCrouching);
-            IsCrouching = playerControl.IsCrouching && !crouchProcedure;
-
-            proneProcedure = (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Prone State.Stand_To_Prone") ||
-                playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Prone State.Prone_To_Stand")) &&
-                playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
-            playerAnimator.SetBool("isProning", playerControl.IsProning);
-            IsProning = playerControl.IsProning && !proneProcedure;
-
-
-            playerAnimator.SetBool("isRunning", playerControl.IsRunning);
-            playerAnimator.SetBool("isJumping", playerControl.IsJumping);
-
-            if (playerControl.IsAiming)
+            if (!playerState.IsDead)
             {
-                Fire();
+                Vector2 dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                Walk(dir);
+
+                crouchProcedure = (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Crouch State.Stand_to_Crouch_Rifle_Ironsights") ||
+                    playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Crouch State.Crouch_to_Stand_Rifle_Ironsights")) &&
+                    playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+                playerAnimator.SetBool("isCrouching", playerControl.IsCrouching);
+                IsCrouching = playerControl.IsCrouching && !crouchProcedure;
+
+                proneProcedure = (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Prone State.Stand_To_Prone") ||
+                    playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Prone State.Prone_To_Stand")) &&
+                    playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+                playerAnimator.SetBool("isProning", playerControl.IsProning);
+                IsProning = playerControl.IsProning && !proneProcedure;
+
+
+                playerAnimator.SetBool("isRunning", playerControl.IsRunning);
+                playerAnimator.SetBool("isJumping", playerControl.IsJumping);
+
+                if (playerControl.IsAiming)
+                {
+                    Fire();
+                }
+                else
+                {
+                    playerAnimator.SetBool("isFire", false);
+                }
+
+                if (IsProning || !isFire)
+                {
+                    playerAnimator.SetLayerWeight(1, 0);
+                }
+                else if (!IsProning && isFire)
+                {
+                    playerAnimator.SetLayerWeight(1, 1);
+                }
             }
             else
             {
-                playerAnimator.SetBool("isFire", false);
+                //if (IsProning)
+                //{
+                //    playerAnimator.
+                //}
             }
-
-            if (IsProning || !isFire)
-            {
-                playerAnimator.SetLayerWeight(1, 0);
-            }
-            else if (!IsProning && isFire)
-            {
-                playerAnimator.SetLayerWeight(1, 1);
-            }
-        }
-        else
-        {
-            //if (IsProning)
-            //{
-            //    playerAnimator.
-            //}
         }
     }
 }

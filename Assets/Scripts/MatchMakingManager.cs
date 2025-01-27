@@ -1,32 +1,39 @@
 using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
+using System.Collections.Generic;
+using System.Collections;
 
-public class MatchMakingManager : MonoBehaviour
+public class MatchMakingManager : NetworkBehaviour
 {
-    private NetworkRunner networkRunner;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private static readonly List<NetworkRunner> playerQueue = new List<NetworkRunner>();
+    public void StartMatchmaking(NetworkRunner runner)
     {
-        StartMatchmaking();
-    }
-
-    async void StartMatchmaking()
-    {
-        networkRunner = gameObject.AddComponent<NetworkRunner>();
-        networkRunner.ProvideInput = true;
-
-        var result = await networkRunner.StartGame(new StartGameArgs
+        if (runner.IsServer)
         {
-            GameMode = GameMode.AutoHostOrClient,
-            SessionName = "QuickMatchRoom",
-            SceneManager = networkRunner.GetComponent<NetworkSceneManagerDefault>()
-        });
+            playerQueue.Add(runner);
+
+            if (playerQueue.Count >= 2)
+            {
+                StartGame();
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void StartGame()
     {
-        
+        List<NetworkRunner> playersToStartGame = new List<NetworkRunner>(playerQueue);
+        playerQueue.Clear();
+
+        foreach (NetworkRunner player in playersToStartGame)
+        {
+            StartCoroutine(LoadGameScene(player));
+        }
+    }
+
+    private IEnumerator LoadGameScene(NetworkRunner player)
+    {
+        yield return new WaitForSeconds(1f);
+        player.GetComponent<NetworkRunner>().LoadScene("MainScene");
     }
 }

@@ -2996,7 +2996,13 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 8041490095557592381}
+  - {fileID: 7288367667570884259}
+  - {fileID: 2336264816537303282}
+  - {fileID: 2281847974380675951}
+  - {fileID: 3239317943584449265}
+  - {fileID: 961908669666838129}
   ForceRemoteRenderTimeframe: 0
 --- !u!4 &7589266703259996887 stripped
 Transform:

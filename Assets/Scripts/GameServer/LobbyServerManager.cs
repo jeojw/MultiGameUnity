@@ -10,17 +10,17 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using static Unity.Collections.Unicode;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyServerManager : MonoBehaviour
 {
-    private static LobbyManager instance;
-    public static LobbyManager Instance
+    private static LobbyServerManager instance;
+    public static LobbyServerManager Instance
     {
         get
         {
             if (instance == null)
             {
-                var obj = new GameObject(nameof(LobbyManager));
-                instance = obj.AddComponent<LobbyManager>();
+                var obj = new GameObject(nameof(LobbyServerManager));
+                instance = obj.AddComponent<LobbyServerManager>();
                 DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
             }
             return instance;
@@ -28,7 +28,7 @@ public class LobbyManager : MonoBehaviour
     }
 
     private NetworkRunner lobbyRunner;
-    private NetworkCallbacks networkCallbacks;
+    private LobbyCallbacks networkCallbacks;
 
     private Texture2D profileImage;
     private string userNickname;
@@ -58,7 +58,7 @@ public class LobbyManager : MonoBehaviour
         lobbyRunner = gameObject.AddComponent<NetworkRunner>();
         lobbyRunner.ProvideInput = true;
 
-        networkCallbacks = gameObject.AddComponent<NetworkCallbacks>();
+        networkCallbacks = gameObject.AddComponent<LobbyCallbacks>();
         lobbyRunner.AddCallbacks(networkCallbacks);
     }
     
