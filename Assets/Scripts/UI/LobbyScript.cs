@@ -16,16 +16,19 @@ public class LobbyScript : MonoBehaviour
 
     private PlayerRef playerRef;
     private string accessToken;
+    private AuthManager authManager;
+    private LobbyManager lobbyManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
-        var authManager = AuthManager.Instance;
+        authManager = AuthManager.Instance;
         playerRef = authManager.CurrentPlayerRef;
         accessToken = await authManager.GetAccessToken(playerRef);
 
         var memberServiceManager = MemberServiceManager.Instance;
         var response = await memberServiceManager.UserInfoAsync(accessToken);
+        lobbyManager = LobbyManager.Instance;
 
         ByteString byteStringImage = response.ProfileData;
         Byte[] imageBytes = byteStringImage.ToByteArray();
@@ -49,17 +52,8 @@ public class LobbyScript : MonoBehaviour
 
         if (response != null)
         {
-            try
-            {
-                var lobbyManager = LobbyManager.Instance;
-                await lobbyManager.LeftLobbyAsync(playerRef);
-
-                SceneManager.LoadScene("SigninScene");
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"씬 로드 실패: {ex.Message}");
-            }
+            SceneManager.LoadScene("SigninScene");
+            await lobbyManager.ShutDownLobbyAsync();
         }
     }
 
@@ -71,16 +65,8 @@ public class LobbyScript : MonoBehaviour
 
         if (response != null)
         {
-            var lobbyManager = LobbyManager.Instance;
-            await lobbyManager.LeftLobbyAsync(playerRef);
-
+            await lobbyManager.ShutDownLobbyAsync();
             Application.Quit();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

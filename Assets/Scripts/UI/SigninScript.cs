@@ -47,12 +47,8 @@ public class SigninScript : MonoBehaviour
             var lobbyManager = LobbyManager.Instance;
             var authManager = AuthManager.Instance;
 
-            PlayerRef playerRef = new PlayerRef();
-
-            await authManager.SetAccessToken(playerRef, response.AccessToken);
-
             await lobbyManager.StartLobbyAsync(response.AccessToken);
-            await lobbyManager.AutoJoinDefaultLobbyAsync(playerRef);
+
             try
             {
                 SceneManager.LoadScene("RobyScene");

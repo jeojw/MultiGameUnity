@@ -54,7 +54,10 @@ public class AuthManager : MonoBehaviour
     public async Task RemoveAccessToken(PlayerRef playerRef)
     {
         playerTokens.Remove(playerRef);
-        currentPlayerRef = PlayerRef.None;
+        if (currentPlayerRef == playerRef)
+        {
+            currentPlayerRef = PlayerRef.None;
+        }
 
         await Task.Yield();
     }
