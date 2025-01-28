@@ -13,6 +13,8 @@ public class LobbyScript : MonoBehaviour
     private Image profileImage;
     [SerializeField]
     private TextMeshProUGUI nickName;
+    [SerializeField]
+    private GameObject createRoomPopup;
 
     private PlayerRef playerRef;
     private string accessToken;
@@ -47,6 +49,11 @@ public class LobbyScript : MonoBehaviour
     public async void StartMatchmaking()
     {
 
+    }
+
+    public void CreateRoom()
+    {
+        createRoomPopup.gameObject.SetActive(true);
     }
 
     public async void SignOut()

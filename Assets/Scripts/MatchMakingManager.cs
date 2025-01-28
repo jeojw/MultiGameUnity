@@ -4,7 +4,7 @@ using Fusion.Sockets;
 using System.Collections.Generic;
 using System.Collections;
 
-public class MatchMakingManager : NetworkBehaviour
+public class MatchMakingManager : MonoBehaviour
 {
     private static readonly List<NetworkRunner> playerQueue = new List<NetworkRunner>();
     public void StartMatchmaking(NetworkRunner runner)

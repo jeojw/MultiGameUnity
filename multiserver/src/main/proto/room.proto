@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package room;
+
+service RoomService {
+  rpc GetRoomInfo(GetRoomInfoRequest) returns (GetRoomInfoResponse);
+  rpc GetRoomInfoList(GetRoomInfoListRequest) returns (GetRoomInfoListResponse);
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse);
+  rpc JoinRoom(JoinRoomRequest) returns (JoinRoomResponse);
+  rpc JoinRoomWithPassword(JoinRoomWithPasswordRequest) returns (JoinRoomWithPasswordResponse);
+  rpc ChangeRoomInfo(ChangeRoomInfoRequest) returns (ChangeRoomInfoResponse);
+  rpc ExileUser(ExileUserRequest) returns (ExileUserResponse);
+  rpc ChangeRoomStatus(ChangeRoomStatusRequest) returns (ChangeRoomStatusResponse);
+  rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse);
+  rpc ChangeRoomManager(ChangeRoomManagerRequest) returns (ChangeRoomManagerResponse);
+}
+
+message RoomInfo {
+  string roomId = 1;
+  string roomTitle = 2;
+  int32 curPlayers = 3;
+  int32 maxPlayers = 4;
+  bool isExistPassword = 5;
+  string roomPassword = 6;
+  int32 roomStatus = 7;
+  string roomManager = 8;
+}
+
+message GetRoomInfoRequest {
+  string roomId = 1;
+}
+
+message GetRoomInfoResponse {
+  RoomInfo roomInfo = 1;
+}
+
+message GetRoomInfoListRequest {
+
+}
+
+message GetRoomInfoListResponse {
+  repeated RoomInfo rooms = 1;
+}
+
+message CreateRoomRequest {
+  string roomId = 1;
+  string roomTitle = 2;
+  int32 maxPlayer = 3;
+  bool isExistPassword = 4;
+  string roomPassword = 5;
+  int32 roomStatus = 6;
+  string roomManager = 7;
+}
+
+message CreateRoomResponse {
+  string message = 1;
+}
+
+message JoinRoomRequest {
+  string roomId = 1;
+}
+
+message JoinRoomResponse {
+  string message = 1;
+}
+
+message JoinRoomWithPasswordRequest {
+  string roomId = 1;
+  string roomPassword = 2;
+}
+
+message JoinRoomWithPasswordResponse {
+  string message = 1;
+}
+
+message ChangeRoomInfoRequest {
+  string roomId = 1;
+  string roomTitle = 2;
+  int32 maxPlayer = 3;
+  bool isExistPassword = 4;
+  string roomPassword = 5;
+}
+
+message ChangeRoomInfoResponse {
+  string message = 1;
+}
+
+message ExileUserRequest {
+  string roomId = 1;
+  string userAccessToken = 2;
+}
+
+message ExileUserResponse {
+  string message = 1;
+}
+
+message ChangeRoomStatusRequest {
+  string roomId = 1;
+  int32 changeRoomStatus = 2;
+}
+
+message ChangeRoomStatusResponse {
+  string message = 1;
+}
+
+message DeleteRoomRequest {
+  string roomId = 1;
+}
+
+message DeleteRoomResponse {
+  string message = 1;
+}
+
+message ChangeRoomManagerRequest {
+  string roomId = 1;
+  string currentRoomManager = 2;
+  string newRoomManager = 3;
+}
+
+message ChangeRoomManagerResponse {
+  string message = 1;
+}

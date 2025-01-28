@@ -54,6 +54,8 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
             redisUtil.saveRefreshToken(request.getUserId(), refreshToken, refreshExpirationTime);
 
+            memberRepository.updateMemberStatus(1, request.getUserId());
+
             Auth.SignInResponse response = Auth.SignInResponse.newBuilder()
                     .setAccessToken(accessToken)
                     .build();
@@ -71,6 +73,8 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         String userId = getUserIdContextKey().get(context);
 
         redisUtil.deleteRefreshToken(userId);
+
+        memberRepository.updateMemberStatus(-1, userId);
 
         Auth.SignOutResponse response = Auth.SignOutResponse.newBuilder()
                 .setMessage("Logout Success!")

@@ -66,7 +66,7 @@ public class LobbyServerManager : MonoBehaviour
     {
         StartGameArgs startGameArgs = new StartGameArgs
         {
-            GameMode = GameMode.Host,
+            GameMode = GameMode.Shared,
             SessionName = defaultLobbyName,
             SessionProperties = new Dictionary<string, SessionProperty>
             {

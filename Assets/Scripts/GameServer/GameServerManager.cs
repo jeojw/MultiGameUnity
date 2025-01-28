@@ -54,19 +54,19 @@ public class GameServerManager : MonoBehaviour
         gameRunner.AddCallbacks(networkCallbacks);
     }
 
-    private async void Start()
-    {
-        StartGameArgs startGameArgs = new StartGameArgs
-        {
-            GameMode = GameMode.Host,
-            SessionName = SystemInfo.deviceUniqueIdentifier,
-            SessionProperties = new Dictionary<string, SessionProperty>
-            {
-                { "maxPlayers", maxPlayersPerLobby }
-            },
-            SceneManager = gameRunner.gameObject.AddComponent<NetworkSceneManagerDefault>()
-        };
+    //private async void Start()
+    //{
+    //    StartGameArgs startGameArgs = new StartGameArgs
+    //    {
+    //        GameMode = GameMode.Host,
+    //        SessionName = SystemInfo.deviceUniqueIdentifier,
+    //        SessionProperties = new Dictionary<string, SessionProperty>
+    //        {
+    //            { "maxPlayers", maxPlayersPerLobby }
+    //        },
+    //        SceneManager = gameRunner.gameObject.AddComponent<NetworkSceneManagerDefault>()
+    //    };
 
-        var result = await gameRunner.StartGame(startGameArgs);
-    }
+    //    var result = await gameRunner.StartGame(startGameArgs);
+    //}
 }

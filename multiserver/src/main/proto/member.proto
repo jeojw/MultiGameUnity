@@ -36,6 +36,7 @@ message UserInfoRequest {
 message UserInfoResponse {
   string userNickname = 1;
   bytes profileData = 2;
+  int32 userStatus = 3;
 }
 
 message CheckDuplicateIdRequest {
@@ -64,33 +65,28 @@ message CheckDuplicateNicknameWithTokenResponse {
 }
 
 message UpdateProfileRequest {
-  string profileName = 1; // 사진 이름
+  string profileName = 1;
   string profileType = 2;
-  bytes profileData = 3; // 사진 데이터
+  bytes profileData = 3;
 }
 
-// 사진 업데이트 응답
 message UpdateProfileResponse {
-  string message = 1; // 상태 메시지
+  string message = 1;
 }
 
-// 닉네임 변경 요청
 message UpdateNicknameRequest {
-  string userNickname = 1; // 새 닉네임
+  string userNickname = 1;
 }
 
-// 닉네임 변경 응답
 message UpdateNicknameResponse {
-  string message = 1; // 상태 메시지
+  string message = 1;
 }
 
-// 비밀번호 변경 요청
 message UpdatePasswordRequest {
-  string oldPassword = 1; // 기존 비밀번호
-  string newPassword = 2; // 새 비밀번호
+  string oldPassword = 1;
+  string newPassword = 2;
 }
 
-// 비밀번호 변경 응답
 message UpdatePasswordResponse {
-  string message = 1; // 상태 메시지
+  string message = 1;
 }
