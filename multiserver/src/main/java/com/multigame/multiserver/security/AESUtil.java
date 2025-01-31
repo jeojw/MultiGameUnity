@@ -1,7 +1,6 @@
-package com.multigame.multiserver.auth;
+package com.multigame.multiserver.security;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;

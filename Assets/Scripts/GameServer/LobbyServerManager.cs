@@ -1,14 +1,7 @@
 using Fusion;
-using Fusion.Sockets;
-using Google.Protobuf;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using static Unity.Collections.Unicode;
 
 public class LobbyServerManager : MonoBehaviour
 {
@@ -19,9 +12,9 @@ public class LobbyServerManager : MonoBehaviour
         {
             if (instance == null)
             {
-                var obj = new GameObject(nameof(LobbyServerManager));
+                GameObject obj = new GameObject("LobbyServerManager");
                 instance = obj.AddComponent<LobbyServerManager>();
-                DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
+                DontDestroyOnLoad(obj);
             }
             return instance;
         }
@@ -29,39 +22,28 @@ public class LobbyServerManager : MonoBehaviour
 
     private NetworkRunner lobbyRunner;
     private LobbyCallbacks networkCallbacks;
+    private RoomServiceManager roomServiceManager;
+    private FusionServerServiceManager fusionServerServiceManager;
 
     private Texture2D profileImage;
     private string userNickname;
-    private string accessToken;
+    private string serverAccessToken;
 
-    private string defaultLobbyName = "Lobby"; // 기본 로비 이름
+    private string defaultLobbyName = "Lobby";
     private int maxPlayersPerLobby = 200;
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void CreateInstanceOnGameStart()
-    {
-        // Explicitly ensure the singleton instance is created at game start
-        _ = Instance;
-    }
 
     private void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        roomServiceManager = ServiceInitializer.Instance.GetRoomServiceManager();
+        fusionServerServiceManager = ServiceInitializer.Instance.GetFusionServerServiceManager();
 
         lobbyRunner = gameObject.AddComponent<NetworkRunner>();
         lobbyRunner.ProvideInput = true;
 
-        networkCallbacks = gameObject.AddComponent<LobbyCallbacks>();
+        networkCallbacks = new LobbyCallbacks();
         lobbyRunner.AddCallbacks(networkCallbacks);
     }
-    
+
     public async Task StartLobbyAsync(string accessToken)
     {
         StartGameArgs startGameArgs = new StartGameArgs
@@ -90,11 +72,35 @@ public class LobbyServerManager : MonoBehaviour
 
         await Task.Yield();
     }
-
     public async Task ShutDownLobbyAsync()
     {
         await lobbyRunner.Shutdown();
 
         await Task.Yield();
+    }
+
+    public async Task UpdateRoomList()
+    {
+        //foreach (var session in activeSessions)
+        //{
+        //    var roomInfo = new RoomInfo
+        //    {
+        //        roomId = session.Name,
+        //        roomName = session.Properties.,
+        //        maxPlayers = session.Properties.GetInt("maxPlayers", 0),
+        //        currentPlayers = session.PlayerCount,
+        //        hasPassword = session.Properties,
+        //        roomPassword = session.Properties,
+        //        roomManager = session.Properties,
+        //        roomStatus = session.Properties
+        //    };
+
+        //    if (roomCache.ContainsKey(session.Name))
+        //        roomCache[session.Name] = roomInfo;
+        //    else
+        //        roomCache.Add(session.Name, roomInfo);
+        //}
+
+        //await Task.Yield();
     }
 }

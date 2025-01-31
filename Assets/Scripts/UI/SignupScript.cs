@@ -19,11 +19,13 @@ public class SignupScript : MonoBehaviour
     private string nicknameValue;
     private string pwValue;
 
+    private MemberServiceManager memberServiceManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         idField.Select();
-        
+        memberServiceManager = ServiceInitializer.Instance.GetMemberServiceManager();
     }
 
     public void IdInputValueChange(TMP_InputField id)
@@ -48,8 +50,6 @@ public class SignupScript : MonoBehaviour
             return;
         }
 
-        var memberServiceManager = MemberServiceManager.Instance;
-
         var response = await memberServiceManager.CheckDuplicateIdAsync(idValue);
 
         isIdDuplicate = response.IsIdDuplicate;
@@ -62,8 +62,6 @@ public class SignupScript : MonoBehaviour
         {
             return;
         }
-
-        var memberServiceManager = MemberServiceManager.Instance;
 
         var response = await memberServiceManager.CheckDuplicateNicknameAsync(nicknameValue);
 
@@ -97,7 +95,7 @@ public class SignupScript : MonoBehaviour
 
         ByteString byteStringImage = ByteString.CopyFrom(imageBytes);
 
-        var response = await MemberServiceManager.Instance.SignUpAsync(idValue, pwValue, nicknameValue, "default", "jpg", byteStringImage);
+        var response = await memberServiceManager.SignUpAsync(idValue, pwValue, nicknameValue, "default", "jpg", byteStringImage);
 
         Debug.Log(response.Message);
     }

@@ -21,6 +21,9 @@ public class LobbyScript : MonoBehaviour
     private AuthManager authManager;
     private LobbyServerManager lobbyManager;
 
+    private MemberServiceManager memberServiceManager;
+    private AuthServiceManager authServiceManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
@@ -28,8 +31,11 @@ public class LobbyScript : MonoBehaviour
         playerRef = authManager.CurrentPlayerRef;
         accessToken = await authManager.GetAccessToken(playerRef);
 
-        var memberServiceManager = MemberServiceManager.Instance;
+        authServiceManager = ServiceInitializer.Instance.GetAuthServiceManager();
+
+        memberServiceManager = ServiceInitializer.Instance.GetMemberServiceManager();
         var response = await memberServiceManager.UserInfoAsync(accessToken);
+
         lobbyManager = LobbyServerManager.Instance;
 
         ByteString byteStringImage = response.ProfileData;
@@ -58,8 +64,6 @@ public class LobbyScript : MonoBehaviour
 
     public async void SignOut()
     {
-        var authServiceManager = AuthServiceManager.Instance;
-
         var response = await authServiceManager.SignOutAsync(accessToken);
 
         if (response != null)
@@ -71,8 +75,6 @@ public class LobbyScript : MonoBehaviour
 
     public async void GameExit()
     {
-        var authServiceManager = AuthServiceManager.Instance;
-
         var response = await authServiceManager.SignOutAsync(accessToken);
 
         if (response != null)

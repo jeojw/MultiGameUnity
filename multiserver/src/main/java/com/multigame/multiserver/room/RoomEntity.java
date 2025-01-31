@@ -47,12 +47,14 @@ public class RoomEntity {
     private List<MemberEntity> roomMembers = new ArrayList<>();
 
     public void addMember(MemberEntity member) {
-        roomMembers.add(member);
+        this.roomMembers.add(member);
+        this.currentPlayers += 1;
         member.setRoom(this);
     }
 
     public void removeMember(MemberEntity member) {
-        roomMembers.remove(member);
+        this.roomMembers.remove(member);
+        this.currentPlayers -= 1;
         member.setRoom(null); // 연관 관계 해제
     }
 }

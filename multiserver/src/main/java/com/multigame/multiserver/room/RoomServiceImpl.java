@@ -1,7 +1,7 @@
 package com.multigame.multiserver.room;
 
-import com.multigame.multiserver.auth.AESUtil;
-import com.multigame.multiserver.auth.JwtUtil;
+import com.multigame.multiserver.security.AESUtil;
+import com.multigame.multiserver.security.JwtUtil;
 import com.multigame.multiserver.member.MemberEntity;
 import com.multigame.multiserver.member.MemberRepository;
 import io.grpc.Context;
@@ -9,7 +9,6 @@ import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import room.Room;
 import room.RoomServiceGrpc;
@@ -199,6 +198,38 @@ public class RoomServiceImpl extends RoomServiceGrpc.RoomServiceImplBase {
             else {
                 responseStreamObserver.onError(
                         Status.NOT_FOUND.withDescription("Room not found").asRuntimeException()
+                );
+            }
+        } catch (Exception e) {
+            responseStreamObserver.onError(Status.INTERNAL.withDescription("Internal server error: " + e.getMessage()).asRuntimeException());
+        }
+    }
+
+    @Override
+    public void exitRoom(Room.ExitRoomRequest request, StreamObserver<Room.ExitRoomResponse> responseStreamObserver) {
+        try {
+            Context context = Context.current();
+            String userId = getUserIdContextKey().get(context);
+
+            Optional<MemberEntity> user = memberRepository.findByUserId(userId);
+            Optional<RoomEntity> room = roomRepository.findByRoomId(request.getRoomId());
+
+            if (room.isPresent() && user.isPresent()) {
+                room.get().removeMember(user.get());
+                roomRepository.save(room.get());
+
+                memberRepository.updateMemberStatus(1, userId);
+
+                Room.ExitRoomResponse response = Room.ExitRoomResponse.newBuilder()
+                        .setMessage("Exit room successful!")
+                        .build();
+
+                responseStreamObserver.onNext(response);
+                responseStreamObserver.onCompleted();
+            }
+            else {
+                responseStreamObserver.onError(
+                        Status.NOT_FOUND.withDescription("Room and User not found").asRuntimeException()
                 );
             }
         } catch (Exception e) {

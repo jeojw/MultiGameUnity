@@ -3,22 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class AuthManager : MonoBehaviour
+public class AuthManager
 {
     private static AuthManager instance;
-    public static AuthManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                var obj = new GameObject(nameof(AuthManager));
-                instance = obj.AddComponent<AuthManager>();
-                DontDestroyOnLoad(obj);
-            }
-            return instance;
-        }
-    }
+    public static AuthManager Instance => instance ??= new AuthManager();
 
     private PlayerRef currentPlayerRef;
     public PlayerRef CurrentPlayerRef => currentPlayerRef;

@@ -5,46 +5,11 @@ using UnityEngine;
 
 public class MemberServiceManager : MonoBehaviour
 {
-    private static readonly object lockObj = new object();
-
     private MemberService.MemberServiceClient client;
-    private static MemberServiceManager instance;
-    public static MemberServiceManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                var obj = new GameObject(nameof(MemberServiceManager));
-                instance = obj.AddComponent<MemberServiceManager>();
-                DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
-            }
-            return instance;
-        }
-    }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void CreateInstanceOnGameStart()
+    public MemberServiceManager(GrpcClientManager grpcClientManager)
     {
-        // Explicitly ensure the singleton instance is created at game start
-        _ = Instance;
-    }
-
-    void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject); // Prevent duplicate instances
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
-    {
-        client = GrpcClientManager.Instance.GetMemberClient();
+        client = grpcClientManager.GetMemberClient();
     }
     public async Task<CheckDuplicateNicknameResponse> CheckDuplicateNicknameAsync(string userNickname)
     {

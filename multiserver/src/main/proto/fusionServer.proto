@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package fusionServer;
+
+service FusionServerService {
+  rpc GenerateToken(GenerateTokenRequest) returns (GenerateTokenResponse);
+}
+
+message GenerateTokenRequest {
+
+}
+
+message GenerateTokenResponse {
+  string accessToken = 1;
+}

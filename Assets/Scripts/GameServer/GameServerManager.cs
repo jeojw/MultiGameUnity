@@ -22,13 +22,6 @@ public class GameServerManager : MonoBehaviour
     private NetworkRunner gameRunner;
     private GameCallbacks networkCallbacks;
 
-    private Texture2D profileImage;
-    private string userNickname;
-    private string accessToken;
-
-    private string defaultLobbyName = "Lobby"; // 기본 로비 이름
-    private int maxPlayersPerLobby = 200;
-
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void CreateInstanceOnGameStart()
     {

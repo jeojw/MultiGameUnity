@@ -1722,10 +1722,10 @@ MonoBehaviour:
       - m_Target: {fileID: 827755373}
         m_TargetAssemblyTypeName: CreateRoomScript, Assembly-CSharp
         m_MethodName: OnToggleValueChanged
-        m_Mode: 6
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 655429409}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4077,10 +4077,10 @@ MonoBehaviour:
       - m_Target: {fileID: 827755373}
         m_TargetAssemblyTypeName: CreateRoomScript, Assembly-CSharp
         m_MethodName: RoomTitleValueChanged
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1479102571}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4267,10 +4267,10 @@ MonoBehaviour:
       - m_Target: {fileID: 827755373}
         m_TargetAssemblyTypeName: CreateRoomScript, Assembly-CSharp
         m_MethodName: PasswordValueChange
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1499645813}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6321,7 +6321,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 827755373}
+        m_TargetAssemblyTypeName: CreateRoomScript, Assembly-CSharp
+        m_MethodName: MaxPalyerValueChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2128282227}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []

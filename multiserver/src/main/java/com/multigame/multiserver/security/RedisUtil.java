@@ -1,4 +1,4 @@
-package com.multigame.multiserver.auth;
+package com.multigame.multiserver.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

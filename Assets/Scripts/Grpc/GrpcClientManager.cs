@@ -3,54 +3,19 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Auth;
 using Member;
+using FusionServer;
 using Grpc.Net.Client;
 using System.Net.Http;
 using Grpc.Net.Client.Web;
-using System.Security.Cryptography.X509Certificates;
-using System.IO;
-using System.Net;
-using Microsoft.AspNetCore;
+using Room;
 
-public class GrpcClientManager : MonoBehaviour
+public class GrpcClientManager
 {
-    private static readonly object lockObj = new object();
-
     private GrpcChannel channel;
     private bool isInitialized = false;
 
-    private static GrpcClientManager instance;
-    public static GrpcClientManager Instance
+    public GrpcClientManager() 
     {
-        get
-        {
-            if (instance == null)
-            {
-                var obj = new GameObject(nameof(GrpcClientManager));
-                instance = obj.AddComponent<GrpcClientManager>();
-                DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
-            }
-            return instance;
-        }
-    }
-    private GrpcClientManager() { }
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void CreateInstanceOnGameStart()
-    {
-        // Explicitly ensure the singleton instance is created at game start
-        _ = Instance;
-    }
-
-    void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject); // Prevent duplicate instances
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
         InitializeChannel();
     }
 
@@ -92,12 +57,17 @@ public class GrpcClientManager : MonoBehaviour
         return CreateGrpcClient(channel => new MemberService.MemberServiceClient(channel));
     }
 
-    private void OnDestroy()
+    public RoomService.RoomServiceClient GetRoomClient()
     {
-        Task.Run(async () => await DisposeAsync());
+        return CreateGrpcClient(channel => new RoomService.RoomServiceClient(channel));
     }
 
-    private async Task DisposeAsync()
+    public FusionServerService.FusionServerServiceClient GetFusionServiceClient()
+    {
+        return CreateGrpcClient(channel => new FusionServerService.FusionServerServiceClient(channel));
+    }
+
+    public async Task DisposeAsync()
     {
         if (channel != null)
         {

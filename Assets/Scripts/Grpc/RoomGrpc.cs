@@ -66,6 +66,10 @@ namespace Room {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Room.JoinRoomWithPasswordResponse> __Marshaller_room_JoinRoomWithPasswordResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Room.JoinRoomWithPasswordResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Room.ExitRoomRequest> __Marshaller_room_ExitRoomRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Room.ExitRoomRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Room.ExitRoomResponse> __Marshaller_room_ExitRoomResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Room.ExitRoomResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Room.ChangeRoomInfoRequest> __Marshaller_room_ChangeRoomInfoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Room.ChangeRoomInfoRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Room.ChangeRoomInfoResponse> __Marshaller_room_ChangeRoomInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Room.ChangeRoomInfoResponse.Parser));
@@ -125,6 +129,14 @@ namespace Room {
         "JoinRoomWithPassword",
         __Marshaller_room_JoinRoomWithPasswordRequest,
         __Marshaller_room_JoinRoomWithPasswordResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Room.ExitRoomRequest, global::Room.ExitRoomResponse> __Method_ExitRoom = new grpc::Method<global::Room.ExitRoomRequest, global::Room.ExitRoomResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ExitRoom",
+        __Marshaller_room_ExitRoomRequest,
+        __Marshaller_room_ExitRoomResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Room.ChangeRoomInfoRequest, global::Room.ChangeRoomInfoResponse> __Method_ChangeRoomInfo = new grpc::Method<global::Room.ChangeRoomInfoRequest, global::Room.ChangeRoomInfoResponse>(
@@ -202,6 +214,12 @@ namespace Room {
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Room.JoinRoomWithPasswordResponse> JoinRoomWithPassword(global::Room.JoinRoomWithPasswordRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Room.ExitRoomResponse> ExitRoom(global::Room.ExitRoomRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -366,6 +384,26 @@ namespace Room {
         return CallInvoker.AsyncUnaryCall(__Method_JoinRoomWithPassword, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Room.ExitRoomResponse ExitRoom(global::Room.ExitRoomRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ExitRoom(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Room.ExitRoomResponse ExitRoom(global::Room.ExitRoomRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ExitRoom, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Room.ExitRoomResponse> ExitRoomAsync(global::Room.ExitRoomRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ExitRoomAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Room.ExitRoomResponse> ExitRoomAsync(global::Room.ExitRoomRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ExitRoom, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Room.ChangeRoomInfoResponse ChangeRoomInfo(global::Room.ChangeRoomInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return ChangeRoomInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -484,6 +522,7 @@ namespace Room {
           .AddMethod(__Method_CreateRoom, serviceImpl.CreateRoom)
           .AddMethod(__Method_JoinRoom, serviceImpl.JoinRoom)
           .AddMethod(__Method_JoinRoomWithPassword, serviceImpl.JoinRoomWithPassword)
+          .AddMethod(__Method_ExitRoom, serviceImpl.ExitRoom)
           .AddMethod(__Method_ChangeRoomInfo, serviceImpl.ChangeRoomInfo)
           .AddMethod(__Method_ExileUser, serviceImpl.ExileUser)
           .AddMethod(__Method_ChangeRoomStatus, serviceImpl.ChangeRoomStatus)
@@ -503,6 +542,7 @@ namespace Room {
       serviceBinder.AddMethod(__Method_CreateRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room.CreateRoomRequest, global::Room.CreateRoomResponse>(serviceImpl.CreateRoom));
       serviceBinder.AddMethod(__Method_JoinRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room.JoinRoomRequest, global::Room.JoinRoomResponse>(serviceImpl.JoinRoom));
       serviceBinder.AddMethod(__Method_JoinRoomWithPassword, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room.JoinRoomWithPasswordRequest, global::Room.JoinRoomWithPasswordResponse>(serviceImpl.JoinRoomWithPassword));
+      serviceBinder.AddMethod(__Method_ExitRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room.ExitRoomRequest, global::Room.ExitRoomResponse>(serviceImpl.ExitRoom));
       serviceBinder.AddMethod(__Method_ChangeRoomInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room.ChangeRoomInfoRequest, global::Room.ChangeRoomInfoResponse>(serviceImpl.ChangeRoomInfo));
       serviceBinder.AddMethod(__Method_ExileUser, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room.ExileUserRequest, global::Room.ExileUserResponse>(serviceImpl.ExileUser));
       serviceBinder.AddMethod(__Method_ChangeRoomStatus, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room.ChangeRoomStatusRequest, global::Room.ChangeRoomStatusResponse>(serviceImpl.ChangeRoomStatus));

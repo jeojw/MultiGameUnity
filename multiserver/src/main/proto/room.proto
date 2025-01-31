@@ -8,6 +8,7 @@ service RoomService {
   rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse);
   rpc JoinRoom(JoinRoomRequest) returns (JoinRoomResponse);
   rpc JoinRoomWithPassword(JoinRoomWithPasswordRequest) returns (JoinRoomWithPasswordResponse);
+  rpc ExitRoom(ExitRoomRequest) returns (ExitRoomResponse);
   rpc ChangeRoomInfo(ChangeRoomInfoRequest) returns (ChangeRoomInfoResponse);
   rpc ExileUser(ExileUserRequest) returns (ExileUserResponse);
   rpc ChangeRoomStatus(ChangeRoomStatusRequest) returns (ChangeRoomStatusResponse);
@@ -70,6 +71,14 @@ message JoinRoomWithPasswordRequest {
 }
 
 message JoinRoomWithPasswordResponse {
+  string message = 1;
+}
+
+message ExitRoomRequest {
+  string roomId = 1;
+}
+
+message ExitRoomResponse {
   string message = 1;
 }
 

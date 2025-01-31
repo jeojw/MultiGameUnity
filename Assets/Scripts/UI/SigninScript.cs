@@ -15,10 +15,13 @@ public class SigninScript : MonoBehaviour
     private string idValue;
     private string pwValue;
 
+    private AuthServiceManager authServiceManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         idField.Select();
+        authServiceManager = ServiceInitializer.Instance.GetAuthServiceManager();
     }
 
     public void IdInputValueChange(TMP_InputField id)
@@ -37,8 +40,6 @@ public class SigninScript : MonoBehaviour
         {
             return;
         }
-
-        var authServiceManager = AuthServiceManager.Instance;
 
         var response = await authServiceManager.SignInAsync(idValue, pwValue);
 

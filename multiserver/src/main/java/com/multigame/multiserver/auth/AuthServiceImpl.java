@@ -4,9 +4,13 @@ import auth.Auth;
 import auth.AuthServiceGrpc;
 import com.multigame.multiserver.member.MemberEntity;
 import com.multigame.multiserver.member.MemberRepository;
+import com.multigame.multiserver.security.AESUtil;
+import com.multigame.multiserver.security.JwtUtil;
+import com.multigame.multiserver.security.RedisUtil;
 import io.grpc.Context;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +20,7 @@ import java.util.Optional;
 
 import static com.multigame.multiserver.ContextKeys.getUserIdContextKey;
 
+@Slf4j
 @GrpcService
 public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     @Autowired
@@ -41,28 +46,32 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         try {
             Optional<MemberEntity> member = memberRepository.findByUserId(request.getUserId());
 
-            if (member.isEmpty()) {
-                throw new IllegalArgumentException("User not found");
+            if (member.isPresent())
+            {
+                if (!encoder.matches(request.getUserPassword(), member.get().getUserPassword())) {
+                    throw new IllegalArgumentException("Invalid password");
+                }
+
+                String accessToken = aesUtil.encrypt(jwtUtil.generateAccessToken(member.get().getUserId()));
+                String refreshToken = jwtUtil.generateRefreshToken(member.get().getUserId());
+
+                redisUtil.saveRefreshToken(request.getUserId(), refreshToken, refreshExpirationTime);
+
+                memberRepository.updateMemberStatus(1, request.getUserId());
+
+                Auth.SignInResponse response = Auth.SignInResponse.newBuilder()
+                        .setAccessToken(accessToken)
+                        .build();
+
+                responseStreamObserver.onNext(response);
+                responseStreamObserver.onCompleted();
+            }
+            else {
+                responseStreamObserver.onError(Status.NOT_FOUND.withDescription("User Not Found").asRuntimeException());
             }
 
-            if (!encoder.matches(request.getUserPassword(), member.get().getUserPassword())) {
-                throw new IllegalArgumentException("Invalid password");
-            }
-
-            String accessToken = aesUtil.encrypt(jwtUtil.generateAccessToken(member.get().getUserId()));
-            String refreshToken = jwtUtil.generateRefreshToken(member.get().getUserId());
-
-            redisUtil.saveRefreshToken(request.getUserId(), refreshToken, refreshExpirationTime);
-
-            memberRepository.updateMemberStatus(1, request.getUserId());
-
-            Auth.SignInResponse response = Auth.SignInResponse.newBuilder()
-                    .setAccessToken(accessToken)
-                    .build();
-
-            responseStreamObserver.onNext(response);
-            responseStreamObserver.onCompleted();
         } catch (Exception e) {
+            log.error("generate Error!");
             responseStreamObserver.onError(Status.INTERNAL.withDescription("Internal server error: " + e.getMessage()).asRuntimeException());
         }
     }

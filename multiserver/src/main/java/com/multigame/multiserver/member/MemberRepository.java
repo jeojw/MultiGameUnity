@@ -1,5 +1,6 @@
 package com.multigame.multiserver.member;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +20,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     boolean existsByUserNickname(String userNickname);
 
     @Modifying
+    @Transactional
     @Query(value = "UPDATE MultiServer.member_table SET member_status = :status WHERE user_id = :userId",
             nativeQuery = true)
     void updateMemberStatus(@Param("status") int status, @Param("userId") String memberId);

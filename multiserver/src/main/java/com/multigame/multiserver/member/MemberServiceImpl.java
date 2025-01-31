@@ -1,7 +1,7 @@
 package com.multigame.multiserver.member;
 
 import com.google.protobuf.ByteString;
-import com.multigame.multiserver.auth.JwtUtil;
+import com.multigame.multiserver.security.JwtUtil;
 import io.grpc.Context;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
