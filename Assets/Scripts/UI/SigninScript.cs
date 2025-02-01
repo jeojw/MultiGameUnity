@@ -46,9 +46,8 @@ public class SigninScript : MonoBehaviour
         if (response != null)
         {
             var lobbyManager = LobbyServerManager.Instance;
-            var authManager = AuthManager.Instance;
 
-            await lobbyManager.StartLobbyAsync(response.AccessToken);
+            await lobbyManager.StartLobbyAsync(idValue, response.AccessToken);
 
             try
             {

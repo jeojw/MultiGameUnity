@@ -36,7 +36,7 @@ public class MemberEntity {
     @Column(name = "member_status")
     private int memberStatus;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "room_id")
     private RoomEntity room;
 }

@@ -16,11 +16,10 @@ public class LobbyScript : MonoBehaviour
     [SerializeField]
     private GameObject createRoomPopup;
 
-    private PlayerRef playerRef;
     private string accessToken;
-    private AuthManager authManager;
     private LobbyServerManager lobbyManager;
 
+    private AuthManager authManager;
     private MemberServiceManager memberServiceManager;
     private AuthServiceManager authServiceManager;
 
@@ -28,8 +27,7 @@ public class LobbyScript : MonoBehaviour
     async void Start()
     {
         authManager = AuthManager.Instance;
-        playerRef = authManager.CurrentPlayerRef;
-        accessToken = await authManager.GetAccessToken(playerRef);
+        accessToken = await authManager.GetAccessToken();
 
         authServiceManager = ServiceInitializer.Instance.GetAuthServiceManager();
 
@@ -69,6 +67,7 @@ public class LobbyScript : MonoBehaviour
         if (response != null)
         {
             SceneManager.LoadScene("SigninScene");
+            await authManager.RemoveAccessToken();
             await lobbyManager.ShutDownLobbyAsync();
         }
     }
@@ -79,6 +78,7 @@ public class LobbyScript : MonoBehaviour
 
         if (response != null)
         {
+            await authManager.RemoveAccessToken();
             await lobbyManager.ShutDownLobbyAsync();
             Application.Quit();
         }

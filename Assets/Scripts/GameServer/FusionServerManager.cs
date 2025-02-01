@@ -79,9 +79,18 @@ public class FusionServerManager : MonoBehaviour
         return roomCache;
     }
 
-    public async Task<ChangeRoomStatusResponse> ChangeRoomStatusAsync(string roomId, int status)
+    public async Task<bool> ChangeRoomStatusAsync(string roomId, int status)
     {
-        return await roomServiceManager.ChangeRoomStatusAsync(serverAccessToken, status, roomId);
+        var response = await roomServiceManager.ChangeRoomStatusAsync(serverAccessToken, status, roomId);
+
+        return response.Message != null;
+    }
+
+    public async Task<bool> DeleteRoomAsync(string roomId)
+    {
+        var response = await roomServiceManager.DeleteRoomAsync(serverAccessToken, roomId);
+
+        return response.Message != null;
     }
     // Update is called once per frame
     void Update()

@@ -44,7 +44,7 @@ public class LobbyServerManager : MonoBehaviour
         lobbyRunner.AddCallbacks(networkCallbacks);
     }
 
-    public async Task StartLobbyAsync(string accessToken)
+    public async Task StartLobbyAsync(string userId, string accessToken)
     {
         StartGameArgs startGameArgs = new StartGameArgs
         {
@@ -63,7 +63,7 @@ public class LobbyServerManager : MonoBehaviour
         {
             Debug.Log($"기본 로비 '{defaultLobbyName}'가 생성되었습니다.");
             var authManager = AuthManager.Instance;
-            await authManager.SetAccessToken(lobbyRunner.LocalPlayer, accessToken);
+            await authManager.SetAccessToken(userId, accessToken);
         }
         else
         {

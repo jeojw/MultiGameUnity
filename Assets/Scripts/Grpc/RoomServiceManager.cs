@@ -39,23 +39,19 @@ public class RoomServiceManager : MonoBehaviour
 
     public async Task<CreateRoomResponse> CreateRoomAsync(
         string token,
-        string roomId,
         string roomTitle,
         int maxPlayers,
         bool isExistPassword,
         string roomPassword,
-        int roomStatus,
         string roomManager
     )
     {
         var request = new CreateRoomRequest
         {
-            RoomId = roomId,
             RoomTitle = roomTitle,
             MaxPlayer = maxPlayers,
             IsExistPassword = isExistPassword,
             RoomPassword = roomPassword,
-            RoomStatus = roomStatus,
             RoomManager = roomManager
         };
 
@@ -169,6 +165,38 @@ public class RoomServiceManager : MonoBehaviour
         };
 
         return await client.ChangeRoomStatusAsync(request, header);
+    }
+
+    public async Task<DeleteRoomResponse> DeleteRoomAsync(string token, string roomId)
+    {
+        var request = new DeleteRoomRequest
+        {
+            RoomId = roomId
+        };
+
+        var header = new Metadata
+        {
+            {"Authorization", $"Bearer {token}"}
+        };
+
+        return await client.DeleteRoomAsync(request, header);
+    }
+
+    public async Task<ChangeRoomManagerResponse> ChangeRoomManagerAsync(string token, string roomId, string currentRoomManager, string newRoomManager)
+    {
+        var request = new ChangeRoomManagerRequest
+        {
+            RoomId = roomId,
+            CurrentRoomManager = currentRoomManager,
+            NewRoomManager = newRoomManager
+        };
+
+        var header = new Metadata
+        {
+            {"Authorization", $"Bearer {token}"}
+        };
+
+        return await client.ChangeRoomManagerAsync(request, header);
     }
 
     // Update is called once per frame

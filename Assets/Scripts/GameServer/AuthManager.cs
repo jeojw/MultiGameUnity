@@ -1,5 +1,6 @@
 using Fusion;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,52 +9,58 @@ public class AuthManager
     private static AuthManager instance;
     public static AuthManager Instance => instance ??= new AuthManager();
 
-    private PlayerRef currentPlayerRef;
-    public PlayerRef CurrentPlayerRef => currentPlayerRef;
+    private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+    private string currentUserId;
+    public string CurrentUserId => currentUserId;
 
-    private readonly Dictionary<PlayerRef, string> playerTokens = new Dictionary<PlayerRef, string>();
+    private readonly Dictionary<string, string> playerTokens = new Dictionary<string, string>();
 
-    public async Task SetAccessToken(PlayerRef playerRef, string token)
+    public async Task SetAccessToken(string userId, string token)
     {
-        if (playerTokens.ContainsKey(playerRef))
+        await semaphore.WaitAsync();
+        try
         {
-            playerTokens[playerRef] = token;
+            playerTokens[userId] = token;
+            currentUserId = userId;
         }
-        else
+        finally
         {
-            playerTokens.Add(playerRef, token);
+            semaphore.Release();
         }
-
-        currentPlayerRef = playerRef;
-        await Task.Yield(); // 메인 스레드에서 실행
     }
 
-    public async Task<string> GetAccessToken(PlayerRef playerRef)
+    public async Task<string> GetAccessToken()
     {
-        await Task.Yield();
-
-        if (playerTokens.TryGetValue(playerRef, out var token))
+        await semaphore.WaitAsync();
+        try
         {
-            return token;
+            if (currentUserId != null && playerTokens.TryGetValue(currentUserId, out var token))
+            {
+                return token;
+            }
+            return null;
         }
-        return null;
-    }
-
-    public async Task RemoveAccessToken(PlayerRef playerRef)
-    {
-        playerTokens.Remove(playerRef);
-        if (currentPlayerRef == playerRef)
+        finally
         {
-            currentPlayerRef = PlayerRef.None;
+            semaphore.Release();
         }
-
-        await Task.Yield();
     }
 
-    public async Task<bool> HasAccessToken(PlayerRef playerRef)
+    public async Task RemoveAccessToken()
     {
-        await Task.Yield();
-
-        return playerTokens.ContainsKey(playerRef);
+        await semaphore.WaitAsync();
+        try
+        {
+            if (currentUserId != null)
+            {
+                playerTokens.Remove(currentUserId);
+                currentUserId = null;
+            }
+        }
+        finally
+        {
+            semaphore.Release();
+        }
     }
+
 }

@@ -13,6 +13,9 @@ public class CreateRoomScript : MonoBehaviour
     [SerializeField]
     private Toggle passwordCheck;
 
+    private RoomServerManager roomServerManager;
+    private AuthManager authManager;
+
     private string roomTitleValue;
     private int maxPlayerValue;
     private string passwordValue;
@@ -24,7 +27,10 @@ public class CreateRoomScript : MonoBehaviour
         gameObject.SetActive(false);
         maxPlayer.text = 2.ToString();
         passwordCheck.isOn = false;
-        password.enabled = false;
+        password.enabled = true;
+
+        roomServerManager = RoomServerManager.Instance;
+        authManager = AuthManager.Instance;
     }
 
     public void OnToggleValueChanged(Toggle passwordCheck)
@@ -49,7 +55,14 @@ public class CreateRoomScript : MonoBehaviour
 
     public async void Create()
     {
+        string accessToken = await authManager.GetAccessToken();
+        await roomServerManager.CreateRoom(accessToken, roomTitleValue, maxPlayerValue, passwordCheckValue, passwordValue, "");
 
+        roomTitle.text = null;
+        maxPlayer.text = 2.ToString();
+        password.text = null;
+        password.enabled = false;
+        gameObject.SetActive(false);
     }
 
     public void Cancel()

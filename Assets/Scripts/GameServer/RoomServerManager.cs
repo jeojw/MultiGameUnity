@@ -39,6 +39,30 @@ public class RoomServerManager : MonoBehaviour
         roomServiceManager = ServiceInitializer.Instance.GetRoomServiceManager();
     }
 
+    public async Task<bool> CreateRoom(
+        string accessToken,
+        string roomTitle,
+        int maxPlayers,
+        bool isExistPassword,
+        string roomPassword,
+        string roomManager
+    )
+    {
+        var response = await roomServiceManager.CreateRoomAsync(
+                                                accessToken,
+                                                roomTitle,
+                                                maxPlayers,
+                                                isExistPassword,
+                                                roomPassword,
+                                                roomManager
+                                            );
+
+        if (response.Message != null)
+            return true;
+        else
+            return false;
+    }
+
     public async Task JoinRoomAsync(string accessToken, string roomId)
     {
         roomRunner = new GameObject("RoomRunner").AddComponent<NetworkRunner>();

@@ -32,49 +32,48 @@ namespace Room {
             "ZBgBIAEoCSI3ChNHZXRSb29tSW5mb1Jlc3BvbnNlEiAKCHJvb21JbmZvGAEg",
             "ASgLMg4ucm9vbS5Sb29tSW5mbyIYChZHZXRSb29tSW5mb0xpc3RSZXF1ZXN0",
             "IjgKF0dldFJvb21JbmZvTGlzdFJlc3BvbnNlEh0KBXJvb21zGAEgAygLMg4u",
-            "cm9vbS5Sb29tSW5mbyKhAQoRQ3JlYXRlUm9vbVJlcXVlc3QSDgoGcm9vbUlk",
-            "GAEgASgJEhEKCXJvb21UaXRsZRgCIAEoCRIRCgltYXhQbGF5ZXIYAyABKAUS",
-            "FwoPaXNFeGlzdFBhc3N3b3JkGAQgASgIEhQKDHJvb21QYXNzd29yZBgFIAEo",
-            "CRISCgpyb29tU3RhdHVzGAYgASgFEhMKC3Jvb21NYW5hZ2VyGAcgASgJIiUK",
-            "EkNyZWF0ZVJvb21SZXNwb25zZRIPCgdtZXNzYWdlGAEgASgJIiEKD0pvaW5S",
-            "b29tUmVxdWVzdBIOCgZyb29tSWQYASABKAkiIwoQSm9pblJvb21SZXNwb25z",
-            "ZRIPCgdtZXNzYWdlGAEgASgJIkMKG0pvaW5Sb29tV2l0aFBhc3N3b3JkUmVx",
-            "dWVzdBIOCgZyb29tSWQYASABKAkSFAoMcm9vbVBhc3N3b3JkGAIgASgJIi8K",
-            "HEpvaW5Sb29tV2l0aFBhc3N3b3JkUmVzcG9uc2USDwoHbWVzc2FnZRgBIAEo",
-            "CSIhCg9FeGl0Um9vbVJlcXVlc3QSDgoGcm9vbUlkGAEgASgJIiMKEEV4aXRS",
-            "b29tUmVzcG9uc2USDwoHbWVzc2FnZRgBIAEoCSJ8ChVDaGFuZ2VSb29tSW5m",
-            "b1JlcXVlc3QSDgoGcm9vbUlkGAEgASgJEhEKCXJvb21UaXRsZRgCIAEoCRIR",
-            "CgltYXhQbGF5ZXIYAyABKAUSFwoPaXNFeGlzdFBhc3N3b3JkGAQgASgIEhQK",
-            "DHJvb21QYXNzd29yZBgFIAEoCSIpChZDaGFuZ2VSb29tSW5mb1Jlc3BvbnNl",
-            "Eg8KB21lc3NhZ2UYASABKAkiOwoQRXhpbGVVc2VyUmVxdWVzdBIOCgZyb29t",
-            "SWQYASABKAkSFwoPdXNlckFjY2Vzc1Rva2VuGAIgASgJIiQKEUV4aWxlVXNl",
-            "clJlc3BvbnNlEg8KB21lc3NhZ2UYASABKAkiQwoXQ2hhbmdlUm9vbVN0YXR1",
-            "c1JlcXVlc3QSDgoGcm9vbUlkGAEgASgJEhgKEGNoYW5nZVJvb21TdGF0dXMY",
-            "AiABKAUiKwoYQ2hhbmdlUm9vbVN0YXR1c1Jlc3BvbnNlEg8KB21lc3NhZ2UY",
-            "ASABKAkiIwoRRGVsZXRlUm9vbVJlcXVlc3QSDgoGcm9vbUlkGAEgASgJIiUK",
-            "EkRlbGV0ZVJvb21SZXNwb25zZRIPCgdtZXNzYWdlGAEgASgJIl4KGENoYW5n",
-            "ZVJvb21NYW5hZ2VyUmVxdWVzdBIOCgZyb29tSWQYASABKAkSGgoSY3VycmVu",
-            "dFJvb21NYW5hZ2VyGAIgASgJEhYKDm5ld1Jvb21NYW5hZ2VyGAMgASgJIiwK",
-            "GUNoYW5nZVJvb21NYW5hZ2VyUmVzcG9uc2USDwoHbWVzc2FnZRgBIAEoCTKs",
-            "BgoLUm9vbVNlcnZpY2USQgoLR2V0Um9vbUluZm8SGC5yb29tLkdldFJvb21J",
-            "bmZvUmVxdWVzdBoZLnJvb20uR2V0Um9vbUluZm9SZXNwb25zZRJOCg9HZXRS",
-            "b29tSW5mb0xpc3QSHC5yb29tLkdldFJvb21JbmZvTGlzdFJlcXVlc3QaHS5y",
-            "b29tLkdldFJvb21JbmZvTGlzdFJlc3BvbnNlEj8KCkNyZWF0ZVJvb20SFy5y",
-            "b29tLkNyZWF0ZVJvb21SZXF1ZXN0Ghgucm9vbS5DcmVhdGVSb29tUmVzcG9u",
-            "c2USOQoISm9pblJvb20SFS5yb29tLkpvaW5Sb29tUmVxdWVzdBoWLnJvb20u",
-            "Sm9pblJvb21SZXNwb25zZRJdChRKb2luUm9vbVdpdGhQYXNzd29yZBIhLnJv",
-            "b20uSm9pblJvb21XaXRoUGFzc3dvcmRSZXF1ZXN0GiIucm9vbS5Kb2luUm9v",
-            "bVdpdGhQYXNzd29yZFJlc3BvbnNlEjkKCEV4aXRSb29tEhUucm9vbS5FeGl0",
-            "Um9vbVJlcXVlc3QaFi5yb29tLkV4aXRSb29tUmVzcG9uc2USSwoOQ2hhbmdl",
-            "Um9vbUluZm8SGy5yb29tLkNoYW5nZVJvb21JbmZvUmVxdWVzdBocLnJvb20u",
-            "Q2hhbmdlUm9vbUluZm9SZXNwb25zZRI8CglFeGlsZVVzZXISFi5yb29tLkV4",
-            "aWxlVXNlclJlcXVlc3QaFy5yb29tLkV4aWxlVXNlclJlc3BvbnNlElEKEENo",
-            "YW5nZVJvb21TdGF0dXMSHS5yb29tLkNoYW5nZVJvb21TdGF0dXNSZXF1ZXN0",
-            "Gh4ucm9vbS5DaGFuZ2VSb29tU3RhdHVzUmVzcG9uc2USPwoKRGVsZXRlUm9v",
-            "bRIXLnJvb20uRGVsZXRlUm9vbVJlcXVlc3QaGC5yb29tLkRlbGV0ZVJvb21S",
-            "ZXNwb25zZRJUChFDaGFuZ2VSb29tTWFuYWdlchIeLnJvb20uQ2hhbmdlUm9v",
-            "bU1hbmFnZXJSZXF1ZXN0Gh8ucm9vbS5DaGFuZ2VSb29tTWFuYWdlclJlc3Bv",
-            "bnNlYgZwcm90bzM="));
+            "cm9vbS5Sb29tSW5mbyJ9ChFDcmVhdGVSb29tUmVxdWVzdBIRCglyb29tVGl0",
+            "bGUYASABKAkSEQoJbWF4UGxheWVyGAIgASgFEhcKD2lzRXhpc3RQYXNzd29y",
+            "ZBgDIAEoCBIUCgxyb29tUGFzc3dvcmQYBCABKAkSEwoLcm9vbU1hbmFnZXIY",
+            "BSABKAkiJQoSQ3JlYXRlUm9vbVJlc3BvbnNlEg8KB21lc3NhZ2UYASABKAki",
+            "IQoPSm9pblJvb21SZXF1ZXN0Eg4KBnJvb21JZBgBIAEoCSIjChBKb2luUm9v",
+            "bVJlc3BvbnNlEg8KB21lc3NhZ2UYASABKAkiQwobSm9pblJvb21XaXRoUGFz",
+            "c3dvcmRSZXF1ZXN0Eg4KBnJvb21JZBgBIAEoCRIUCgxyb29tUGFzc3dvcmQY",
+            "AiABKAkiLwocSm9pblJvb21XaXRoUGFzc3dvcmRSZXNwb25zZRIPCgdtZXNz",
+            "YWdlGAEgASgJIiEKD0V4aXRSb29tUmVxdWVzdBIOCgZyb29tSWQYASABKAki",
+            "IwoQRXhpdFJvb21SZXNwb25zZRIPCgdtZXNzYWdlGAEgASgJInwKFUNoYW5n",
+            "ZVJvb21JbmZvUmVxdWVzdBIOCgZyb29tSWQYASABKAkSEQoJcm9vbVRpdGxl",
+            "GAIgASgJEhEKCW1heFBsYXllchgDIAEoBRIXCg9pc0V4aXN0UGFzc3dvcmQY",
+            "BCABKAgSFAoMcm9vbVBhc3N3b3JkGAUgASgJIikKFkNoYW5nZVJvb21JbmZv",
+            "UmVzcG9uc2USDwoHbWVzc2FnZRgBIAEoCSI7ChBFeGlsZVVzZXJSZXF1ZXN0",
+            "Eg4KBnJvb21JZBgBIAEoCRIXCg91c2VyQWNjZXNzVG9rZW4YAiABKAkiJAoR",
+            "RXhpbGVVc2VyUmVzcG9uc2USDwoHbWVzc2FnZRgBIAEoCSJDChdDaGFuZ2VS",
+            "b29tU3RhdHVzUmVxdWVzdBIOCgZyb29tSWQYASABKAkSGAoQY2hhbmdlUm9v",
+            "bVN0YXR1cxgCIAEoBSIrChhDaGFuZ2VSb29tU3RhdHVzUmVzcG9uc2USDwoH",
+            "bWVzc2FnZRgBIAEoCSIjChFEZWxldGVSb29tUmVxdWVzdBIOCgZyb29tSWQY",
+            "ASABKAkiJQoSRGVsZXRlUm9vbVJlc3BvbnNlEg8KB21lc3NhZ2UYASABKAki",
+            "XgoYQ2hhbmdlUm9vbU1hbmFnZXJSZXF1ZXN0Eg4KBnJvb21JZBgBIAEoCRIa",
+            "ChJjdXJyZW50Um9vbU1hbmFnZXIYAiABKAkSFgoObmV3Um9vbU1hbmFnZXIY",
+            "AyABKAkiLAoZQ2hhbmdlUm9vbU1hbmFnZXJSZXNwb25zZRIPCgdtZXNzYWdl",
+            "GAEgASgJMqwGCgtSb29tU2VydmljZRJCCgtHZXRSb29tSW5mbxIYLnJvb20u",
+            "R2V0Um9vbUluZm9SZXF1ZXN0Ghkucm9vbS5HZXRSb29tSW5mb1Jlc3BvbnNl",
+            "Ek4KD0dldFJvb21JbmZvTGlzdBIcLnJvb20uR2V0Um9vbUluZm9MaXN0UmVx",
+            "dWVzdBodLnJvb20uR2V0Um9vbUluZm9MaXN0UmVzcG9uc2USPwoKQ3JlYXRl",
+            "Um9vbRIXLnJvb20uQ3JlYXRlUm9vbVJlcXVlc3QaGC5yb29tLkNyZWF0ZVJv",
+            "b21SZXNwb25zZRI5CghKb2luUm9vbRIVLnJvb20uSm9pblJvb21SZXF1ZXN0",
+            "GhYucm9vbS5Kb2luUm9vbVJlc3BvbnNlEl0KFEpvaW5Sb29tV2l0aFBhc3N3",
+            "b3JkEiEucm9vbS5Kb2luUm9vbVdpdGhQYXNzd29yZFJlcXVlc3QaIi5yb29t",
+            "LkpvaW5Sb29tV2l0aFBhc3N3b3JkUmVzcG9uc2USOQoIRXhpdFJvb20SFS5y",
+            "b29tLkV4aXRSb29tUmVxdWVzdBoWLnJvb20uRXhpdFJvb21SZXNwb25zZRJL",
+            "Cg5DaGFuZ2VSb29tSW5mbxIbLnJvb20uQ2hhbmdlUm9vbUluZm9SZXF1ZXN0",
+            "Ghwucm9vbS5DaGFuZ2VSb29tSW5mb1Jlc3BvbnNlEjwKCUV4aWxlVXNlchIW",
+            "LnJvb20uRXhpbGVVc2VyUmVxdWVzdBoXLnJvb20uRXhpbGVVc2VyUmVzcG9u",
+            "c2USUQoQQ2hhbmdlUm9vbVN0YXR1cxIdLnJvb20uQ2hhbmdlUm9vbVN0YXR1",
+            "c1JlcXVlc3QaHi5yb29tLkNoYW5nZVJvb21TdGF0dXNSZXNwb25zZRI/CgpE",
+            "ZWxldGVSb29tEhcucm9vbS5EZWxldGVSb29tUmVxdWVzdBoYLnJvb20uRGVs",
+            "ZXRlUm9vbVJlc3BvbnNlElQKEUNoYW5nZVJvb21NYW5hZ2VyEh4ucm9vbS5D",
+            "aGFuZ2VSb29tTWFuYWdlclJlcXVlc3QaHy5yb29tLkNoYW5nZVJvb21NYW5h",
+            "Z2VyUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -83,7 +82,7 @@ namespace Room {
             new pbr::GeneratedClrTypeInfo(typeof(global::Room.GetRoomInfoResponse), global::Room.GetRoomInfoResponse.Parser, new[]{ "RoomInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Room.GetRoomInfoListRequest), global::Room.GetRoomInfoListRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Room.GetRoomInfoListResponse), global::Room.GetRoomInfoListResponse.Parser, new[]{ "Rooms" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Room.CreateRoomRequest), global::Room.CreateRoomRequest.Parser, new[]{ "RoomId", "RoomTitle", "MaxPlayer", "IsExistPassword", "RoomPassword", "RoomStatus", "RoomManager" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Room.CreateRoomRequest), global::Room.CreateRoomRequest.Parser, new[]{ "RoomTitle", "MaxPlayer", "IsExistPassword", "RoomPassword", "RoomManager" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Room.CreateRoomResponse), global::Room.CreateRoomResponse.Parser, new[]{ "Message" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Room.JoinRoomRequest), global::Room.JoinRoomRequest.Parser, new[]{ "RoomId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Room.JoinRoomResponse), global::Room.JoinRoomResponse.Parser, new[]{ "Message" }, null, null, null, null),
@@ -1352,12 +1351,10 @@ namespace Room {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CreateRoomRequest(CreateRoomRequest other) : this() {
-      roomId_ = other.roomId_;
       roomTitle_ = other.roomTitle_;
       maxPlayer_ = other.maxPlayer_;
       isExistPassword_ = other.isExistPassword_;
       roomPassword_ = other.roomPassword_;
-      roomStatus_ = other.roomStatus_;
       roomManager_ = other.roomManager_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1368,20 +1365,8 @@ namespace Room {
       return new CreateRoomRequest(this);
     }
 
-    /// <summary>Field number for the "roomId" field.</summary>
-    public const int RoomIdFieldNumber = 1;
-    private string roomId_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string RoomId {
-      get { return roomId_; }
-      set {
-        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "roomTitle" field.</summary>
-    public const int RoomTitleFieldNumber = 2;
+    public const int RoomTitleFieldNumber = 1;
     private string roomTitle_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1393,7 +1378,7 @@ namespace Room {
     }
 
     /// <summary>Field number for the "maxPlayer" field.</summary>
-    public const int MaxPlayerFieldNumber = 3;
+    public const int MaxPlayerFieldNumber = 2;
     private int maxPlayer_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1405,7 +1390,7 @@ namespace Room {
     }
 
     /// <summary>Field number for the "isExistPassword" field.</summary>
-    public const int IsExistPasswordFieldNumber = 4;
+    public const int IsExistPasswordFieldNumber = 3;
     private bool isExistPassword_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1417,7 +1402,7 @@ namespace Room {
     }
 
     /// <summary>Field number for the "roomPassword" field.</summary>
-    public const int RoomPasswordFieldNumber = 5;
+    public const int RoomPasswordFieldNumber = 4;
     private string roomPassword_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1428,20 +1413,8 @@ namespace Room {
       }
     }
 
-    /// <summary>Field number for the "roomStatus" field.</summary>
-    public const int RoomStatusFieldNumber = 6;
-    private int roomStatus_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int RoomStatus {
-      get { return roomStatus_; }
-      set {
-        roomStatus_ = value;
-      }
-    }
-
     /// <summary>Field number for the "roomManager" field.</summary>
-    public const int RoomManagerFieldNumber = 7;
+    public const int RoomManagerFieldNumber = 5;
     private string roomManager_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1467,12 +1440,10 @@ namespace Room {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (RoomId != other.RoomId) return false;
       if (RoomTitle != other.RoomTitle) return false;
       if (MaxPlayer != other.MaxPlayer) return false;
       if (IsExistPassword != other.IsExistPassword) return false;
       if (RoomPassword != other.RoomPassword) return false;
-      if (RoomStatus != other.RoomStatus) return false;
       if (RoomManager != other.RoomManager) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1481,12 +1452,10 @@ namespace Room {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       if (RoomTitle.Length != 0) hash ^= RoomTitle.GetHashCode();
       if (MaxPlayer != 0) hash ^= MaxPlayer.GetHashCode();
       if (IsExistPassword != false) hash ^= IsExistPassword.GetHashCode();
       if (RoomPassword.Length != 0) hash ^= RoomPassword.GetHashCode();
-      if (RoomStatus != 0) hash ^= RoomStatus.GetHashCode();
       if (RoomManager.Length != 0) hash ^= RoomManager.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1506,32 +1475,24 @@ namespace Room {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (RoomId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(RoomId);
-      }
       if (RoomTitle.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteString(RoomTitle);
       }
       if (MaxPlayer != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(MaxPlayer);
       }
       if (IsExistPassword != false) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteBool(IsExistPassword);
       }
       if (RoomPassword.Length != 0) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(34);
         output.WriteString(RoomPassword);
       }
-      if (RoomStatus != 0) {
-        output.WriteRawTag(48);
-        output.WriteInt32(RoomStatus);
-      }
       if (RoomManager.Length != 0) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(42);
         output.WriteString(RoomManager);
       }
       if (_unknownFields != null) {
@@ -1544,32 +1505,24 @@ namespace Room {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (RoomId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(RoomId);
-      }
       if (RoomTitle.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteString(RoomTitle);
       }
       if (MaxPlayer != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(MaxPlayer);
       }
       if (IsExistPassword != false) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteBool(IsExistPassword);
       }
       if (RoomPassword.Length != 0) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(34);
         output.WriteString(RoomPassword);
       }
-      if (RoomStatus != 0) {
-        output.WriteRawTag(48);
-        output.WriteInt32(RoomStatus);
-      }
       if (RoomManager.Length != 0) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(42);
         output.WriteString(RoomManager);
       }
       if (_unknownFields != null) {
@@ -1582,9 +1535,6 @@ namespace Room {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (RoomId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
-      }
       if (RoomTitle.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomTitle);
       }
@@ -1596,9 +1546,6 @@ namespace Room {
       }
       if (RoomPassword.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomPassword);
-      }
-      if (RoomStatus != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomStatus);
       }
       if (RoomManager.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomManager);
@@ -1615,9 +1562,6 @@ namespace Room {
       if (other == null) {
         return;
       }
-      if (other.RoomId.Length != 0) {
-        RoomId = other.RoomId;
-      }
       if (other.RoomTitle.Length != 0) {
         RoomTitle = other.RoomTitle;
       }
@@ -1629,9 +1573,6 @@ namespace Room {
       }
       if (other.RoomPassword.Length != 0) {
         RoomPassword = other.RoomPassword;
-      }
-      if (other.RoomStatus != 0) {
-        RoomStatus = other.RoomStatus;
       }
       if (other.RoomManager.Length != 0) {
         RoomManager = other.RoomManager;
@@ -1656,30 +1597,22 @@ namespace Room {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            RoomId = input.ReadString();
-            break;
-          }
-          case 18: {
             RoomTitle = input.ReadString();
             break;
           }
-          case 24: {
+          case 16: {
             MaxPlayer = input.ReadInt32();
             break;
           }
-          case 32: {
+          case 24: {
             IsExistPassword = input.ReadBool();
             break;
           }
-          case 42: {
+          case 34: {
             RoomPassword = input.ReadString();
             break;
           }
-          case 48: {
-            RoomStatus = input.ReadInt32();
-            break;
-          }
-          case 58: {
+          case 42: {
             RoomManager = input.ReadString();
             break;
           }
@@ -1703,30 +1636,22 @@ namespace Room {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            RoomId = input.ReadString();
-            break;
-          }
-          case 18: {
             RoomTitle = input.ReadString();
             break;
           }
-          case 24: {
+          case 16: {
             MaxPlayer = input.ReadInt32();
             break;
           }
-          case 32: {
+          case 24: {
             IsExistPassword = input.ReadBool();
             break;
           }
-          case 42: {
+          case 34: {
             RoomPassword = input.ReadString();
             break;
           }
-          case 48: {
-            RoomStatus = input.ReadInt32();
-            break;
-          }
-          case 58: {
+          case 42: {
             RoomManager = input.ReadString();
             break;
           }

@@ -7,19 +7,18 @@ import com.multigame.multiserver.member.MemberRepository;
 import io.grpc.Context;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import room.Room;
 import room.RoomServiceGrpc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static com.multigame.multiserver.ContextKeys.getUserIdContextKey;
 
+@Slf4j
 @GrpcService
 public class RoomServiceImpl extends RoomServiceGrpc.RoomServiceImplBase {
     @Autowired
@@ -103,23 +102,31 @@ public class RoomServiceImpl extends RoomServiceGrpc.RoomServiceImplBase {
     @Override
     public void createRoom(Room.CreateRoomRequest request, StreamObserver<Room.CreateRoomResponse> responseStreamObserver) {
         try {
-            Optional<MemberEntity> user = memberRepository.findByUserNickname(request.getRoomManager());
+            Context context = Context.current();
+            String userId = getUserIdContextKey().get(context);
+
+            Optional<MemberEntity> user = memberRepository.findByUserId(userId);
 
             if (user.isPresent()) {
                 RoomEntity roomEntity = new RoomEntity();
-                roomEntity.setRoomId(request.getRoomId());
+                roomEntity.setRoomId(UUID.randomUUID().toString());
                 roomEntity.setRoomTitle(request.getRoomTitle());
                 roomEntity.setCurrentPlayers(1);
                 roomEntity.setMaxPlayers(request.getMaxPlayer());
                 roomEntity.setChecked(request.getIsExistPassword());
-                roomEntity.setRoomPassword(encoder.encode(request.getRoomPassword()));
+                if (request.getIsExistPassword()) {
+                    roomEntity.setRoomPassword(encoder.encode(request.getRoomPassword()));
+                } else {
+                    roomEntity.setRoomPassword(null);
+                }
                 roomEntity.setCurrentStatus(1);
                 roomEntity.setRoomManager(request.getRoomManager());
-                roomEntity.addMember(user.get());
 
                 roomRepository.save(roomEntity);
 
+                user.get().setRoom(roomEntity);
                 memberRepository.updateMemberStatus(2, user.get().getUserId());
+                memberRepository.save(user.get());
 
                 Room.CreateRoomResponse response = Room.CreateRoomResponse.newBuilder()
                         .setMessage("Create Room is successful!")

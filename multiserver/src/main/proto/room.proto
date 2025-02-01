@@ -44,13 +44,11 @@ message GetRoomInfoListResponse {
 }
 
 message CreateRoomRequest {
-  string roomId = 1;
-  string roomTitle = 2;
-  int32 maxPlayer = 3;
-  bool isExistPassword = 4;
-  string roomPassword = 5;
-  int32 roomStatus = 6;
-  string roomManager = 7;
+  string roomTitle = 1;
+  int32 maxPlayer = 2;
+  bool isExistPassword = 3;
+  string roomPassword = 4;
+  string roomManager = 5;
 }
 
 message CreateRoomResponse {

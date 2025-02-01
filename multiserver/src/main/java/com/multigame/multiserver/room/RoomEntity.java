@@ -43,7 +43,7 @@ public class RoomEntity {
     @Column(name="room_manager")
     private String roomManager;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "room", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<MemberEntity> roomMembers = new ArrayList<>();
 
     public void addMember(MemberEntity member) {
