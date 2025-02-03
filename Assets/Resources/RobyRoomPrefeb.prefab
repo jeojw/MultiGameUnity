@@ -754,6 +754,7 @@ GameObject:
   - component: {fileID: 4612737381907311614}
   - component: {fileID: 9169881673428411001}
   - component: {fileID: 8738528786718578424}
+  - component: {fileID: 2628507514343251804}
   m_Layer: 5
   m_Name: RobyRoomPrefeb
   m_TagString: Untagged
@@ -825,6 +826,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2628507514343251804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7425286841655780083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8081ae91ccf7f419938a645abd0c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomTitle: {fileID: 6465450583627185812}
+  currentPlayer: {fileID: 6525366550413862014}
+  maxPlayer: {fileID: 8512834653158430817}
+  lockSymbol: {fileID: 7175613136985853433}
 --- !u!1 &7541912357886253927
 GameObject:
   m_ObjectHideFlags: 0

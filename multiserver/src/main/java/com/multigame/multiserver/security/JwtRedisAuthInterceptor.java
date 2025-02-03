@@ -40,7 +40,7 @@ public class JwtRedisAuthInterceptor implements ServerInterceptor {
     private static final Set<String> FUSION_METHODS = new HashSet<>(List.of(
             "room.RoomService/ChangeRoomStatus",
             "room.RoomService/GetRoomInfo",
-            "room.RoomService/getRoomInfoList"
+            "room.RoomService/GetRoomInfoList"
     ));
 
     @Override
@@ -50,6 +50,7 @@ public class JwtRedisAuthInterceptor implements ServerInterceptor {
             ServerCallHandler<ReqT, RespT> next) {
 
         String methodName = call.getMethodDescriptor().getFullMethodName();
+        log.info("method name: {}", methodName);
 
         if (EXEMPT_METHODS.contains(methodName)) {
             return next.startCall(call, headers);
@@ -68,6 +69,7 @@ public class JwtRedisAuthInterceptor implements ServerInterceptor {
             token = aesUtil.decrypt(token);
 
             if (FUSION_METHODS.contains(methodName)) {
+                log.info("fusion method");
                 if (!validateFusionToken(token, headers, call)) {
                     call.close(Status.UNAUTHENTICATED.withDescription("Invalid token"), headers);
                     return new ServerCall.Listener<>() {};

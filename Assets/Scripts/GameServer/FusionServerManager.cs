@@ -1,23 +1,32 @@
-using Fusion;
-using Grpc.Core;
-using Room;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class FusionServerManager : MonoBehaviour
 {
     private static FusionServerManager instance;
-    public static FusionServerManager Instance => instance ??= new FusionServerManager();
+
+    // Public static property for accessing the singleton instance
+    public static FusionServerManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                var obj = new GameObject(nameof(FusionServerManager));
+                instance = obj.AddComponent<FusionServerManager>();
+                DontDestroyOnLoad(obj); // Ensure the instance persists across scenes
+            }
+            return instance;
+        }
+    }
 
     private string serverAccessToken;
 
     private RoomServiceManager roomServiceManager;
     private FusionServerServiceManager fusionServerServiceManager;
 
-    private void Awake()
+    private async void Awake()
     {
         if (instance != null && instance != this)
         {
@@ -30,11 +39,8 @@ public class FusionServerManager : MonoBehaviour
 
         roomServiceManager = ServiceInitializer.Instance.GetRoomServiceManager();
         fusionServerServiceManager = ServiceInitializer.Instance.GetFusionServerServiceManager();
-    }
 
-    private void Start()
-    {
-        _ = InitializeAsync();
+        await InitializeAsync();
     }
 
     private async Task InitializeAsync()
@@ -50,11 +56,11 @@ public class FusionServerManager : MonoBehaviour
         }
     }
 
-    public async Task<Dictionary<string, RoomInfo>> GetRoomList()
+    public async Task<List<RoomInfo>> GetRoomList()
     {
         var roomList = await roomServiceManager.GetRoomInfoListAsync(serverAccessToken);
 
-        Dictionary<string, RoomInfo> roomCache = new Dictionary<string, RoomInfo>();
+        List<RoomInfo> roomCache = new List<RoomInfo>();
 
         if (roomList.Rooms != null)
         {
@@ -72,7 +78,7 @@ public class FusionServerManager : MonoBehaviour
                     roomStatus = roomInfo.RoomStatus
                 };
 
-                roomCache.Add(roomInfo.RoomId, _);
+                roomCache.Add(_);
             }
         }
 
